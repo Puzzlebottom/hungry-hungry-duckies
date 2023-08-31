@@ -17,3 +17,8 @@
 
 - As a user, I want to join a game with my friends <!-- Friends lists, custom games -->
 - As a user, I want to customize my duck and the board <!-- microtransactions -->
+
+
+# Stretch DEV Stories
+
+- As a developer, I would like to push to main, instead of master
