@@ -26,6 +26,7 @@
 - As a user, I want to be entertained by a special 'Owen Wilson Mode' that replaces all ducks sounds with wows.
 - As a user, I want to mute sounds if I find them annoying
 - As a user, I want to watch scuttling bugs on the gameover screen to fill me with bloodlust
+-As a user, I want to see the details of games I played
 
 
 # Stretch DEV Stories
