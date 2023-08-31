@@ -22,8 +22,10 @@
 
 - As a user, I want to join a game with my friends <!-- Friends lists, custom games -->
 - As a user, I want to customize my duck and the board <!-- microtransactions -->
-- As a user, I want to press hotkeys to talk smack
+- As a user, I want to press hotkeys to talk smack (ie: 'Get quacked', 'Quack this')
 - As a user, I want to be entertained by a special 'Owen Wilson Mode' that replaces all ducks sounds with wows.
+- As a user, I want to mute sounds if I find them annoying
+- As a user, I want to watch scuttling bugs on the gameover screen to fill me with bloodlust
 
 
 # Stretch DEV Stories
