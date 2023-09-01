@@ -1,0 +1,35 @@
+background__red {
+  position: absolute;
+  left: 50vw;
+  width: 50vw;
+  height: 50vh;
+  background-color: red;
+  border: thin solid white;
+}
+
+background__yellow {
+  position: absolute;
+  left: 50vw;
+  top: 50vh;
+  width: 50vw;
+  height: 50vh;
+  background-color: yellow;
+  border: thin solid white;
+}
+
+background__blue {
+  position: absolute;
+  top: 50vh;
+  width: 50vw;
+  height: 50vh;
+  background-color: blue;
+  border: thin solid white;
+}
+
+background__green {
+  position: absolute;
+  width: 50vw;
+  height: 50vh;
+  background-color: green;
+  border: thin solid white;
+}
