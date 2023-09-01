@@ -22,3 +22,9 @@ cd into frontend, npm install, npm run dev
     discuss team goals
     individual assignments
     overall progress?
+
+# DAY 1 - Standup Minutes
+
+  - Basic Socket Communication /TEAM
+  - Dumb markup for React components
+  - Sass integration Front, Sass de-integration Back
