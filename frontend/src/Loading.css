@@ -1,0 +1,11 @@
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.loading-message {
+  position: absolute;
+  left: 50vw;
+  transform: translate(-50%);
+}
