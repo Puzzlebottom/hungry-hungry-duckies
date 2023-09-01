@@ -1,0 +1,19 @@
+main {
+  display: flex;
+  width: 90vw;
+  justify-content: center;
+}
+
+.logo {
+  height: 400px;
+  width: 500px;
+  border: thin solid white
+}
+
+.leaderboard {
+  border: thin solid white;
+}
+
+.player-name-form {
+  border: thin solid white;
+}
