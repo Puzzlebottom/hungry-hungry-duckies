@@ -1,8 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import { socket } from './socket';
-import { ConnectionState } from './components/ConnectionState';
-import { ConnectionManager } from './components/ConnectionManager';
 
 
 function App() {
@@ -41,9 +39,7 @@ function App() {
 
   return (
     <div className="App">
-      <ConnectionState isConnected={isConnected} />
-      <ConnectionManager />
-      <MyForm />
+      <h1>Hello World!</h1>
     </div>
   );
 }
