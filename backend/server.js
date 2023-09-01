@@ -22,7 +22,9 @@ app.get('/', (req, res) => {
   console.log('SLASH GOTTEN');
   res.send('Hello World!'); // Respond to the root route
 });
-
+io.on('connect_error', (err) => {
+  console.log(`connect_error due to ${err.message}`);
+});
 io.on('connection', (socket) => {
   console.log('a user connected');
 

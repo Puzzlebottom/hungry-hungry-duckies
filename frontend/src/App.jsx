@@ -26,6 +26,9 @@ function App() {
     socket.on('join', (data) => console.log(data)) // ????
     socket.on('munch', (event) => console.log(event)) // Get timestamp from event then setMunch(true)
     socket.on('ready', (data) => setReady(true))
+    socket.on("connect_error", (err) => {
+      console.log(`connect_error due to ${err.message}`);
+    });
 
     return () => {
       socket.off('connect', onConnect);
