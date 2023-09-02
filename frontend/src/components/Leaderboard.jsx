@@ -22,7 +22,7 @@ const [players, setPlayers] = useState([]);
         <thead>
           <tr>
             <th>Rank</th>
-            <th><User></User>name</th>
+            <th>Username</th>
             <th>Score</th>
           </tr>
         </thead>
