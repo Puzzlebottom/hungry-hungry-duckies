@@ -1,5 +1,5 @@
-import './App.css';
 import React, { useState, useEffect } from 'react';
+import Home from './Home';
 import { socket } from './socket';
 
 
@@ -41,7 +41,7 @@ function App() {
   }, []);
 
   return (
-    <h1>Hello Duckies</h1>
+    <Home />
   );
 }
 

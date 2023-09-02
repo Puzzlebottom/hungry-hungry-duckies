@@ -1,0 +1,21 @@
+main {
+  display: flex;
+  width: 90vw;
+  justify-content: center;
+}
+
+.logo {
+  height: 500px;
+  width: 500px;
+  border: thin solid black;
+}
+
+.leaderboard {
+  border: thin solid black;
+}
+
+.player-name-form {
+  border: thin solid black;
+}
+
+/*# sourceMappingURL=Home.css.map */
