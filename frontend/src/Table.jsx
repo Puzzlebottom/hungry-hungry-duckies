@@ -3,7 +3,7 @@ import duckieTopLeft from './assets/duckie-top-left-1.png';
 import duckieTopRight from './assets/duckie-top-right-1.png';
 import duckieBottomLeft from './assets/duckie-bottom-left-1.png';
 import duckieBottomRight from './assets/duckie-bottom-right-1.png';
-import './Table.css';
+import '../public/stylesheets/Table.css';
 
 function Table() {
   return (
