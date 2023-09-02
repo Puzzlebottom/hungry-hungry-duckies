@@ -30,9 +30,11 @@ main {
     text-align: center;
     margin: 0 0;
     text-shadow: 5px 5px black;
+    animation: jackInTheBox;
+    animation-duration: 2s;
   }
   .instructions {
-    background-color: skyblue;
+    background-color: rgba(250, 250, 210, 0.7);
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     text-align: center;
@@ -53,9 +55,13 @@ main {
   .logo {
     height: 50%;
     width: 50%;
+    margin: 2% 0;
     img {
       height: 100%;
       width: 100%;
+      animation: tada;
+      animation-duration: 2s;
+      animation-delay: 2s;
     }
     display: flex;
     flex-direction: row;
