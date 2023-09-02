@@ -1,35 +1,53 @@
-background__red {
-  position: absolute;
+body {
+  margin: 0;
+
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100vw;
+  height: 100vh;
+}
+
+.background__red {
   left: 50vw;
   width: 50vw;
   height: 50vh;
-  background-color: red;
-  border: thin solid white;
+  background-color: rgb(255, 109, 61);
 }
 
-background__yellow {
-  position: absolute;
+.background__yellow {
   left: 50vw;
   top: 50vh;
   width: 50vw;
   height: 50vh;
-  background-color: yellow;
-  border: thin solid white;
+  background-color: rgb(255, 227, 66);
 }
 
-background__blue {
-  position: absolute;
+.background__blue {
   top: 50vh;
   width: 50vw;
   height: 50vh;
-  background-color: blue;
-  border: thin solid white;
+  background-color: rgb(65, 100, 255);
 }
 
-background__green {
-  position: absolute;
+.background__green {
   width: 50vw;
   height: 50vh;
-  background-color: green;
-  border: thin solid white;
+  background-color: rgb(73, 255, 152);
+}
+
+.table,
+.duckie__top-left,
+.duckie__top-right,
+.duckie__bottom-left,
+.duckie__bottom-right {
+  position: absolute;
+  left: 50vw;
+  top: 50vh;
+  transform: translate(-50%, -50%);
+  height: min(100vh, 100vw);
+  width: min(100vh, 100vw);
+  ;
 }
