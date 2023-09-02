@@ -27,7 +27,7 @@ const sortedPlayers = players.sort((a, b) => b.hi_score - a.hi_score);
           <h3>Spacebar to eat quack</h3>
         </section>
       </div >
-      <div>
+      <div className='leaderboard-and-form'>
         <Leaderboard players={sortedPlayers}/>
         <PlayerNameForm />
       </div>
