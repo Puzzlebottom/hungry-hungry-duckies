@@ -11,28 +11,38 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* Make it full-height */
-  background-color: #1a1a1a; /* Dark background color */
-  margin: 0; /* Remove any margin that might be applied */
+  height: 100vh;
+  background-color: #1a1a1a;
+  margin: 0;
+  background-image: url("https://cdn.wallpapersafari.com/32/48/vRXmEq.jpg");
+  opacity: 90%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 h1 {
-  color: white; /* White text color */
+  color: rgb(0, 0, 0);
 }
 
 table {
-  width: 80%; /* Increase table width for a more modern look */
-  margin: 30px auto; /* Center the table within the container and add spacing */
+  width: 80%;
+  margin: 30px auto;
   border-collapse: collapse;
-  background-color: #272727; /* Slightly lighter background color for the table */
-  color: white; /* Text color for table content */
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15); /* Add a subtle box shadow */
-  border-radius: 20px; /* Rounded corners for a modern look */
+  background-color: #4ea5c7;
+  color: white;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
 }
 
 th, td {
-  padding: 15px; /* Increase padding for better spacing */
-  text-align: center; /* Center-align text in cells */
-  border-bottom: 1px solid #444; /* Slightly lighter border color */
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #444;
+}
+
+tbody tr:first-child td { /*this makes the winner size bigger than the rest */
+  font-size: 72px;
+  font-weight: bold;
 }
 
 .container-for-post-game-buttons {
@@ -40,27 +50,35 @@ th, td {
   width: 500px;
   height: 50px;
   justify-content: space-between;
-  margin-top: 40px; /* Increase margin for spacing */
+  margin-top: 40px;
 }
 
-/* Style the buttons */
+
 .main-menu-button, .play-again-button {
-  padding: 30px 60px; /* Adjust padding for larger buttons */
-  font-size: 36px; /* Adjust font size */
-  background-color: #008CBA; /* Button background color */
-  color: white; /* Button text color */
+  padding: 30px 60px;
+  font-size: 15px;
+  background-color: #008CBA;
+  color: rgb(255, 255, 255);
   border: none;
-  border-radius: 10px; /* Rounded corners for buttons */
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Add smooth transitions */
-  margin: 20px; /* Add spacing between buttons */
-  text-transform: uppercase; /* Uppercase text for buttons */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 20px;
+  text-transform: uppercase;
 }
 
-/* Hover effect for buttons */
 .main-menu-button:hover, .play-again-button:hover {
-  background-color: #005f79; /* Change button background color on hover */
-  transform: scale(1.05); /* Slight scale-up effect on hover */
+  background-color: #005f79;
+  transform: scale(1.05);
 }
 
-/* Add more styles as needed */
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintain aspect ratio and cover the container */
+  opacity: 20%; /* Adjust the opacity to blend with the background */
+  z-index: -1; /* Place the video behind other content */
+}

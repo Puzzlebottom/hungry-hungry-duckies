@@ -11,6 +11,7 @@
     "sass-watch": "sass --watch src/sass:public/stylesheets"
   },
   "dependencies": {
+    "howler": "^2.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "socket.io-client": "^4.7.2"
@@ -23,7 +24,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
-    "vite": "^4.4.5",
-    "sass": "^1.66.1"
+    "sass": "^1.66.1",
+    "vite": "^4.4.5"
   }
 }

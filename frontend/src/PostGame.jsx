@@ -1,5 +1,8 @@
 import React from 'react';
 import '../public/stylesheets/Postgame.css';
+import videoBackground from '../public/videos/Wormhole Animation.mp4';
+import PlaySound from './components/PlaySound.jsx';
+
 
 function PostGame() {
   const Players = [
@@ -18,8 +21,12 @@ function PostGame() {
 
   return (
     <div className="Leaderboard-container">
-      <h1>Leaderboard</h1>
-      <table>
+      <video className="background-video" autoPlay loop muted>
+        <source src={videoBackground} type="video/mp4" />
+      </video>
+      <PlaySound />
+      <h1 className="Winner">Leaderboard</h1>
+      <table className="leaderboard-table">
         <thead>
           <tr className="playere-column-categories">
             <th>Player Name</th>
@@ -39,8 +46,8 @@ function PostGame() {
       </table>
 
       <div className="container-for-post-game-buttons">
-        <button classname="main-menu-button">Main Menu</button>
-        <button classname="play-again-button">Play again</button>
+        <button className="main-menu-button">Main Menu</button>
+        <button className="play-again-button">Play again</button>
       </div>
     </div>
   )
