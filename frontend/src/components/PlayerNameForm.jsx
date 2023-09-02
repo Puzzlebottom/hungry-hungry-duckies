@@ -2,14 +2,9 @@
 
 export default function PlayerNameForm () {
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <label htmlFor='name'>Name</label>
-      <input
-        id='name'
-        type='text'
-        value={name}
-        onChange={(event) => setName(event.target.value)}
-      />
+      <input type='text' name='playerName' placeholder='Enter Player Name'/>
       <button type='submit'>Submit</button>
     </form>
   )

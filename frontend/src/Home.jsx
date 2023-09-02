@@ -1,5 +1,6 @@
 import '../public/stylesheets/Home.css';
 import Leaderboard from './components/Leaderboard';
+import PlayerNameForm from './components/PlayerNameForm';
 
 
 function Home() {
@@ -13,6 +14,7 @@ const players = [{name: 'Player 1', hi_score: 100},
 {name: 'Player 8', hi_score: 800},
 {name: 'Player 9', hi_score: 900},
 {name: 'Player 10', hi_score: 1000}];
+const sortedPlayers = players.sort((a, b) => b.hi_score - a.hi_score);
 
   return (
     <main>
@@ -26,10 +28,8 @@ const players = [{name: 'Player 1', hi_score: 100},
         </section>
       </div >
       <div>
-        <Leaderboard players={players}/>
-        <form className='player-name-form'>
-          <input type='text' name='playerName' placeholder='Enter Player Name'></input>
-        </form>
+        <Leaderboard players={sortedPlayers}/>
+        <PlayerNameForm />
       </div>
     </main>
   );
