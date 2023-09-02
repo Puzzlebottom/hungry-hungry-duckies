@@ -23,19 +23,44 @@ React View components
   - Home screen
     - Hero
     - Leaderboard
+      PROPS
+      - hiScores={[{playername: "Bob", hi-score: 25}]}
+
     - PlayerNameForm
+      - onSubmit={(playerName) => {
+        payload = {playername: 'bob', uuid: string}
+        read cookie (if existing player) {
+           emits("join", {playername: 'bob', uuid: uuid})
+        } else {
+          emits("join", {playername: 'bob', uuid: uuid})
+        }
+        changes state to loading..
+      }}
+
   - Loading
     - Dynamic element
+      when all assets are load, change state to gametable.
+
   - GameTable
+
     - Table
     - Ducks
+      onMunch = () => {
+        emits('munch', timestamp.new())
+        makeQuack()
+        animateDuck()
+      }
     - Player Info Panel (name, score, isReady?)
+      PROPS
+      - name, score, isReady from Sanitized Player
+
     - Countdown
-    - GameTimer
+      - Client side logic, count = 3, setInterval(1000, () => {render count, count-- when count === 0, renders GO!} set interval is called as soon as gameState.isActive is true.
+      then release the swarm
   - PostGame
     - PlayerList
-    - NewGameButton
-    - HomeButton
+    - NewGameButton emits('join', payload: uuid)
+    - HomeButton redirect to '/'
   
 Styling
   - Everything sized and in place
@@ -76,3 +101,4 @@ Client-side view logic
 # Stretch Milestones
 
 Hosting
+GameTimer

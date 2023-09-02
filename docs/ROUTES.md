@@ -24,7 +24,7 @@ Game = {id: 1, socket_address: 'wss://javascript.info/chat', is_active: boolean}
 
 # Websocket Data Structures
 
-GameState = {marbles: [Marble], players: [sanitizedPlayer, sanitizedPlayer, sanitizedPlayer, sanitizedPlayer], isActive: boolean}
+GameState = {marbles: [Marble], player: sanitizedPlayer, opponents: [sanitizedPlayer, sanitizedPlayer, sanitizedPlayer], isActive: boolean}
 
 sanitizedPlayer = {name: 'Super Player', current_score: 0, current_seat: 0, isMunching: boolean}
 
