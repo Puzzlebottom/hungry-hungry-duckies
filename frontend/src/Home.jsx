@@ -19,10 +19,12 @@ const sortedPlayers = players.sort((a, b) => b.hi_score - a.hi_score);
   return (
     <main>
       <div className='hero'>
+        <h1 className='title'>Hungry, Hungry Duckies!</h1>
         <div className='logo'>
           <img src="https://i.redd.it/a7w8qv77ctl31.png"></img>
         </div>
         <section className='instructions'>
+          <h1>Instructions</h1>
           <h3>Spacebar to eat bugs</h3>
           <h3>Spacebar to eat quack</h3>
         </section>
