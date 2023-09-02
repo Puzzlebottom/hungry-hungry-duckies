@@ -1,17 +1,85 @@
+body {
+  background-image: url("https://static.vecteezy.com/system/resources/thumbnails/008/249/825/original/water-cycle-process-4k-animation-with-a-pond-and-blue-sky-evaporation-condensation-and-precipitation-process-infographic-diagram-4k-footage-green-field-with-bushes-for-water-evaporation-animation-free-video.jpg");
+  background-size: cover;
+}
+
 main {
   display: flex;
   width: 90vw;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 3%;
+  position: absolute;
+  top: 20%;
 }
 
-.logo {
+.hero {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 1%;
+}
+.hero .instructions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: center;
+  margin-top: 1%;
+}
+.hero .logo {
   height: 500px;
   width: 500px;
-  border: thin solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.hero .logo img {
+  height: 100%;
+  width: 100%;
 }
 
 .leaderboard {
-  border: thin solid black;
+  text-align: center;
+}
+.leaderboard h1 {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+.leaderboard .leaderboard-table {
+  width: 600px;
+  max-height: 300px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  font-size: 30px;
+}
+.leaderboard .leaderboard-table th {
+  background-color: skyblue;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+.leaderboard .leaderboard-table td {
+  padding: 10px;
+  text-align: center;
+}
+.leaderboard .leaderboard-table td:nth-child(1) {
+  width: 15%;
+}
+.leaderboard .leaderboard-table td:nth-child(2) {
+  width: 60%;
+}
+.leaderboard .leaderboard-table td:nth-child(3) {
+  width: 25%;
+}
+.leaderboard .leaderboard-table .leaderboard-body tr:nth-child(odd) {
+  background-color: lightcyan;
+}
+.leaderboard .leaderboard-table .leaderboard-body tr:nth-child(even) {
+  background-color: #ffffff;
+}
+.leaderboard .leaderboard-table .leaderboard-body td:first-child {
+  font-weight: bold;
 }
 
 .player-name-form {

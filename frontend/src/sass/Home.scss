@@ -1,17 +1,103 @@
+body {
+  background-image: url("https://static.vecteezy.com/system/resources/thumbnails/008/249/825/original/water-cycle-process-4k-animation-with-a-pond-and-blue-sky-evaporation-condensation-and-precipitation-process-infographic-diagram-4k-footage-green-field-with-bushes-for-water-evaporation-animation-free-video.jpg");
+  background-size: cover;
+}
 main {
   display: flex;
   width: 90vw;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 3%;
+  position: absolute;
+  top: 20%;
+}
+.hero {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 1%;
+  .instructions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: center;
+    margin-top: 1%;
+  }
+  .logo {
+    height: 500px;
+    width: 500px;
+    img {
+      height: 100%;
+      width: 100%;
+    }
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+}
+// Import Bootstrap SCSS variables and mixins if not already imported
+// @import "~bootstrap/scss/_variables";
+// @import "~bootstrap/scss/mixins";
+
+.leaderboard {
+  text-align: center;
+
+  h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+
+  .leaderboard-table {
+    width: 600px;
+    max-height: 300px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    font-size: 30px;
+
+    th {
+      background-color: skyblue;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+
+    td {
+      padding: 10px;
+      text-align: center;
+
+      &:nth-child(1) {
+        width: 15%;
+      }
+
+      &:nth-child(2) {
+        width: 60%;
+      }
+
+      &:nth-child(3) {
+        width: 25%;
+      }
+    }
+
+    .leaderboard-body {
+      tr:nth-child(odd) {
+        background-color: lightcyan;
+      }
+
+      tr:nth-child(even) {
+        background-color: #ffffff;
+      }
+
+      td {
+        &:first-child {
+          font-weight: bold;
+        }
+      }
+    }
+  }
 }
 
-.logo {
-  height: 500px;
-  width: 500px;
-  border: thin solid black;
-}
-.leaderboard {
-  border: thin solid black;
-}
+
 
 .player-name-form {
   border: thin solid black;

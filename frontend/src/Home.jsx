@@ -18,11 +18,11 @@ const sortedPlayers = players.sort((a, b) => b.hi_score - a.hi_score);
 
   return (
     <main>
-      <div>
+      <div className='hero'>
         <div className='logo'>
           <img src="https://i.redd.it/a7w8qv77ctl31.png"></img>
         </div>
-        <section>
+        <section className='instructions'>
           <h3>Spacebar to eat bugs</h3>
           <h3>Spacebar to eat quack</h3>
         </section>

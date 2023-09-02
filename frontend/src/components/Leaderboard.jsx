@@ -3,7 +3,7 @@ export default function Leaderboard(props) {
   return (
     <div className="leaderboard">
       <h1>Leaderboard</h1>
-      <table>
+      <table className="leaderboard-table">
         <thead>
           <tr>
             <th>Rank</th>
@@ -11,7 +11,7 @@ export default function Leaderboard(props) {
             <th>Score</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="leaderboard-body">
           {players.map((player, index) => (
             <tr key={player.id}>
               <td>{index + 1}</td>
