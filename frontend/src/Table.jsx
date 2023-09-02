@@ -5,10 +5,13 @@ import duckieBottomLeft from './assets/duckie-bottom-left-1.png';
 import duckieBottomRight from './assets/duckie-bottom-right-1.png';
 import '../public/stylesheets/Table.css';
 
+import Bugs from './components/Bugs';
+
 function Table() {
   return (
     <main>
-      <img src={arena} className='table'></img>
+      <Bugs />
+      {/* <img src={arena} className='table'></img> */}
       <span className='countdown'>GO!</span>
       <span className='timer'>12:59</span>
       <div className='background background__green'></div>
