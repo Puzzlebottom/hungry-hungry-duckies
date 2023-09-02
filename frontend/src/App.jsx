@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Home from './Home';
 import { socket } from './socket';
+import Loading from './Loading';
 
 
 function App() {
@@ -41,7 +42,7 @@ function App() {
   }, []);
 
   return (
-    <Home />
+    <Loading />
   );
 }
 
