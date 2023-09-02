@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Home from './Home';
 import { socket } from './socket';
-
+import PostGame from './PostGame';
 
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
@@ -41,7 +41,7 @@ function App() {
   }, []);
 
   return (
-    <Home />
+    <PostGame />
   );
 }
 

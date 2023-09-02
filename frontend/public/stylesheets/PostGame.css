@@ -1,0 +1,66 @@
+/* PostGame.css */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.Leaderboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Make it full-height */
+  background-color: #1a1a1a; /* Dark background color */
+  margin: 0; /* Remove any margin that might be applied */
+}
+h1 {
+  color: white; /* White text color */
+}
+
+table {
+  width: 80%; /* Increase table width for a more modern look */
+  margin: 30px auto; /* Center the table within the container and add spacing */
+  border-collapse: collapse;
+  background-color: #272727; /* Slightly lighter background color for the table */
+  color: white; /* Text color for table content */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15); /* Add a subtle box shadow */
+  border-radius: 20px; /* Rounded corners for a modern look */
+}
+
+th, td {
+  padding: 15px; /* Increase padding for better spacing */
+  text-align: center; /* Center-align text in cells */
+  border-bottom: 1px solid #444; /* Slightly lighter border color */
+}
+
+.container-for-post-game-buttons {
+  display: flex;
+  width: 500px;
+  height: 50px;
+  justify-content: space-between;
+  margin-top: 40px; /* Increase margin for spacing */
+}
+
+/* Style the buttons */
+.main-menu-button, .play-again-button {
+  padding: 30px 60px; /* Adjust padding for larger buttons */
+  font-size: 36px; /* Adjust font size */
+  background-color: #008CBA; /* Button background color */
+  color: white; /* Button text color */
+  border: none;
+  border-radius: 10px; /* Rounded corners for buttons */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Add smooth transitions */
+  margin: 20px; /* Add spacing between buttons */
+  text-transform: uppercase; /* Uppercase text for buttons */
+}
+
+/* Hover effect for buttons */
+.main-menu-button:hover, .play-again-button:hover {
+  background-color: #005f79; /* Change button background color on hover */
+  transform: scale(1.05); /* Slight scale-up effect on hover */
+}
+
+/* Add more styles as needed */
