@@ -1,0 +1,132 @@
+body {
+  margin: 0;
+
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100vw;
+  height: 100vh;
+}
+
+.background {
+  width: 50vw;
+  height: 50vh;
+}
+
+.background__red {
+  right: 0;
+  background-color: rgb(255, 109, 61);
+}
+
+.background__yellow {
+  right: 0;
+  bottom: 0;
+  background-color: rgb(255, 227, 66);
+}
+
+.background__blue {
+  bottom: 0;
+  background-color: rgb(65, 100, 255);
+}
+
+.background__green {
+  background-color: rgb(73, 255, 152);
+}
+
+.table,
+.duckie__top-left,
+.duckie__top-right,
+.duckie__bottom-left,
+.duckie__bottom-right {
+  position: absolute;
+  left: 50vw;
+  top: 50vh;
+  transform: translate(-50%, -50%);
+  height: min(100vh, 100vw);
+  width: min(100vh, 100vw);
+  ;
+}
+
+.countdown {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  font-size: min(40vh, 40vw);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+
+.player-detail-panel {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  margin: 2em;
+  width: 15vw;
+  height: 35vh;
+  border-radius: 8px;
+  border: 3px solid white;
+  padding: 1em;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: white;
+}
+
+.player-name {
+  white-space: nowrap;
+  font-size: min(5vh, 5vw);
+}
+
+.score {
+  font-size: min(20vh, 20vw);
+}
+
+.timer {
+  position: absolute;
+  left: 50vw;
+  transform: translateX(-58%);
+  bottom: 0;
+  margin: 0.2em;
+  padding: 0.2em;
+  color: white;
+  background-color: black;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: min(5vh, 5vh);
+  border: 3px solid white;
+  border-radius: 8px;
+}
+
+.button__ready {
+  color: white;
+  background-color: transparent;
+  font-size: min(2.5vh, 2.5vw);
+  padding: 0.5em 1em 0.5em 1em;
+  border: 3px solid white;
+  border-radius: 8px;
+}
+
+.player-detail-panel__top-left {
+  top: 0;
+  left: 0;
+  background-color: rgb(0, 255, 110);
+}
+
+.player-detail-panel__top-right {
+  right: 0;
+  background-color: rgb(255, 64, 0);
+}
+
+.player-detail-panel__bottom-right {
+  bottom: 0;
+  right: 0;
+  background-color: rgb(255, 217, 0);
+}
+
+.player-detail-panel__bottom-left {
+  bottom: 0;
+  left: 0;
+  background-color: rgb(0, 47, 255);
+}
