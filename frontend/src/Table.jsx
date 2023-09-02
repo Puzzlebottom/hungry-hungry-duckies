@@ -10,10 +10,10 @@ import Bugs from './components/Bugs';
 function Table() {
   return (
     <main>
+      <img src={arena} className='table'></img>
       <Bugs />
-      {/* <img src={arena} className='table'></img> */}
-      <span className='countdown'>GO!</span>
       <span className='timer'>12:59</span>
+      {/* <span className='countdown'>GO!</span> */}
       <div className='background background__green'></div>
       <div className='player-detail-panel player-detail-panel__top-left'>
         <span className='player-name'>Player Name</span>
