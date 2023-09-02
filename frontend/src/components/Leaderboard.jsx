@@ -1,20 +1,5 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-
-export default function Leaderboard() {
-const [players, setPlayers] = useState([]);
-
-  useEffect(() => {
-    axios.get('/api/players')
-      .then((response) => {
-        const sortedPlayers = response.data.sort((a, b) => b.hi_score - a.hi_score);
-        setPlayers(sortedPlayers);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
+export default function Leaderboard(props) {
+  const { players } = props;
   return (
     <div className="leaderboard">
       <h1>Leaderboard</h1>
