@@ -23,9 +23,11 @@ function Home() {
 
   return (
     <main>
+      <PlaySound />
       <div className='hero'>
         <h1 className='title'>Hungry, Hungry Duckies!™</h1>
         <div className='logo'>
+
           <img src="https://i.redd.it/a7w8qv77ctl31.png"></img>
         </div>
         <section className='instructions'>
@@ -37,6 +39,7 @@ function Home() {
       <div className='leaderboard-and-form'>
         <Leaderboard players={players}/>
         <PlayerNameForm />
+
       </div>
     </main>
   );

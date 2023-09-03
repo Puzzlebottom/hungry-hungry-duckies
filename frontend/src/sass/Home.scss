@@ -210,3 +210,11 @@ main {
 .player-name-form {
   border: thin solid black;
 }
+
+.audio-player-container {
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -50px; /* Adjust the top position as needed */
+  right: 100px; /* Adjust the right position as needed */
+}

@@ -9,7 +9,7 @@ const PlaySound = () => {
   };
 
   return (
-    <div>
+    <div className="audio-player-container">
       <ReactPlayer
         url="/audio/quacknoises.mp3"
         playing={!isMuted}
@@ -28,13 +28,13 @@ const PlaySound = () => {
           <img
             src="https://freesvg.org/img/pink_button_sound_on_morgaine1976.png"
             alt="Muted"
-            style={{ width: '75px', height: '75px' }}
+            style={{ width: '50px', height: '50px' }}
           />
         ) : (
           <img
             src="https://freesvg.org/img/pink_button_sound_off_morgaine1976.png"
             alt="Unmuted"
-            style={{ width: '75px', height: '75px' }}
+            style={{ width: '50px', height: '50px' }}
           />
         )}
       </button>
