@@ -1,5 +1,5 @@
 import React from 'react';
-import '../public/stylesheets/Postgame.css';
+import '../src/sass/Postgame.scss';
 import videoBackground from '../public/videos/Wormhole Animation.mp4';
 import PlaySound from './components/PlaySound.jsx';
 

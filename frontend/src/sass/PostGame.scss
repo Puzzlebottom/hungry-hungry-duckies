@@ -35,12 +35,12 @@ html, body {
   100% { color: rgb(0, 255, 0); } /* Green */
 }
 
-h1 {
+h1.Winner { //this is affecting all things
   font-size: 150px;
   animation: crazyText 5s infinite alternate; /* Adjust the duration and animation type */
 }
 
-table {
+table.leaderboard-table { // affecting the home ;
   width: 80%;
   margin: 30px auto;
   border-collapse: collapse;

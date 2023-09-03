@@ -42,7 +42,7 @@ function App() {
   }, []);
 
   return (
-    <Table />
+    <PostGame />
   );
 }
 
