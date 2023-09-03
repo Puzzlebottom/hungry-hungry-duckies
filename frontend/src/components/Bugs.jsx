@@ -6,7 +6,7 @@ import bug1 from '../assets/bug1.png';
 import bug2 from '../assets/bug2.png';
 
 Matter.use(MatterAttractors);
-const { Engine, Render, Runner, Body, Bodies, Composite, Mouse, Events, Vector } = Matter;
+const { Engine, Render, Runner, Body, Bodies, Composite, Events, Vector } = Matter;
 
 export default function Bugs(props) {
   const arena = useRef();
@@ -77,7 +77,7 @@ export default function Bugs(props) {
       const bugs = [];
       for (let i = 0; i < 25; i++) {
         const newBug = Bodies.circle(width / 2, height / 2, 15, {
-          restitution: 1, friction: -0.2, frictionAir: 0.01, frictionStatic: 0, label: 'bug',
+          restitution: 1, friction: -0.05, frictionAir: 0.01, frictionStatic: 0, label: 'bug',
           render: {
             sprite: {
               texture: bug1,
@@ -97,7 +97,6 @@ export default function Bugs(props) {
 
     const toggleBugSprite = (bug) => {
       const currentTexture = bug.render.sprite.texture;
-      console.log(currentTexture);
       const texture1 = bug1;
       const texture2 = bug2;
       if (currentTexture === texture1) {
@@ -126,13 +125,13 @@ export default function Bugs(props) {
       tickCounter.current++;
 
       for (const bug of bugs) {
-        if (tickCounter.current === 20) {
+        if (tickCounter.current === 8) {
           toggleBugSprite(bug);
         }
         alignBug(bug);
       }
 
-      if (tickCounter.current === 20) tickCounter.current = 0;
+      if (tickCounter.current === 8) tickCounter.current = 0;
     });
 
     Render.run(render);

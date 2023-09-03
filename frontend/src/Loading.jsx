@@ -6,7 +6,7 @@ import duckieBottomRight from './assets/duckie-bottom-right-no-shadow-1.png';
 
 function Loading() {
   return (
-    <main>
+    <main className='loading-view'>
       <div className="duckie-container rotate">
         <img src={duckieTopLeft} className='duckie__top-left'></img>
         <img src={duckieTopRight} className='duckie__top-right'></img>

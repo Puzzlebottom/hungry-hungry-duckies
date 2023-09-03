@@ -3,7 +3,7 @@ body {
 
 }
 
-main {
+.table-view {
   display: flex;
   flex-wrap: wrap;
   width: 100vw;
@@ -36,17 +36,17 @@ main {
 }
 
 .table,
-.duckie__top-left,
-.duckie__top-right,
-.duckie__bottom-left,
-.duckie__bottom-right {
+.duckie {
   position: absolute;
   left: 50vw;
   top: 50vh;
   transform: translate(-50%, -50%);
   height: min(100vh, 100vw);
   width: min(100vh, 100vw);
-  ;
+}
+
+.hidden {
+  display: none;
 }
 
 .countdown {

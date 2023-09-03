@@ -1,16 +1,16 @@
-body {
-  background-image: url("https://static.vecteezy.com/system/resources/thumbnails/008/249/825/original/water-cycle-process-4k-animation-with-a-pond-and-blue-sky-evaporation-condensation-and-precipitation-process-infographic-diagram-4k-footage-green-field-with-bushes-for-water-evaporation-animation-free-video.jpg");
-  background-size: cover;
-  font-family: 'Comic Neue', cursive;
-}
-main {
-  display: flex;
-  width: 90vw;
-  flex-direction: row;
-  justify-content: space-evenly;
-  position: absolute;
-  top: 5%;
-}
+// // body {
+// //   background-image: url("https://static.vecteezy.com/system/resources/thumbnails/008/249/825/original/water-cycle-process-4k-animation-with-a-pond-and-blue-sky-evaporation-condensation-and-precipitation-process-infographic-diagram-4k-footage-green-field-with-bushes-for-water-evaporation-animation-free-video.jpg");
+// //   background-size: cover;
+// //   font-family: 'Comic Neue', cursive;
+// // }
+// main {
+//   display: flex;
+//   width: 90vw;
+//   flex-direction: row;
+//   justify-content: space-evenly;
+//   position: absolute;
+//   top: 5%;
+// }
 
 .hero {
   background-color: rgba(255, 255, 255, 0.8);
@@ -34,6 +34,7 @@ main {
     animation: jackInTheBox;
     animation-duration: 2s;
   }
+
   .instructions {
     background-color: rgba(250, 250, 210, 0.7);
     border-radius: 10px;
@@ -45,20 +46,24 @@ main {
 
     color: orange;
     text-shadow: 2px 2px black;
+
     h1 {
       font-size: 40px;
       font-weight: bold;
       color: gold;
     }
+
     h3 {
       font-size: 25px;
       font-weight: 400;
     }
   }
+
   .logo {
     height: 50%;
     width: 50%;
     margin: 2% 0;
+
     img {
       height: 100%;
       width: 100%;
@@ -66,11 +71,13 @@ main {
       animation-duration: 2s;
       animation-delay: 2s;
     }
+
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
   }
 }
+
 // Import Bootstrap SCSS variables and mixins if not already imported
 // @import "~bootstrap/scss/_variables";
 // @import "~bootstrap/scss/mixins";

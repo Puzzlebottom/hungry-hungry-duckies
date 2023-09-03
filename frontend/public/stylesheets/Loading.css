@@ -2,7 +2,7 @@ body {
   background-color: skyblue;
 }
 
-main {
+.loading-view {
   display: flex;
   flex-direction: column;
   justify-content: center;

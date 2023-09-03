@@ -1,18 +1,3 @@
-body {
-  background-image: url("https://static.vecteezy.com/system/resources/thumbnails/008/249/825/original/water-cycle-process-4k-animation-with-a-pond-and-blue-sky-evaporation-condensation-and-precipitation-process-infographic-diagram-4k-footage-green-field-with-bushes-for-water-evaporation-animation-free-video.jpg");
-  background-size: cover;
-  font-family: "Comic Neue", cursive;
-}
-
-main {
-  display: flex;
-  width: 90vw;
-  flex-direction: row;
-  justify-content: space-evenly;
-  position: absolute;
-  top: 5%;
-}
-
 .hero {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
