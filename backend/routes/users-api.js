@@ -7,12 +7,13 @@
 
 const express = require('express');
 const router  = express.Router();
-const userQueries = require('../db/queries/users');
+const playerQueries = require('../db/queries/players');
 
 router.get('/', (req, res) => {
-  userQueries.getUsers()
-    .then(users => {
-      res.json({ users });
+  playerQueries.getTopPlayers()
+    .then(playerData => {
+      const players = playerData.rows;
+      res.json({ players });
     })
     .catch(err => {
       res

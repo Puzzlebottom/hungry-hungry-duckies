@@ -1,20 +1,24 @@
 import '../public/stylesheets/Home.css';
 import Leaderboard from './components/Leaderboard';
 import PlayerNameForm from './components/PlayerNameForm';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 
 function Home() {
-const players = [{name: 'Player 1', hi_score: 100},
-{name: 'Player 2', hi_score: 200},
-{name: 'Player 3', hi_score: 300},
-{name: 'Player 4', hi_score: 400},
-{name: 'Player 5', hi_score: 500},
-{name: 'Player 6', hi_score: 600},
-{name: 'Player 7', hi_score: 700},
-{name: 'Player 8', hi_score: 800},
-{name: 'Player 9', hi_score: 900},
-{name: 'Player 10', hi_score: 1000}];
-const sortedPlayers = players.sort((a, b) => b.hi_score - a.hi_score);
+
+  const [players, setPlayers] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/players')
+      .then((response) => {
+        console.log("RES FROM SERVER ==>", response.data.players);
+        setPlayers(response.data.players);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <main>
@@ -30,7 +34,7 @@ const sortedPlayers = players.sort((a, b) => b.hi_score - a.hi_score);
         </section>
       </div >
       <div className='leaderboard-and-form'>
-        <Leaderboard players={sortedPlayers}/>
+        <Leaderboard players={players}/>
         <PlayerNameForm />
       </div>
     </main>

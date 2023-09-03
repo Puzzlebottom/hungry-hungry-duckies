@@ -1,6 +1,7 @@
 // Load .env data into process.env
 require('dotenv').config();
 
+const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
 const app = express();
@@ -14,9 +15,11 @@ const io = new Server(httpServer, {
 
 const PORT = process.env.PORT || 8080;
 
+app.use(cors());
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use('/api/players', require('./routes/users-api'));
 
 app.get('/', (req, res) => {
   console.log('SLASH GOTTEN');
