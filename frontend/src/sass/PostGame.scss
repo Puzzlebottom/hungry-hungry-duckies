@@ -40,7 +40,7 @@ h1.Winner { //this is affecting all things
   animation: crazyText 5s infinite alternate; /* Adjust the duration and animation type */
 }
 
-table.leaderboard-table { // affecting the home ;
+table.true-leaderboard-table { // affecting the home ;
   width: 80%;
   margin: 30px auto;
   border-collapse: collapse;
@@ -50,13 +50,43 @@ table.leaderboard-table { // affecting the home ;
   border-radius: 20px;
 }
 
-th, td {
+th.player-name-header { //also mpacting
   padding: 15px;
   text-align: center;
   border-bottom: 1px solid #444;
 }
 
-tbody tr:first-child td { /*this makes the winner size bigger than the rest */
+th.player-score-header { //also mpacting
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #444;
+}
+
+th.player-status-header { //also mpacting
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #444;
+}
+
+td.player-score {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #444;
+}
+
+td.player-name {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #444;
+}
+
+td.player-status {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #444;
+}
+
+.custom-first-row td {
   font-size: 72px;
   font-weight: bold;
 }

@@ -25,25 +25,27 @@ function PostGame() {
         <source src={videoBackground} type="video/mp4" />
       </video>
       <h1 className="Winner">Leaderboard</h1>
-      <table className="leaderboard-table">
+      <table className="true-leaderboard-table">
         <thead>
-          <tr className="playere-column-categories">
-            <th>Player Name</th>
-            <th>Score</th>
-            <th>Status</th>
+          <tr className="player-column-categories">
+            <th className="player-name-header">Player Name</th>
+            <th className="player-score-header">Score</th>
+            <th className="player-status-header">Status</th>
           </tr>
         </thead>
         <tbody>
           {sortedPlayers.map((player, index) => (
-            <tr className="player-column" key={index}>
-              <td>{player.name}</td>
-              <td>{player.score}</td>
-              <td>{player.isWinner ? 'Winner' : 'Loser'}</td>
+             <tr className={index === 0 ? 'custom-first-row' : 'player-column'} key={index}>
+              <td className="player-name">{player.name}</td>
+              <td className="player-score">{player.score}</td>
+              <td className={`player-status ${player.isWinner ? 'winner' : 'loser'}`}>
+                {player.isWinner ? 'Winner' : 'Loser'}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
-     <div className="container-for-post-game-buttons">
+      <div className="container-for-post-game-buttons">
         <button className="main-menu-button">Main Menu</button>
         <button className="play-again-button">Play again</button>
       </div>
@@ -52,7 +54,7 @@ function PostGame() {
       </div>
     </div>
   );
-};
+}
 
 
 export default PostGame
