@@ -46,7 +46,7 @@ function PostGame() {
         </tbody>
       </table>
       <div className="container-for-post-game-buttons">
-        <button className="main-menu-button">Main Menu</button>
+        <button className="main-menu-button1">Main Menu</button>
         <button className="play-again-button">Play again</button>
       </div>
       <div className="audiobutton">

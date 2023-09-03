@@ -4,6 +4,8 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  overflow: hidden; /* Add this line to hide overflow and disable scrolling */
+  font-family: 'Roboto', sans-serif; /* Use a suitable font-family for a futuristic look */
 }
 
 .Leaderboard-container {
@@ -12,109 +14,145 @@ html, body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #1a1a1a;
+  background-color: #000; /* Dark background for a futuristic feel */
   margin: 0;
   background-image: url("https://cdn.wallpapersafari.com/32/48/vRXmEq.jpg");
   opacity: 90%;
+  background-blur: 10px; /* Apply a blur effect to the background image */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-@keyframes crazyText {
-  0% { color: rgb(255, 0, 0); } /* Red */
-  10% { color: rgb(255, 127, 0); } /* Orange */
-  20% { color: rgb(255, 255, 0); } /* Yellow */
-  30% { color: rgb(0, 255, 0); } /* Green */
-  40% { color: rgb(0, 0, 255); } /* Blue */
-  50% { color: rgb(75, 0, 130); } /* Indigo */
-  60% { color: rgb(148, 0, 211); } /* Violet */
-  70% { color: rgb(255, 0, 0); } /* Back to Red */
-  80% { color: rgb(255, 127, 0); } /* Orange */
-  90% { color: rgb(255, 255, 0); } /* Yellow */
-  100% { color: rgb(0, 255, 0); } /* Green */
+@keyframes cyberText {
+  0% { color: #ff5733; text-shadow: 0 0 5px #ff5733, 0 0 10px #ff5733, 0 0 15px #ff5733; }
+  25% { color: #fc00ff; text-shadow: 0 0 5px #fc00ff, 0 0 10px #fc00ff, 0 0 15px #fc00ff; }
+  50% { color: #00dbde; text-shadow: 0 0 5px #00dbde, 0 0 10px #00dbde, 0 0 15px #00dbde; }
+  75% { color: #fc00ff; text-shadow: 0 0 5px #fc00ff, 0 0 10px #fc00ff, 0 0 15px #fc00ff; }
+  100% { color: #ff5733; text-shadow: 0 0 5px #ff5733, 0 0 10px #ff5733, 0 0 15px #ff5733; }
 }
 
-h1.Winner { //this is affecting all things
+h1.Winner {
   font-size: 150px;
-  animation: crazyText 5s infinite alternate; /* Adjust the duration and animation type */
+  animation: cyberText 5s infinite alternate; /* Adjust the duration and animation type */
+  color: #ff5733; /* Cyberpunk-inspired text color */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Text shadow for a futuristic look */
 }
 
-table.true-leaderboard-table { // affecting the home ;
+
+table.true-leaderboard-table {
   width: 80%;
   margin: 30px auto;
   border-collapse: collapse;
-  background-color: #1c6f7f;
-  color: rgb(255, 255, 255);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+  background-color: #0a0a0a; /* Dark Cyberpunk background color */
+  color: #00dbde; /* Cyberpunk text color */
+  box-shadow: 0 0 20px rgba(0, 219, 222, 0.5); /* Cyberpunk-style glowing effect */
   border-radius: 20px;
+  border: 1px solid #00dbde; /* Cyberpunk border color */
 }
 
-th.player-name-header { //also mpacting
+th.player-name-header,
+th.player-score-header,
+th.player-status-header {
   padding: 15px;
   text-align: center;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid #00dbde; /* Cyberpunk border color */
+  background: linear-gradient(135deg, #00dbde, #fc00ff); /* Vibrant gradient effect */
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for a futuristic look */
 }
 
-th.player-score-header { //also mpacting
-  padding: 15px;
-  text-align: center;
-  border-bottom: 1px solid #444;
-}
-
-th.player-status-header { //also mpacting
-  padding: 15px;
-  text-align: center;
-  border-bottom: 1px solid #444;
-}
-
-td.player-score {
-  padding: 15px;
-  text-align: center;
-  border-bottom: 1px solid #444;
-}
-
-td.player-name {
-  padding: 15px;
-  text-align: center;
-  border-bottom: 1px solid #444;
-}
-
+td.player-score,
+td.player-name,
 td.player-status {
   padding: 15px;
   text-align: center;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid #00dbde; /* Cyberpunk border color */
+  color: #00dbde;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for a futuristic look */
 }
 
 .custom-first-row td {
   font-size: 72px;
   font-weight: bold;
+  color: #fc00ff; /* Vibrant text color */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for a futuristic look */
 }
+
 
 .container-for-post-game-buttons {
   display: flex;
-  width: 500px;
-  height: 50px;
+  width: 750px;
+  height: 500px;
   justify-content: space-between;
   margin-top: 40px;
 }
 
-
-.main-menu-button, .play-again-button {
-  padding: 30px 60px;
-  font-size: 15px;
-  background-color: #1c6f7f;
-  color: rgb(255, 255, 255);
+/* Updated button styles with a Cyberpunk 2077 aesthetic */
+.main-menu-button1, .play-again-button {
+  height: 60px;
+  padding: 0 40px;
+  font-size: 20px;
+  background: linear-gradient(135deg, #fc00ff, #00dbde); /* Vibrant gradient effect */
+  color: #fff;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   margin: 20px;
   text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: 1px;
+  outline: none;
+  position: relative;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Text shadow for a futuristic look */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
-.main-menu-button:hover, .play-again-button:hover {
-  background-color: #005f79;
+/* Pseudo-element for a gradient overlay */
+.main-menu-button1::before, .play-again-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #fc00ff, #00dbde); /* Vibrant gradient effect */
+  border-radius: 10px;
+  opacity: 0.7;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.main-menu-button1::after, .play-again-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Updated hover styles */
+.main-menu-button1:hover::before, .play-again-button:hover::before {
+  opacity: 0.9; /* Adjust opacity for the overlay */
+}
+
+.main-menu-button1:hover {
+  background: linear-gradient(135deg, #00dbde, #fc00ff); /* Updated gradient on hover */
+  transform: scale(1.05);
+}
+
+.play-again-button:hover {
+  background: linear-gradient(135deg, #00dbde, #fc00ff); /* Updated gradient on hover */
   transform: scale(1.05);
 }
 
@@ -123,7 +161,7 @@ td.player-status {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 120%;
   object-fit: cover;
   opacity: 20%;
   z-index: -1;
@@ -138,6 +176,5 @@ div.audiobutton {
   height: 0;
   position: absolute;
   top: 20px; /* Adjust the top position as needed */
-  right: 200px; /* Adjust the right position as needed */
+  right: 100px; /* Adjust the right position as needed */
 }
-

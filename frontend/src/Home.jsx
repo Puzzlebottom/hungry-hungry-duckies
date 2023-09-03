@@ -1,7 +1,7 @@
 import '../public/stylesheets/Home.css';
 import Leaderboard from './components/Leaderboard';
 import PlayerNameForm from './components/PlayerNameForm';
-
+import PlaySound from './components/PlaySound.jsx';
 
 function Home() {
 const players = [{name: 'Player 1', hi_score: 100},
