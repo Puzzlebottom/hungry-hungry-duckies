@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Home from './Home';
+import Table from './Table';
 import { socket } from './socket';
 
 
@@ -41,7 +42,7 @@ function App() {
   }, []);
 
   return (
-    <Home />
+    <Table />
   );
 }
 
