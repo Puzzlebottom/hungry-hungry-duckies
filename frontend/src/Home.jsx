@@ -4,6 +4,7 @@ import PlayerNameForm from './components/PlayerNameForm';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import PlaySound from './components/PlaySound.jsx';
 
 function Home() {
 

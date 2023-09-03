@@ -113,6 +113,7 @@ body {
 }
 
 .player-detail-panel__top-right {
+  top: 0;
   right: 0;
   background-color: rgb(255, 64, 0);
 }
