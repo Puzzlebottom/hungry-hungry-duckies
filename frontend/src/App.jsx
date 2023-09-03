@@ -4,6 +4,7 @@ import Table from './Table';
 import { socket } from './socket';
 import PostGame from './PostGame';
 import Loading from './Loading';
+import { CookiesProvider, useCookies } from 'react-cookie';
 
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
@@ -11,7 +12,12 @@ function App() {
   const [ready, setReady] = useState(false);
   const [home, setHome] = useState(false);
   const [join, setJoin] = useState(false); //????????
+  const [cookies, setCookie] = useCookies(['name']);
 
+  const handleSubmission = (name) => {
+    console.log('HANDLE SUBMIT', name);
+    socket.emit('playerName', { 'name': name, 'cookie': cookies });
+  };
   useEffect(() => {
     function onConnect() {
       setIsConnected(true);
@@ -21,7 +27,7 @@ function App() {
       setIsConnected(false);
     }
 
-
+    socket.on('serverReply', (data) => console.log(data));
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
     socket.on('home', () => setHome(true));
@@ -34,6 +40,7 @@ function App() {
 
     return () => {
       socket.off('connect', onConnect);
+      socket.off('serverReply', (data) => console.log(data));
       socket.off('disconnect', onDisconnect);
       socket.off('home', () => setHome(true));
       socket.off('join', (data) => console.log(data));
@@ -43,7 +50,7 @@ function App() {
   }, []);
 
   return (
-    <Table />
+    <Home handleSubmission={handleSubmission} />
   );
 }
 
