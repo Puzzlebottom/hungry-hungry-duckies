@@ -15,14 +15,13 @@ import bottomRight2 from './assets/duckie-bottom-right-2.png';
 import bottomRight3 from './assets/duckie-bottom-right-3.png';
 
 // import '../stylesheets/Table.css';
-
-import Duckie from './components/Duckie';
+import Quarter from './components/Quarter';
 import Bugs from './components/Bugs';
 
-const sanitizedPlayer1 = { name: 'Top Left', current_score: 0, current_seat: 0, isMunching: true };
-const sanitizedPlayer2 = { name: 'Top Right', current_score: 0, current_seat: 1, isMunching: false };
-const sanitizedPlayer3 = { name: 'Bottom Left', current_score: 0, current_seat: 2, isMunching: false };
-const sanitizedPlayer4 = { name: 'Bottom Right', current_score: 0, current_seat: 3, isMunching: false };
+const sanitizedPlayer1 = { name: 'Top Left', current_score: 0, current_seat: 0, isMunching: false, isReady: false };
+const sanitizedPlayer2 = { name: 'Top Right', current_score: 0, current_seat: 1, isMunching: false, isReady: false };
+const sanitizedPlayer3 = { name: 'Bottom Left', current_score: 0, current_seat: 2, isMunching: false, isReady: false };
+const sanitizedPlayer4 = { name: 'Bottom Right', current_score: 0, current_seat: 3, isMunching: false, isReady: false };
 
 function Table(props) {
 
@@ -34,19 +33,15 @@ function Table(props) {
   ];
 
   const playerMunchStates = [useState(false), useState(false), useState(false), useState(false)];
-  const [gameState, setGameState] = useState({ marbles: [], player: sanitizedPlayer1, opponents: [sanitizedPlayer2, sanitizedPlayer3, sanitizedPlayer4], isActive: true });
-  const [isMunchingPlayer1] = playerMunchStates[0];
-  const [isMunchingPlayer2] = playerMunchStates[1];
-  const [isMunchingPlayer3] = playerMunchStates[2];
-  const [isMunchingPlayer4] = playerMunchStates[3];
+  const playerNameStates = [useState(''), useState(''), useState(''), useState('')];
+  const playerScoreStates = [useState(0), useState(0), useState(0), useState(0)];
+  const playerReadyStates = [useState(false), useState(false), useState(false), useState(false)];
 
+  const [gameState, setGameState] = useState({ marbles: [], player: sanitizedPlayer1, opponents: [sanitizedPlayer2, sanitizedPlayer3, sanitizedPlayer4], isActive: true });
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
+    return () => window.removeEventListener("keydown", handleKeyDown);
   });
 
   const munch = (setMunchStateCB) => {
@@ -65,35 +60,96 @@ function Table(props) {
     if (e.key === ' ') {
       e.preventDefault();
       munch(playerMunchStates[gameState.player.current_seat][1]);
+      //emitMunch()
     }
+  };
+
+  const toggleReady = () => {
+    const [isReady, setIsReady] = playerReadyStates[gameState.player.current_seat];
+    setIsReady(() => {
+      //emitToggleReady()
+      return !isReady;
+    });
+  };
+
+  const updateName = (player, seat) => {
+    const [name, setName] = playerNameStates[seat];
+    if (name !== player.name) setName(player.name);
+  };
+
+  const updateScore = (player, seat) => {
+    const [score, setScore] = playerScoreStates[seat];
+    if (score !== player.current_score) setScore(player.current_score);
+  };
+
+  const updateMunch = (player, seat) => {
+    const [isMunching, setIsMunching] = playerMunchStates[seat];
+    if (isMunching !== player.isMunching) munch(setIsMunching);
+  };
+
+  const updateReady = (player, seat) => {
+    const [isReady, setIsReady] = playerReadyStates[seat];
+    if (isReady !== player.isReady && !gameState.isActive) setIsReady(!isReady);
+  };
+
+  const updatePlayerStates = () => {
+    const players = [gameState.player, ...gameState.opponents].sort((a, b) => a.current_seat - b.current_seat);
+
+    players.forEach((player, seat) => {
+      updateName(player, seat);
+      updateScore(player, seat);
+      updateMunch(player, seat);
+      updateReady(player, seat);
+    });
+  };
+
+  const getPlayersArray = () => {
+    const players = [];
+    const clientIndex = gameState.player.current_seat;
+
+    for (let i = 0; i < 4; i++) {
+      players.push({
+        seat: i,
+        name: playerNameStates[i][0],
+        score: playerScoreStates[i][0],
+        isReady: playerReadyStates[i][0],
+        toggleReady: i === clientIndex ? toggleReady : () => { },
+        isMunching: playerMunchStates[i][0],
+      });
+    }
+    return players;
   };
 
   useEffect(() => {
-    gameState.opponents.forEach(opponent => {
-      if (opponent.isMunching === true) {
-        munch(playerMunchStates[opponent.current_seat][1]);
-      }
-    });
+    //checkIsActive()
+    updatePlayerStates();
+    //updateBugs();
   }, [gameState]);
 
-  const mockGameState = (playerNumber) => {
-    const newGamesState = { ...gameState };
-    if (playerNumber === 2) {
-      newGamesState.opponents[0].isMunching = true;
-    } else if (playerNumber === 3) {
-      newGamesState.opponents[1].isMunching = true;
-    } else if (playerNumber === 4) {
-      newGamesState.opponents[2].isMunching = true;
-    }
-    setGameState(newGamesState);
-    setTimeout(() => {
-      const newGamesState = { ...gameState };
-      newGamesState.opponents.forEach(opp => {
-        opp.isMunching = false;
-      });
-      setGameState(newGamesState);
-    }, 300);
-  };
+  // const mockGameState = (playerNumber) => {
+  //   const newGamesState = { ...gameState };
+  //   if (playerNumber === 2) {
+  //     newGamesState.opponents[0].isMunching = true;
+  //   } else if (playerNumber === 3) {
+  //     newGamesState.opponents[1].isMunching = true;
+  //   } else if (playerNumber === 4) {
+  //     newGamesState.opponents[2].isMunching = true;
+  //   }
+  //   setGameState(newGamesState);
+  //   setTimeout(() => {
+  //     const newGamesState = { ...gameState };
+  //     newGamesState.opponents.forEach(opp => {
+  //       opp.isMunching = false;
+  //     });
+  //     setGameState(newGamesState);
+  //   }, 300);
+  // };
+
+  const quarters = getPlayersArray().map((player, index) => {
+    const images = duckieImages[index];
+    const color = ['green', 'red', 'blue', 'yellow'][index];
+    return <Quarter key={index} {...{ images, player, color }} />;
+  });
 
   return (
     <main className='table-view'>
@@ -101,34 +157,7 @@ function Table(props) {
       <Bugs />
       <span className='timer'>12:59</span>
       {/* <span className='countdown'>GO!</span> */}
-      <div className='background background__green'></div>
-      <div className='player-detail-panel player-detail-panel__top-left'>
-        <span className='player-name'>Player Name</span>
-        <span className='score'>0</span>
-        <button className='button__ready'>Ready?</button>
-      </div>
-      <Duckie images={duckieImages[0]} isMunching={isMunchingPlayer1} />
-      <div className='background background__red'></div>
-      <div className='player-detail-panel player-detail-panel__top-right'>
-        <span className='player-name'>Player Name</span>
-        <span className='score'>0</span>
-        <button className='button__ready' onClick={() => mockGameState(2)}>Ready?</button>
-      </div>
-      <Duckie images={duckieImages[1]} isMunching={isMunchingPlayer2} />
-      <div className='background background__blue'></div>
-      <div className='player-detail-panel player-detail-panel__bottom-left'>
-        <span className='player-name'>Player Name</span>
-        <span className='score'>0</span>
-        <button className='button__ready' onClick={() => mockGameState(3)}>Ready?</button>
-      </div>
-      <Duckie images={duckieImages[2]} isMunching={isMunchingPlayer3} />
-      <div className='background background__yellow'></div>
-      <div className='player-detail-panel player-detail-panel__bottom-right'>
-        <span className='player-name'>Player Name</span>
-        <span className='score'>0</span>
-        <button className='button__ready' onClick={() => mockGameState(4)}>Ready?</button>
-      </div>
-      <Duckie images={duckieImages[3]} isMunching={isMunchingPlayer4} />
+      {quarters}
     </main>
   );
 }
