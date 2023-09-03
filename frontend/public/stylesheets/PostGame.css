@@ -1,5 +1,6 @@
 /* PostGame.css */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -23,41 +24,65 @@ html, body {
 @keyframes crazyText {
   0% {
     color: rgb(255, 0, 0);
-  } /* Red */
+  }
+
+  /* Red */
   10% {
     color: rgb(255, 127, 0);
-  } /* Orange */
+  }
+
+  /* Orange */
   20% {
     color: rgb(255, 255, 0);
-  } /* Yellow */
+  }
+
+  /* Yellow */
   30% {
     color: rgb(0, 255, 0);
-  } /* Green */
+  }
+
+  /* Green */
   40% {
     color: rgb(0, 0, 255);
-  } /* Blue */
+  }
+
+  /* Blue */
   50% {
     color: rgb(75, 0, 130);
-  } /* Indigo */
+  }
+
+  /* Indigo */
   60% {
     color: rgb(148, 0, 211);
-  } /* Violet */
+  }
+
+  /* Violet */
   70% {
     color: rgb(255, 0, 0);
-  } /* Back to Red */
+  }
+
+  /* Back to Red */
   80% {
     color: rgb(255, 127, 0);
-  } /* Orange */
+  }
+
+  /* Orange */
   90% {
     color: rgb(255, 255, 0);
-  } /* Yellow */
+  }
+
+  /* Yellow */
   100% {
     color: rgb(0, 255, 0);
-  } /* Green */
+  }
+
+  /* Green */
 }
+
 h1.Winner {
   font-size: 150px;
-  animation: crazyText 5s infinite alternate; /* Adjust the duration and animation type */
+  animation: crazyText 5s infinite alternate;
+  /* Adjust the duration and animation type */
 }
 
 table.true-leaderboard-table {
@@ -119,7 +144,8 @@ td.player-status {
   margin-top: 40px;
 }
 
-.main-menu-button, .play-again-button {
+.main-menu-button,
+.play-again-button {
   padding: 30px 60px;
   font-size: 15px;
   background-color: #1c6f7f;
@@ -132,7 +158,8 @@ td.player-status {
   text-transform: uppercase;
 }
 
-.main-menu-button:hover, .play-again-button:hover {
+.main-menu-button:hover,
+.play-again-button:hover {
   background-color: #005f79;
   transform: scale(1.05);
 }
@@ -156,8 +183,10 @@ div.audiobutton {
   width: 0;
   height: 0;
   position: absolute;
-  top: 20px; /* Adjust the top position as needed */
-  right: 200px; /* Adjust the right position as needed */
+  top: 20px;
+  /* Adjust the top position as needed */
+  right: 200px;
+  /* Adjust the right position as needed */
 }
 
 /*# sourceMappingURL=PostGame.css.map */

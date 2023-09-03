@@ -3,6 +3,7 @@ import Home from './Home';
 import Table from './Table';
 import { socket } from './socket';
 import PostGame from './PostGame';
+import Loading from './Loading';
 
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
