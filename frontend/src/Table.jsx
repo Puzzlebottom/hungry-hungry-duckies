@@ -29,8 +29,7 @@ function Table(props) {
     [bottomRight1, bottomRight2, bottomRight3]
   ];
 
-  // const [isMunching, setIsMunching] = useState({ topLeft: false, topRight: false, bottomLeft: false, bottomRight: false });
-  const [isMunching, setIsMunching] = useState(false);
+  const munching = [useState(false), useState(false), useState(false), useState(false)];
 
   const sanitizedPlayer1 = { name: 'Top Left', current_score: 0, current_seat: 0, isMunching: false };
   const sanitizedPlayer2 = { name: 'Top Right', current_score: 0, current_seat: 1, isMunching: false };
@@ -49,15 +48,16 @@ function Table(props) {
   const handleKeyDown = (e) => {
     if (e.key === ' ') {
       e.preventDefault();
+
+      const [, setIsMunching] = munching[gameState.player.current_seat];
+
       setIsMunching((prev) => {
         if (!prev) {
-          console.log('munch');
           setTimeout(() => {
             setIsMunching(false);
-          }, 300);
+          }, 285);
           return true;
         }
-        console.log('still munching');
         return prev;
       });
     }
@@ -75,28 +75,28 @@ function Table(props) {
         <span className='score'>0</span>
         <button className='button__ready'>Ready?</button>
       </div>
-      <Duckie images={duckieImages[0]} isMunching={isMunching} />
+      <Duckie images={duckieImages[0]} isMunching={munching[0][0]} />
       <div className='background background__red'></div>
       <div className='player-detail-panel player-detail-panel__top-right'>
         <span className='player-name'>Player Name</span>
         <span className='score'>0</span>
         <button className='button__ready'>Ready?</button>
       </div>
-      <Duckie images={duckieImages[1]} isMunching={isMunching} />
+      <Duckie images={duckieImages[1]} isMunching={munching[1][0]} />
       <div className='background background__blue'></div>
       <div className='player-detail-panel player-detail-panel__bottom-left'>
         <span className='player-name'>Player Name</span>
         <span className='score'>0</span>
         <button className='button__ready'>Ready?</button>
       </div>
-      <Duckie images={duckieImages[2]} isMunching={isMunching} />
+      <Duckie images={duckieImages[2]} isMunching={munching[2][0]} />
       <div className='background background__yellow'></div>
       <div className='player-detail-panel player-detail-panel__bottom-right'>
         <span className='player-name'>Player Name</span>
         <span className='score'>0</span>
         <button className='button__ready'>Ready?</button>
       </div>
-      <Duckie images={duckieImages[3]} isMunching={isMunching} />
+      <Duckie images={duckieImages[3]} isMunching={munching[3][0]} />
     </main>
   );
 }

@@ -1,30 +1,31 @@
 import '../../public/stylesheets/Table.css';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function Duckie({ images, isMunching }) {
-
-  const [image, setImage] = useState(0);
 
   const image0 = useRef();
   const image1 = useRef();
   const image2 = useRef();
+
+  const switchImage = (current, next) => {
+    next.classList.remove('hidden');
+    setTimeout(() => {
+      current.classList.add('hidden');
+    }, 10);
+  };
 
   useEffect(() => {
     image1.current.classList.add('hidden');
     image2.current.classList.add('hidden');
 
     if (isMunching) {
-      image1.current.classList.remove('hidden');
-      image0.current.classList.add('hidden');
+      switchImage(image0.current, image1.current);
       setTimeout(() => {
-        image2.current.classList.remove('hidden');
-        image1.current.classList.add('hidden');
+        switchImage(image1.current, image2.current);
         setTimeout(() => {
-          image1.current.classList.remove('hidden');
-          image2.current.classList.add('hidden');
+          switchImage(image2.current, image1.current);
           setTimeout(() => {
-            image0.current.classList.remove('hidden');
-            image1.current.classList.add('hidden');
+            switchImage(image1.current, image0.current);
           }, 50); //out
         }, 150); //munch
       }, 25); //in
