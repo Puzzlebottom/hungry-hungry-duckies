@@ -25,8 +25,8 @@ const sortedPlayers = players.sort((a, b) => b.hi_score - a.hi_score);
         </div>
         <section className='instructions'>
           <h1>How To Play</h1>
-          <h3>Spacebar to munch bugs</h3>
-          <h3>Spacebar to quack</h3>
+          <h3>Spacebar to MUNCH! 😤</h3>
+          <h3>Spacebar to quack! 🦆</h3>
         </section>
       </div >
       <div className='leaderboard-and-form'>
