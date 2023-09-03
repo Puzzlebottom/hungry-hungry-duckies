@@ -18,14 +18,14 @@ const Countdown = ({ seconds, onComplete }) => {
         clearInterval(countdownInterval);
         onComplete(); // makes sure to call the oncomplete after the contdown is done
       }
-    }, 1000);
+    }, 750);
 
     return () => clearInterval(countdownInterval);
   }, [timer, onComplete]);
 
   return (
     <div className="countdown">
-      <p style={{ fontSize: timer === 'MUNCH!' ? '33%' : '100%' }}>{timer}</p>
+      <p style={{ fontSize: timer === 'MUNCH!' ? '33%' : '100%' }}>{timer}</p> {/* makes munch smaller as needed */}
     </div>
   );
 };
