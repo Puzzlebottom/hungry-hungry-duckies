@@ -1,27 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Howl, Howler } from 'howler';
-
+import React, { useState } from 'react';
+import ReactPlayer from 'react-player';
 
 const PlaySound = () => {
   const [isMuted, setIsMuted] = useState(true);
-  const [audio, setAudio] = useState(null);
-
-  useEffect(() => {
-    const sound = new Howl({
-      src: ['/audio/quacknoises.mp3'],
-      volume: isMuted ? 0 : 1.0,
-      loop: true,
-      autoplay: true,
-      mute: isMuted,
-    });
-
-    setAudio(sound);
-
-    return () => {
-      sound.stop();
-      sound.unload();
-    };
-  }, [isMuted]);
 
   const toggleMute = () => {
     setIsMuted(!isMuted);
@@ -29,47 +10,32 @@ const PlaySound = () => {
 
   return (
     <div>
-      <button onClick={toggleMute}>
+      <ReactPlayer
+        url="/audio/quacknoises.mp3"
+        playing={!isMuted}
+        loop={true}
+        volume={isMuted ? 0 : 1}
+      />
+      <button
+        onClick={toggleMute}
+        style={{
+          borderRadius: '50%',
+          backgroundColor: 'transparent',
+          border: 'none',
+        }}
+      >
         {isMuted ? (
-          <div
-            style={{
-              backgroundColor: 'transparent',
-              borderRadius: '50%',
-              width: '30px',
-              height: '30px',
-              display: 'inline-block',
-            }}
-          >
-            <img
-              src="https://freesvg.org/img/pink_button_sound_on_morgaine1976.png"
-              alt="Muted"
-              style={{
-                width: '100%',
-                height: '100%',
-                borderRadius: '50%',
-              }}
-            />
-          </div>
+          <img
+            src="https://freesvg.org/img/pink_button_sound_on_morgaine1976.png"
+            alt="Muted"
+            style={{ width: '75px', height: '75px' }}
+          />
         ) : (
-          <div
-            style={{
-              backgroundColor: 'transparent',
-              borderRadius: '50%',
-              width: '30px',
-              height: '30px',
-              display: 'inline-block',
-            }}
-          >
-            <img
-              src="https://freesvg.org/img/pink_button_sound_off_morgaine1976.png"
-              alt="Unmuted"
-              style={{
-                width: '100%',
-                height: '100%',
-                borderRadius: '50%',
-              }}
-            />
-          </div>
+          <img
+            src="https://freesvg.org/img/pink_button_sound_off_morgaine1976.png"
+            alt="Unmuted"
+            style={{ width: '75px', height: '75px' }}
+          />
         )}
       </button>
     </div>

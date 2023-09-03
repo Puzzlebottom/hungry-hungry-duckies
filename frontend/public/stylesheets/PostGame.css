@@ -20,16 +20,32 @@ html, body {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+@keyframes crazyText {
+  0% { color: rgb(255, 0, 0); } /* Red */
+  10% { color: rgb(255, 127, 0); } /* Orange */
+  20% { color: rgb(255, 255, 0); } /* Yellow */
+  30% { color: rgb(0, 255, 0); } /* Green */
+  40% { color: rgb(0, 0, 255); } /* Blue */
+  50% { color: rgb(75, 0, 130); } /* Indigo */
+  60% { color: rgb(148, 0, 211); } /* Violet */
+  70% { color: rgb(255, 0, 0); } /* Back to Red */
+  80% { color: rgb(255, 127, 0); } /* Orange */
+  90% { color: rgb(255, 255, 0); } /* Yellow */
+  100% { color: rgb(0, 255, 0); } /* Green */
+}
+
 h1 {
-  color: rgb(0, 0, 0);
+  font-size: 150px;
+  animation: crazyText 5s infinite alternate; /* Adjust the duration and animation type */
 }
 
 table {
   width: 80%;
   margin: 30px auto;
   border-collapse: collapse;
-  background-color: #4ea5c7;
-  color: white;
+  background-color: #1c6f7f;
+  color: rgb(255, 255, 255);
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
   border-radius: 20px;
 }
@@ -57,7 +73,7 @@ tbody tr:first-child td { /*this makes the winner size bigger than the rest */
 .main-menu-button, .play-again-button {
   padding: 30px 60px;
   font-size: 15px;
-  background-color: #008CBA;
+  background-color: #1c6f7f;
   color: rgb(255, 255, 255);
   border: none;
   border-radius: 10px;
@@ -78,7 +94,20 @@ tbody tr:first-child td { /*this makes the winner size bigger than the rest */
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Maintain aspect ratio and cover the container */
-  opacity: 20%; /* Adjust the opacity to blend with the background */
-  z-index: -1; /* Place the video behind other content */
+  object-fit: cover;
+  opacity: 20%;
+  z-index: -1;
 }
+
+.footer {
+  margin-top: 100px;
+}
+
+div.audiobutton {
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 20px; /* Adjust the top position as needed */
+  right: 200px; /* Adjust the right position as needed */
+}
+

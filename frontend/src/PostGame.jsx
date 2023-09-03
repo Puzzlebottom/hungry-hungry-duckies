@@ -24,7 +24,6 @@ function PostGame() {
       <video className="background-video" autoPlay loop muted>
         <source src={videoBackground} type="video/mp4" />
       </video>
-      <PlaySound />
       <h1 className="Winner">Leaderboard</h1>
       <table className="leaderboard-table">
         <thead>
@@ -44,13 +43,16 @@ function PostGame() {
           ))}
         </tbody>
       </table>
-
-      <div className="container-for-post-game-buttons">
+     <div className="container-for-post-game-buttons">
         <button className="main-menu-button">Main Menu</button>
         <button className="play-again-button">Play again</button>
       </div>
+      <div className="audiobutton">
+        <PlaySound />
+      </div>
     </div>
-  )
+  );
 };
+
 
 export default PostGame
