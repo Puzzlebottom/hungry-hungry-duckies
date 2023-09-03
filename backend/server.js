@@ -35,6 +35,11 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 
+  socket.on('playerName', (name) => {
+    console.log('playerName: ' + name);
+    socket.emit('playerName', `name: ${name}`);
+  });
+
   // You can handle other socket.io events here
   socket.on('chat message', (msg) => {
     io.emit('chat message', msg); // Broadcast the message to all connected clients
