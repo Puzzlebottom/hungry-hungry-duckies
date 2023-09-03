@@ -10,7 +10,7 @@ const router  = express.Router();
 const playerQueries = require('../db/queries/players');
 
 router.get('/', (req, res) => {
-  playerQueries.getAllPlayers()
+  playerQueries.getTopPlayers()
     .then(playerData => {
       const players = playerData.rows;
       res.json({ players });

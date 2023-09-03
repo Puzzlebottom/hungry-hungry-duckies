@@ -7,4 +7,13 @@ const getAllPlayers = () => {
   return db.query(query);
 }
 
-exports.getAllPlayers = getAllPlayers;
+const getTopPlayers = () => {
+  const query = `
+    SELECT * FROM players
+    ORDER BY hi_score DESC
+    LIMIT 10;
+  `;
+  return db.query(query);
+}
+
+module.exports = { getAllPlayers, getTopPlayers };
