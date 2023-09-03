@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Home from './Home';
 import Table from './Table';
 import { socket } from './socket';
-
+import PostGame from './PostGame';
 
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
