@@ -11,7 +11,8 @@
     "sass-watch": "sass --watch src/sass:public/stylesheets"
   },
   "dependencies": {
-    "howler": "^2.2.3",
+    "matter-attractors": "^0.1.6",
+    "matter-js": "^0.19.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-player": "^2.12.0",
