@@ -22,4 +22,18 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/:uuid', (req, res) => {
+  const uuid = req.params.uuid;
+  playerQueries.getPlayerByUUID(uuid)
+    .then(playerData => {
+      const player = playerData.rows[0];
+      res.json({ player });
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+});
+
 module.exports = router;

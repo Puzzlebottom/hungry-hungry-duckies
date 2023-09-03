@@ -37,6 +37,7 @@ io.on('connection', (socket) => {
 
   socket.on('playerName', (name) => {
     console.log('playerName: ' + name);
+
     socket.emit('serverReply', `server says: name => ${name}`);
   });
 
