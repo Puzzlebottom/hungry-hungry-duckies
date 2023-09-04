@@ -45,11 +45,7 @@ function App() {
   }, []);
 
   return (
-<<<<<<< HEAD
-    <Table  handleSubmission={handleSubmission} />
-=======
     <Home handleSubmission={handleSubmission} defaultName={defaultName}/>
->>>>>>> feature/playername
   );
 }
 
