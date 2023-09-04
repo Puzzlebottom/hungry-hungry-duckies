@@ -10,11 +10,33 @@ import axios from 'axios';
 function App() {
   const [defaultName, setDefaultName] = useState('');
   const [cookies, setCookie] = useCookies(['name']);
+  const [view, setView] = useState('home');
 
   //Emits player name form info to server
   const handleSubmission = (name) => {
     socket.emit('join', { 'name': name, 'cookie_uuid': cookies.cookie_uuid });
   };
+  const handleViewChange = (view) => {
+    setView(view);
+  };
+  const currentView = () => {
+    switch (view) {
+      case 'home':
+        return <Home handleSubmission={handleSubmission} defaultName={defaultName} />;
+      case 'table':
+        return <Table />;
+      case 'postGame':
+        return <PostGame />;
+      case 'loading':
+        return <Loading />;
+      default:
+        return <Home handleSubmission={handleSubmission} defaultName={defaultName} />;
+    }
+  };
+
+
+
+
 
   useEffect(() => {
     socket.on('joinReply', (response) => setCookie('name', response.name, { path: '/' }));
@@ -44,8 +66,11 @@ function App() {
     });
   }, []);
 
+
   return (
-    <Home handleSubmission={handleSubmission} defaultName={defaultName}/>
+    <div className="App">
+      {currentView()}
+    </div>
   );
 }
 
