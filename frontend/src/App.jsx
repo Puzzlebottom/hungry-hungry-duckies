@@ -15,14 +15,14 @@ function App() {
   const [join, setJoin] = useState(false); //????????
   const [cookies, setCookie] = useCookies(['name']);
 
-
+  //Emits form info to server
   const handleSubmission = (name) => {
     console.log('HANDLE SUBMIT', name);
     console.log('COOKIE before', cookies);
     socket.emit('playerName', { 'name': name, 'cookie': cookies.cookie_uuid });
   };
   useEffect(() => {
-    setCookie('cookie_uuid', 'f52d45a6-9d74-48d9-b30b-d487a40f7a77', { path: '/' }) //REMOVE AFTER TESTING
+    // setCookie('cookie_uuid', 'f52d45a6-9d74-48d9-b30b-d487a40f7a77', { path: '/' }) //REMOVE AFTER TESTING
     function onConnect() {
       setIsConnected(true);
     }
@@ -54,10 +54,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log('RUNNING AXIOS GET')
     axios.get('http://localhost:8080/', { withCredentials: true })
     .then((response) => {
-      console.log("RES FROM SERVER WITH COOKIE ==>", response.data);
+      setCookie('cookie_uuid', response.data, { path: '/' })
     })
     .catch((error) => {
       console.log(error);
