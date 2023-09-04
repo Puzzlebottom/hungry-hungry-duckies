@@ -2,17 +2,18 @@ import { useState } from 'react'
 
 export default function PlayerNameForm (props) {
   const [playerName, setPlayerName] = useState('')
-  const { handleSubmission } = props
+  const { handleSubmission, defaultName } = props
   return (
     <form className='playername-form' onSubmit={
       (event) => {
         event.preventDefault()
-        handleSubmission(playerName)
+        console.log('event target', event.target.name.value)
+        handleSubmission(event.target.name.value)
       }
     }>
       <label htmlFor='name'>Name</label>
-      <input type='text' id='name' name='name' value={playerName} onChange={(event) => setPlayerName(event.target.value)}
-      placeholder='Enter player name' />
+      <input type='text' id='name' name='name' onChange={(event) => setPlayerName(event.target.value)}
+      placeholder='Enter player name' defaultValue={defaultName} />
       <button type='submit'>Submit</button>
     </form>
   )

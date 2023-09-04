@@ -13,6 +13,7 @@ function App() {
   const [ready, setReady] = useState(false);
   const [home, setHome] = useState(false);
   const [join, setJoin] = useState(false); //????????
+  const [defaultName, setDefaultName] = useState('');
   const [cookies, setCookie] = useCookies(['name']);
 
   //Emits form info to server
@@ -32,7 +33,10 @@ function App() {
     }
 
     socket.on('serverReply', (response) => setCookie('name', response.name, { path: '/' }));
-    socket.on('checkCookieReply', (response) => { console.log('REPLY FROM SERVER', response) });
+    socket.on('checkCookieReply', (response) => {
+      console.log('REPLY FROM SERVER', response.msg);
+      setDefaultName(response.name);
+    });
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
     socket.on('home', () => setHome(true));
@@ -65,7 +69,7 @@ function App() {
   }, []);
 
   return (
-    <Home handleSubmission={handleSubmission} />
+    <Home handleSubmission={handleSubmission} defaultName={defaultName}/>
   );
 }
 
