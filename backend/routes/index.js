@@ -3,7 +3,7 @@ const router  = express.Router();
 const playerQueries = require('../db/queries/players');
 const { v4: uuidv4 } = require('uuid');
 
-// Runs cookie check on page load and returns cookie_uuid
+// Runs cookie check on page load and returns cookie_uuid and player name
 
 router.get('/', (req, res) => {
   const {cookie_uuid} = req.cookies

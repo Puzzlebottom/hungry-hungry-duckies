@@ -24,19 +24,20 @@ const io = new Server(httpServer, {
 const PORT = process.env.PORT || 8080;
 
 app.use(cookieParser());
-app.use(cors({ credentials: true, origin: 'http://localhost:5173', methods: ['GET', 'POST'] }));
+app.use(cors({ credentials: true, origin: 'http://localhost:5173', methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 //Routes
-app.use('/', require('./routes/home'));
+app.use('/', require('./routes'));
 app.use('/api/players', require('./routes/users-api'));
 
 
 io.on('connect_error', (err) => {
   console.log(`connect_error due to ${err.message}`);
 });
+
 io.on('connection', (socket) => {
   console.log('a user connected');
 
@@ -49,6 +50,7 @@ io.on('connection', (socket) => {
     const socketFunction = (data) => {
       socket.emit('joinReply', { 'name': data });
     };
+
     playerQueries.getPlayerByUUID(cookie_uuid)
       .then(data => {
         if(data.rows[0]) {

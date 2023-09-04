@@ -1,5 +1,6 @@
 const playerQueries = require('../db/queries/players');
 
+// Compares the name in the database to the name in the form. If they are different, update the database with the new name.
 const compareName = (databaseName, formName, cookie_uuid, socketFunction) => {
   if(databaseName !== formName) {
     console.log('name changed');
@@ -15,6 +16,7 @@ const compareName = (databaseName, formName, cookie_uuid, socketFunction) => {
   }
 }
 
+// Creates a new player in the database with name and cookie_uuid
 const createNewPlayer = (cookie_uuid, name, socketFunction) => {
   playerQueries.addPlayer(cookie_uuid, name)
     .then(data => {
