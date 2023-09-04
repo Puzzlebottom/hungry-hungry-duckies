@@ -31,7 +31,7 @@ app.use(express.static('public'));
 
 //Routes
 app.use('/', require('./routes'));
-app.use('/api/players', require('./routes/users-api'));
+app.use('/api/players', require('./routes/players-api'));
 
 
 io.on('connect_error', (err) => {
