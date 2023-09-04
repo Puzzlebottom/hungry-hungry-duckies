@@ -24,6 +24,7 @@ function App() {
   useEffect(() => {
     function onConnect() {
       setIsConnected(true);
+      socket.emit('checkPlayerCookie', { 'cookie_uuid': cookies.cookie_uuid });
     }
 
     function onDisconnect() {
@@ -31,6 +32,7 @@ function App() {
     }
 
     socket.on('serverReply', (response) => setCookie('name', response.name, { path: '/' }));
+    socket.on('checkCookieReply', (response) => { console.log('REPLY FROM SERVER', response) });
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
     socket.on('home', () => setHome(true));

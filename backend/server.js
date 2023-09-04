@@ -65,6 +65,28 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 
+  socket.on('checkPlayerCookie', (cookie) => {
+    console.log('SERVER CHECK COOKIE: ', cookie);
+    const query = `
+      SELECT * FROM players
+      WHERE cookie_uuid = $1;
+    `;
+    const values = [cookie.cookie_uuid];
+    db.query(query, values)
+      .then(data => {
+        if(data.rows[0]) {
+          console.log('cookie_uuid exists');
+          socket.emit('checkCookieReply', { 'msg': `server says: name => ${data.rows[0].name}`, 'name': data.rows[0].name });
+        } else {
+          console.log('cookie_uuid does not exist');
+          socket.emit('checkCookieReply', { 'msg': `server says: name => ${data.rows[0].name}`, 'name': null });
+        }
+      })
+      .catch(err => {
+        console.log('err: ', err);
+      });
+  });
+
   socket.on('playerName', (playerNameObj) => {
     console.log('playerName: ' + playerNameObj.name);
     console.log('cookie_uuid: ' + playerNameObj.cookie_uuid);
