@@ -64,7 +64,7 @@ function App() {
   }, []);
 
   return (
-    <Home handleSubmission={handleSubmission} />
+    <Table  handleSubmission={handleSubmission} />
   );
 }
 
