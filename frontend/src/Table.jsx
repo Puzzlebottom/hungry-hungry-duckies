@@ -16,6 +16,8 @@ import bottomRight3 from './assets/duckie-bottom-right-3.png';
 
 import Quarter from './components/Quarter';
 import Bugs from './components/Bugs';
+import GameTimer from './components/Gametimer';
+import Countdown from './components/Countdown';
 
 const munchSounds = ['/audio/munchquack.mp3', '/audio/munchquack2.mp3', '/audio/munchquack3.mp3', '/audio/munchquack4.mp3', '/audio/munchquack5.mp3', '/audio/munchquack6.mp3', '/audio/munchquack7.mp3', '/audio/munchquack8.mp3', '/audio/munchquack9.mp3', '/audio/munchquack10.mp3'];
 
@@ -33,6 +35,8 @@ function Table(props) {
     [bottomLeft1, bottomLeft2, bottomLeft3],
     [bottomRight1, bottomRight2, bottomRight3]
   ];
+
+
 
   const playerMunchStates = [useState(false), useState(false), useState(false), useState(false)];
   const playerNameStates = [useState(''), useState(''), useState(''), useState('')];
@@ -145,14 +149,31 @@ function Table(props) {
     return <Quarter key={index} {...{ images, player, color }} />;
   });
 
+  const [countdownComplete, setCountdownComplete] = useState(false);
+
+  const handleCountdownComplete = () => {
+    setCountdownComplete(true);
+  };
+
   return (
     <main className="table-view">
       <img src={arena} className="table" />
-      <Bugs />
-      <span className="timer">12:59</span>
+      <Countdown
+        onComplete={handleCountdownComplete}
+      />
+      {countdownComplete && (
+        <>
+          <GameTimer
+            initialMinutes={12}
+            initialSeconds={59}
+          />
+          <Bugs />
+        </>
+      )}
+
       {quarters}
     </main>
   );
-}
+};
 
-export default Table;
+export default Table

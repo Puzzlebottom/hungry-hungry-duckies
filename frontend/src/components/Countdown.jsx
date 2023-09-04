@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-const Countdown = ({ seconds, onComplete }) => {
-  const [timer, setTimer] = useState(seconds);
+function Countdown({ onComplete }) {
+  const [timer, setTimer] = useState(3);
 
   useEffect(() => {
     const countdownInterval = setInterval(() => {
@@ -12,11 +12,11 @@ const Countdown = ({ seconds, onComplete }) => {
         setTimeout(() => {
           setTimer('');
           clearInterval(countdownInterval);
-          onComplete(); //
-        }, 1000); // should only show munch for 1 second before clearing it from screen
+          onComplete();
+        }, 750);
       } else {
         clearInterval(countdownInterval);
-        onComplete(); // makes sure to call the oncomplete after the contdown is done
+        onComplete();
       }
     }, 750);
 
@@ -25,9 +25,9 @@ const Countdown = ({ seconds, onComplete }) => {
 
   return (
     <div className="countdown">
-      <p style={{ fontSize: timer === 'MUNCH!' ? '33%' : '100%' }}>{timer}</p> {/* makes munch smaller as needed */}
+      <p style={{ fontSize: timer === 'MUNCH!' ? '33%' : '100%' }}>{timer}</p>
     </div>
   );
-};
+}
 
 export default Countdown;
