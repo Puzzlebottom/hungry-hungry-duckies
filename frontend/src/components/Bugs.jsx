@@ -13,7 +13,14 @@ export default function Bugs(props) {
   const engine = useRef(Engine.create());
   let tickCounter = useRef(0);
 
+  const handleResize = (e) => {
+    console.log(e);
+  };
+
   useEffect(() => {
+
+    window.addEventListener('resize', handleResize);
+
     const width = document.body.clientWidth;
     const height = document.body.clientHeight;
 
@@ -35,6 +42,7 @@ export default function Bugs(props) {
     const smallerSide = Math.min(width, height);
     let ratio = 0.45;
     let radius = smallerSide * ratio;
+    console.log(radius * 2);
 
     const getCenter = () => {
       const center = Bodies.circle(centerpoint.x, centerpoint.y, 0, {
@@ -73,23 +81,31 @@ export default function Bugs(props) {
       return segments;
     };
 
+    function getRandomCoordinateInCircle(radius) {
+      const x = Math.random() * radius * Math.cos(Math.random() * 2 * Math.PI);
+      const y = Math.random() * radius * Math.sin(Math.random() * 2 * Math.PI);
+      return { x, y };
+    }
+
     const getBugs = () => {
       const bugs = [];
+      console.log('RADIUS: ', radius * 0.044);
       for (let i = 0; i < 25; i++) {
-        const newBug = Bodies.circle(width / 2, height / 2, 15, {
-          restitution: 1, friction: -0.05, frictionAir: 0.01, frictionStatic: 0, label: 'bug',
+        const position = getRandomCoordinateInCircle(radius / Math.PI);
+        const newBug = Bodies.circle(width / 2 + position.x, height / 2 + position.y, radius * 0.044, {
+          restitution: 1, friction: -0.2 * (radius / 350), frictionAir: 0.01, frictionStatic: 0, label: 'bug',
           render: {
             sprite: {
               texture: bug1,
-              xScale: 0.25,
-              yScale: 0.25,
+              xScale: 0.25 * radius / 350,
+              yScale: 0.25 * radius / 350,
               // the offset is to more accurately line up the bugs center of mass with the sprite
               xOffset: 0,
               yOffset: -0.05
             }
           }
         });
-        Body.setMass(newBug, 0.5);
+        Body.setMass(newBug, 0.5 * radius / 350);
         bugs.push(newBug);
       }
       return bugs;
@@ -125,13 +141,13 @@ export default function Bugs(props) {
       tickCounter.current++;
 
       for (const bug of bugs) {
-        if (tickCounter.current === 8) {
+        if (tickCounter.current === 20) {
           toggleBugSprite(bug);
         }
         alignBug(bug);
       }
 
-      if (tickCounter.current === 8) tickCounter.current = 0;
+      if (tickCounter.current === 20) tickCounter.current = 0;
     });
 
     Render.run(render);
@@ -147,10 +163,11 @@ export default function Bugs(props) {
       render.canvas = null;
       render.context = null;
       render.textures = {};
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
   return (
-    <div ref={arena} style={{ width: '100%', height: '100%', position: 'absolute' }} />
+    <div ref={arena} className='arena' style={{ width: '100%', height: '100%', position: 'absolute' }} />
   );
 }

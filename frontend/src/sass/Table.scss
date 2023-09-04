@@ -35,7 +35,7 @@ body {
   background-color: rgb(73, 255, 152);
 }
 
-.table,
+.arena,
 .duckie {
   position: absolute;
   left: 50vw;
@@ -94,7 +94,7 @@ body {
   color: white;
   background-color: black;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-size: min(5vh, 5vh);
+  font-size: min(5vh, 5vw);
   border: 3px solid white;
   border-radius: 8px;
 }

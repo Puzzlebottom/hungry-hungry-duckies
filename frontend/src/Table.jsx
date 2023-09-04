@@ -153,7 +153,7 @@ function Table(props) {
 
   return (
     <main className='table-view'>
-      <img src={arena} className='table' />
+      <img src={arena} className='arena' />
       <Bugs />
       <span className='timer'>12:59</span>
       {/* <span className='countdown'>GO!</span> */}
