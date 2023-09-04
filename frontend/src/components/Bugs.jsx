@@ -21,7 +21,7 @@ const BUG_FRICTION_COEFFICIENT = -55e-5; // controls the negative friction of th
 const AIR_FRICTION_COEFFICIENT = 199e-7; // controls how rapidly the bugs slow down; bigger number = slower bugs
 const RESTITUTION = 1; // controls the bounciness of the bugs; bigger number = more bouncy;
 
-export default function Bugs({ bugUpdate }) {
+export default function Bugs({ bugState }) {
 
   const arena = useRef(); // arena element
   const engine = useRef(Engine.create());
@@ -31,24 +31,93 @@ export default function Bugs({ bugUpdate }) {
   const [viewHeight, setViewHeight] = useState(document.body.clientHeight);
   const [bugs, setBugs] = useState([]);
 
+  const centerpoint = { x: viewWidth / 2, y: viewHeight / 2 };
+  const smallerSide = Math.min(viewWidth, viewHeight);
+  const radius = smallerSide * INSIDE_DIAMETER_ADJUSTMENT;
+
   const handleResize = () => {
     setViewWidth(document.body.clientWidth);
     setViewHeight(document.body.clientHeight);
   };
 
+  const handleMouseDown = () => {
+    console.log('new');
+    setBugs((prev) => [...prev, getNewBug()]);
+  };
+
+  const getAttractor = () => {
+    const attractor = (bodyA, bodyB) => {
+      const a = bodyA.position;
+      const b = bodyB.position;
+      return { x: (a.x - b.x) * radius * ATTRACTION_COEFFICIENT, y: (a.y - b.y) * radius * ATTRACTION_COEFFICIENT * radius / 350 };
+    };
+
+    const center = Bodies.circle(centerpoint.x, centerpoint.y, 0, {
+      isStatic: true,
+      plugin: { attractors: [attractor] }
+    });
+
+    return center;
+  };
+
+  const getBounds = () => {
+    const wallSegments = [];
+    const totalSegments = TOTAL_BOUNDARY_FACES;
+    const segmentSideLength = WALL_SEGMENT_DIMENSIONAL_COEFFICIENT * smallerSide;
+
+    for (let i = 0; i < totalSegments; i++) {
+      const segmentAngle = i / totalSegments * Math.PI * 2 + totalSegments / 2;
+      const segmentCenter = {
+        x: Math.cos(segmentAngle) * (radius + segmentSideLength / 2) + centerpoint.x,
+        y: Math.sin(segmentAngle) * (radius + segmentSideLength / 2) + centerpoint.y
+      };
+      const segment = Bodies.rectangle(segmentCenter.x, segmentCenter.y, segmentSideLength, segmentSideLength,
+        { angle: segmentAngle, isStatic: true, render: { visible: false } }
+      );
+      wallSegments.push(segment);
+
+    }
+    return wallSegments;
+  };
+
+  const getRandomCoordinateInCircle = (radius) => {
+    const x = Math.random() * radius * Math.cos(Math.random() * 2 * Math.PI);
+    const y = Math.random() * radius * Math.sin(Math.random() * 2 * Math.PI);
+    return { x, y };
+  };
+
+  const getNewBug = () => {
+    const randomOffset = getRandomCoordinateInCircle(radius / Math.PI);
+    const x = centerpoint.x + randomOffset.x;
+    const y = centerpoint.y + randomOffset.y;
+    const size = radius * BUG_SIZE_COEFFECIENT;
+    const newBug = Bodies.circle(x, y, size, {
+      restitution: RESTITUTION, friction: radius * BUG_FRICTION_COEFFICIENT, frictionAir: radius * AIR_FRICTION_COEFFICIENT, frictionStatic: 0, label: 'bug',
+      render: {
+        sprite: {
+          texture: bug1,
+          xScale: radius * SPRITE_SIZE_COEFFECIENT,
+          yScale: radius * SPRITE_SIZE_COEFFECIENT,
+          yOffset: SPRITE_Y_OFFSET
+        }
+      }
+    });
+
+    return newBug;
+  };
+
   const updateBugs = (composite) => {
     if (bugs.length === 0) {
-      setBugs(bugUpdate);
-      return;
+      return setBugs(bugs);
     }
 
     const removeBug = (bug) => Composite.remove(composite, bug);
     const addBug = (bug) => Composite.add(composite, bug);
 
     const oldBugs = Composite.allBodies(composite).filter(body => body.label === 'bug');
-    const updatedBugs = [...bugUpdate];
+    const updatedBugs = bugs;
 
-    const oldBugMap = oldBugs.reduce((map, bug) => { return { ...map, [bug.id]: bug }, {}; });
+    const oldBugMap = oldBugs.reduce((map, bug) => { return { ...map, [bug.id]: bug }; }, {});
     const updatedBugMap = updatedBugs.reduce((map, bug) => { return { ...map, [bug.id]: bug }; }, {});
 
     Object.keys(oldBugMap).forEach(id => {
@@ -56,7 +125,6 @@ export default function Bugs({ bugUpdate }) {
       if (updatedBugMap[id]) {
         Body.setPosition(oldBugMap[id], updatedBugMap[id].position);
         Body.setVelocity(oldBugMap[id], updatedBugMap[id].velocity);
-        // Body.setAngle(oldBugMap[id], updatedBugMap[id].angle);
       }
       // remove eaten bugs
       removeBug(oldBugMap[id]);
@@ -67,84 +135,18 @@ export default function Bugs({ bugUpdate }) {
       Object.keys(updatedBugMap).forEach(id => {
         // add new bugs
         if (!oldBugMap[id]) {
-          addBug(updatedBugMap[id]);
+          const { position, velocity } = updatedBugMap[id];
+          addBug(getNewBug(id, position, velocity));
         }
       });
     }
+    console.log(Composite.allBodies(composite).filter(body => body.label === 'bug'));
   };
 
   useEffect(() => {
 
     window.addEventListener('resize', handleResize);
-
-    const centerpoint = { x: viewWidth / 2, y: viewHeight / 2 };
-    const smallerSide = Math.min(viewWidth, viewHeight);
-    const radius = smallerSide * INSIDE_DIAMETER_ADJUSTMENT;
-
-    const getAttractor = () => {
-      const attractor = (bodyA, bodyB) => {
-        const a = bodyA.position;
-        const b = bodyB.position;
-        return { x: (a.x - b.x) * radius * ATTRACTION_COEFFICIENT, y: (a.y - b.y) * radius * ATTRACTION_COEFFICIENT * radius / 350 };
-      };
-
-      const center = Bodies.circle(centerpoint.x, centerpoint.y, 0, {
-        isStatic: true,
-        plugin: { attractors: [attractor] }
-      });
-
-      return center;
-    };
-
-    const getBounds = () => {
-      const wallSegments = [];
-      const totalSegments = TOTAL_BOUNDARY_FACES;
-      const segmentSideLength = WALL_SEGMENT_DIMENSIONAL_COEFFICIENT * smallerSide;
-
-      for (let i = 0; i < totalSegments; i++) {
-        const segmentAngle = i / totalSegments * Math.PI * 2 + totalSegments / 2;
-        const segmentCenter = {
-          x: Math.cos(segmentAngle) * (radius + segmentSideLength / 2) + centerpoint.x,
-          y: Math.sin(segmentAngle) * (radius + segmentSideLength / 2) + centerpoint.y
-        };
-        const segment = Bodies.rectangle(segmentCenter.x, segmentCenter.y, segmentSideLength, segmentSideLength,
-          { angle: segmentAngle, isStatic: true, render: { visible: false } }
-        );
-        wallSegments.push(segment);
-
-      }
-      return wallSegments;
-    };
-
-    // const getRandomCoordinateInCircle = (radius) => {
-    //   const x = Math.random() * radius * Math.cos(Math.random() * 2 * Math.PI);
-    //   const y = Math.random() * radius * Math.sin(Math.random() * 2 * Math.PI);
-    //   return { x, y };
-    // };
-
-    // const getBugs = () => {
-    //   const bugs = [];
-
-    //   for (let i = 0; i < NUMBER_OF_BUGS; i++) {
-    //     const randomOffset = getRandomCoordinateInCircle(radius / Math.PI);
-    //     const x = centerpoint.x + randomOffset.x;
-    //     const y = centerpoint.y + randomOffset.y;
-    //     const size = radius * BUG_SIZE_COEFFECIENT;
-    //     const newBug = Bodies.circle(x, y, size, {
-    //       restitution: RESTITUTION, friction: radius * BUG_FRICTION_COEFFICIENT, frictionAir: radius * AIR_FRICTION_COEFFICIENT, frictionStatic: 0, label: 'bug',
-    //       render: {
-    //         sprite: {
-    //           texture: bug1,
-    //           xScale: radius * SPRITE_SIZE_COEFFECIENT,
-    //           yScale: radius * SPRITE_SIZE_COEFFECIENT,
-    //           yOffset: SPRITE_Y_OFFSET
-    //         }
-    //       }
-    //     });
-    //     bugs.push(newBug);
-    //   }
-    //   return bugs;
-    // };
+    window.addEventListener('mousedown', handleMouseDown);
 
     const render = Render.create({
       element: arena.current,
@@ -154,7 +156,6 @@ export default function Bugs({ bugUpdate }) {
         height: viewHeight,
         wireframes: false,
         background: 'transparent',
-        showPerformance: true
       }
     });
 
@@ -194,9 +195,10 @@ export default function Bugs({ bugUpdate }) {
       if (tickCounter.current === BUG_TEMPO) tickCounter.current = 0;
     });
 
+    updateBugs(composite, engine);
+
     Render.run(render);
     Runner.run(runner, engine.current);
-    updateBugs(composite, engine);
 
     const cleanup = () => {
       Render.stop(render);
@@ -208,11 +210,12 @@ export default function Bugs({ bugUpdate }) {
       render.context = null;
       render.textures = {};
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousedown', handleMouseDown);
     };
 
 
     return cleanup;
-  }, [viewHeight, viewWidth, bugUpdate]);
+  }, [viewHeight, viewWidth, bugs]);
 
   return (
     <div ref={arena} className='arena' style={{ width: '100%', height: '100%' }} />
