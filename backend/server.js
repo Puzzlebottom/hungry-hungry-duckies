@@ -30,20 +30,23 @@ app.use('/api/players', require('./routes/users-api'));
 
 // Runs cookie check on page load and returns cookie_uuid
 app.get('/', (req, res) => {
-  if(req.cookies.cookie_uuid) {
+  const {cookie_uuid} = req.cookies
+  console.log('HELLO: ', cookie_uuid)
+
+  if(cookie_uuid) {
     console.log('cookie_uuid present');
     const query = `
       SELECT * FROM players
       WHERE cookie_uuid = $1;
     `;
-    const values = [req.cookies.cookie_uuid];
+    const values = [cookie_uuid];
     db.query(query, values)
       .then(data => {
         if(data.rows[0]) {
-          res.json(data.rows[0].cookie_uuid)
+          res.json({ 'cookie_uuid': data.rows[0].cookie_uuid, 'name': data.rows[0].name })
         } else {
           const cookie_uuid = uuidv4();
-          res.json(cookie_uuid);
+          res.json({cookie_uuid, 'name': null});
         }
       })
       .catch(err => {
@@ -51,7 +54,7 @@ app.get('/', (req, res) => {
       });
   } else {
     const cookie_uuid = uuidv4();
-    res.json(cookie_uuid);
+    res.json({ cookie_uuid, 'name': null });
     }
 });
 
@@ -65,31 +68,31 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 
-  socket.on('checkPlayerCookie', (cookie) => {
-    console.log('SERVER CHECK COOKIE: ', cookie);
-    if (cookie.cookie_uuid) {
-    const query = `
-      SELECT * FROM players
-      WHERE cookie_uuid = $1;
-    `;
-    const values = [cookie.cookie_uuid];
-    db.query(query, values)
-      .then(data => {
-        if(data.rows[0]) {
-          console.log('cookie_uuid exists');
-          socket.emit('checkCookieReply', { 'msg': `server says: name => ${data.rows[0].name}`, 'name': data.rows[0].name });
-        } else {
-          console.log('cookie_uuid does not exist');
-          socket.emit('checkCookieReply', { 'msg': `server says: name => ''`, 'name': null });
-        }
-      })
-      .catch(err => {
-        console.log('err: ', err);
-      });
-    } else {
-      socket.emit('checkCookieReply', { 'msg': `server says: no cookie found`, 'name': null });
-    }
-  });
+  // socket.on('checkPlayerCookie', (cookie) => {
+  //   console.log('SERVER CHECK COOKIE: ', cookie);
+  //   if (cookie.cookie_uuid) {
+  //   const query = `
+  //     SELECT * FROM players
+  //     WHERE cookie_uuid = $1;
+  //   `;
+  //   const values = [cookie.cookie_uuid];
+  //   db.query(query, values)
+  //     .then(data => {
+  //       if(data.rows[0]) {
+  //         console.log('cookie_uuid exists');
+  //         socket.emit('checkCookieReply', { 'msg': `server says: name => ${data.rows[0].name}`, 'name': data.rows[0].name });
+  //       } else {
+  //         console.log('cookie_uuid does not exist');
+  //         socket.emit('checkCookieReply', { 'msg': `server says: name => ''`, 'name': null });
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.log('err: ', err);
+  //     });
+  //   } else {
+  //     socket.emit('checkCookieReply', { 'msg': `server says: no cookie found`, 'name': null });
+  //   }
+  // });
 
   socket.on('playerName', (playerNameObj) => {
     console.log('playerName: ' + playerNameObj.name);

@@ -25,8 +25,6 @@ function App() {
   useEffect(() => {
     function onConnect() {
       setIsConnected(true);
-      console.log('COOKIE when connected', cookies);
-      socket.emit('checkPlayerCookie', { 'cookie_uuid': cookies.cookie_uuid });
     }
 
     function onDisconnect() {
@@ -34,10 +32,6 @@ function App() {
     }
 
     socket.on('serverReply', (response) => setCookie('name', response.name, { path: '/' }));
-    socket.on('checkCookieReply', (response) => {
-      console.log('REPLY FROM SERVER', response.msg);
-      setDefaultName(response.name);
-    });
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
     socket.on('home', () => setHome(true));
@@ -66,12 +60,15 @@ function App() {
   useEffect(() => {
     axios.get('http://localhost:8080/', { withCredentials: true })
     .then((response) => {
-      setCookie('cookie_uuid', response.data, { path: '/' })
+      console.log('RESPONSE FROM AXIOS', response);
+      const { name, cookie_uuid } = response.data;
+      setCookie('cookie_uuid', cookie_uuid, { path: '/' })
+      setCookie('name', name, { path: '/' })
     })
     .catch((error) => {
       console.log(error);
     });
-  }, [cookies, setCookie]);
+  }, []);
 
   return (
     <Home handleSubmission={handleSubmission} defaultName={defaultName}/>
