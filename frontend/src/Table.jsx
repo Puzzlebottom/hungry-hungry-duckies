@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+import { Bodies } from 'matter-js';
+
+import bug1 from './assets/bug1.png';
 
 import arena from './assets/arena.png';
 import topLeft1 from './assets/duckie-top-left-1.png';
@@ -50,6 +53,7 @@ function Table(props) {
         setTimeout(() => {
           setMunchStateCB(false);
         }, 285);
+        //makeMunchSound()
         return true;
       }
       return prev;
@@ -145,6 +149,33 @@ function Table(props) {
   //   }, 300);
   // };
 
+  const [bugUpdate, setBugUpdate] = useState([]);
+
+  const mockBug = () => Bodies.circle(document.body.clientWidth / 2, document.body.clientHeight / 2, 15, {
+    restitution: 0, friction: -0.2, frictionAir: 0.01, frictionStatic: 0, label: 'bug',
+    render: {
+      sprite: {
+        texture: bug1,
+        xScale: 0.25,
+        yScale: 0.25,
+        yOffset: -0.05
+      }
+    }
+  });
+  const mockBugs = [mockBug(), mockBug()];
+
+  const setMockBugs = () => {
+    console.log('update!');
+    setBugUpdate(mockBugs);
+  };
+
+  useEffect(() => {
+
+    window.addEventListener('mousedown', setMockBugs);
+
+    return () => window.removeEventListener('mousedown', setMockBugs);
+  });
+
   const quarters = getPlayersArray().map((player, index) => {
     const images = duckieImages[index];
     const color = ['green', 'red', 'blue', 'yellow'][index];
@@ -154,10 +185,10 @@ function Table(props) {
   return (
     <main className='table-view'>
       <img src={arena} className='arena' />
-      <Bugs />
+      <Bugs bugUpdate={bugUpdate} />
       <span className='timer'>12:59</span>
       {/* <span className='countdown'>GO!</span> */}
-      {quarters}
+      {/* {quarters} */}
     </main>
   );
 }
