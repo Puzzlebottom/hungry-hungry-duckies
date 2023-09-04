@@ -1,6 +1,8 @@
 // Load .env data into process.env
 require('dotenv').config();
 
+const { Pool } = require('pg');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
@@ -15,6 +17,7 @@ const io = new Server(httpServer, {
 
 const PORT = process.env.PORT || 8080;
 
+app.use(cookieParser());
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
@@ -23,7 +26,27 @@ app.use('/api/players', require('./routes/users-api'));
 
 app.get('/', (req, res) => {
   console.log('SLASH GOTTEN');
-  res.send('Hello World!'); // Respond to the root route
+  if(req.cookies.cookie_uuid) {
+    console.log('cookie_uuid present');
+    const query = `
+      SELECT * FROM players
+      WHERE cookie_uuid = $1;
+    `;
+    const values = [req.cookies.cookie_uuid];
+    db.query(query, values)
+      .then(data => {
+        console.log('data.rows[0]: ', data.rows[0]);
+        if(data.rows[0]) {
+          console.log('player exists');
+          res.cookie('cookie_uuid', data.rows[0].cookie_uuid);
+          res.send('cookie_uuid present')
+        } else {
+          console.log('player does not exist');
+        }
+      })
+      .catch(err => {
+        console.log('err: ', err);
+      });
 });
 io.on('connect_error', (err) => {
   console.log(`connect_error due to ${err.message}`);
