@@ -21,6 +21,7 @@ body {
   align-items: center;
   padding: 1%;
   width: 50%;
+  height: 92.5%;
   box-shadow: 0 0 1vh rgba(0, 0, 0, 0.5);
   border: 2px solid black;
   margin: 0 0;
@@ -39,14 +40,14 @@ body {
   .home-instructions {
     background-color: rgba(250, 250, 210, 0.7);
     border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 0.5vh rgba(0, 0, 0, 0.5);
     text-align: center;
     width: 70%;
     height: min(22vh, 22vw);
     border: 2px solid black;
     padding: 1%;
     color: orange;
-    text-shadow: 2px 2px black;
+    text-shadow: 0.1vh 0.1vw black;
 
     h1 {
       font-size: min(5vw, 5vh);
@@ -90,12 +91,12 @@ body {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   padding: 1%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1vh rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   border: 2px solid black;
-  height: 92.5%;
+  height: 85%;
 }
 
 .leaderboard {
@@ -112,7 +113,7 @@ body {
     margin: 0 0;
     font-weight: 700;
     color: gold;
-    text-shadow: 2px 2px black;
+    text-shadow: 0.1vh 0.1vw black;
     margin-bottom: 5%;
   }
 
@@ -125,7 +126,7 @@ body {
     border: solid 1px rgba(0, 0, 0, 0);
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 0.5vh rgba(0, 0, 0, 0.5);
 
 
     th {
@@ -185,7 +186,7 @@ body {
     border-radius: 5px;
     border: none;
     color: orange;
-    text-shadow: 2px 2px black;
+    text-shadow: 0.1vh 0.1vw black;
   }
 
   input {
