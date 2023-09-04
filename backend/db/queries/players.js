@@ -25,5 +25,26 @@ const getPlayerByUUID = (UUID) => {
   return db.query(query, values);
 }
 
+const updatePlayerName = (UUID, name) => {
+  const query = `
+    UPDATE players
+    SET name = $1
+    WHERE cookie_uuid = $2
+    RETURNING *;
+  `;
+  const values = [name, UUID];
+  return db.query(query, values);
+}
 
-module.exports = { getAllPlayers, getTopPlayers, getPlayerByUUID };
+const addPlayer = (UUID, name) => {
+  const query = `
+    INSERT INTO players (cookie_uuid, name)
+    VALUES ($1, $2)
+    RETURNING *;
+  `;
+  const values = [UUID, name];
+  return db.query(query, values);
+}
+
+
+module.exports = { getAllPlayers, getTopPlayers, getPlayerByUUID, updatePlayerName, addPlayer };

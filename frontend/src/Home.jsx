@@ -7,7 +7,7 @@ import axios from 'axios';
 import PlaySound from './components/PlaySound.jsx';
 
 function Home(props) {
-  const { handleSubmission } = props;
+  const { handleSubmission, defaultName } = props;
   const [players, setPlayers] = useState([]);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ function Home(props) {
       </div >
       <div className='leaderboard-and-form'>
         <Leaderboard players={players}/>
-        <PlayerNameForm handleSubmission={handleSubmission}/>
+        <PlayerNameForm handleSubmission={handleSubmission} defaultName={defaultName}/>
       </div>
     </main>
   );

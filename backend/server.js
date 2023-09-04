@@ -4,6 +4,8 @@ require('dotenv').config();
 const { v4: uuidv4 } = require('uuid');
 const { Pool } = require('pg');
 const db = require('./db/connection');
+const playerQueries = require('./db/queries/players');
+const socketHelpers = require('./helpers/socketHelpers');
 
 
 const cookieParser = require('cookie-parser');
@@ -22,42 +24,20 @@ const io = new Server(httpServer, {
 const PORT = process.env.PORT || 8080;
 
 app.use(cookieParser());
-app.use(cors({ credentials: true, origin: 'http://localhost:5173', methods: ['GET', 'POST'] }));
+app.use(cors({ credentials: true, origin: 'http://localhost:5173', methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+
+//Routes
+app.use('/', require('./routes'));
 app.use('/api/players', require('./routes/users-api'));
 
-// Runs cookie check on page load and returns cookie_uuid
-app.get('/', (req, res) => {
-  if(req.cookies.cookie_uuid) {
-    console.log('cookie_uuid present');
-    const query = `
-      SELECT * FROM players
-      WHERE cookie_uuid = $1;
-    `;
-    const values = [req.cookies.cookie_uuid];
-    db.query(query, values)
-      .then(data => {
-        if(data.rows[0]) {
-          res.json(data.rows[0].cookie_uuid)
-        } else {
-          const cookie_uuid = uuidv4();
-          res.json(cookie_uuid);
-        }
-      })
-      .catch(err => {
-        console.log('err: ', err);
-      });
-  } else {
-    const cookie_uuid = uuidv4();
-    res.json(cookie_uuid);
-    }
-});
 
 io.on('connect_error', (err) => {
   console.log(`connect_error due to ${err.message}`);
 });
+
 io.on('connection', (socket) => {
   console.log('a user connected');
 
@@ -65,15 +45,25 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 
-  socket.on('playerName', (name) => {
-    console.log('playerName: ' + name);
+  socket.on('join', (playerNameObj) => {
+    const { cookie_uuid, name } = playerNameObj;
+    const joinFunction = (data) => {
+      socket.emit('joinReply', { 'name': data });
+    };
 
-    socket.emit('serverReply', `server says: name => ${name}`);
-  });
-
-  // You can handle other socket.io events here
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg); // Broadcast the message to all connected clients
+    playerQueries.getPlayerByUUID(cookie_uuid)
+      .then(data => {
+        if(data.rows[0]) {
+          console.log('player exists');
+          socketHelpers.compareName(data.rows[0].name, name, cookie_uuid, joinFunction);
+        } else {
+          console.log('player does not exist');
+          socketHelpers.createNewPlayer(cookie_uuid, name, joinFunction);
+        }
+      })
+      .catch(err => {
+        console.log('err: ', err);
+      });
   });
 });
 

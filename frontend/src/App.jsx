@@ -8,55 +8,36 @@ import { CookiesProvider, useCookies } from 'react-cookie';
 import axios from 'axios';
 
 function App() {
-  const [isConnected, setIsConnected] = useState(socket.connected);
-  const [munch, setMunch] = useState(false);
-  const [ready, setReady] = useState(false);
-  const [home, setHome] = useState(false);
-  const [join, setJoin] = useState(false); //????????
+  const [defaultName, setDefaultName] = useState('');
   const [cookies, setCookie] = useCookies(['name']);
 
-  //Emits form info to server
+  //Emits player name form info to server
   const handleSubmission = (name) => {
-    console.log('HANDLE SUBMIT', name);
-    console.log('COOKIE before', cookies);
-    socket.emit('playerName', { 'name': name, 'cookie': cookies.cookie_uuid });
+    socket.emit('join', { 'name': name, 'cookie_uuid': cookies.cookie_uuid });
   };
+
   useEffect(() => {
-    // setCookie('cookie_uuid', 'f52d45a6-9d74-48d9-b30b-d487a40f7a77', { path: '/' }) //REMOVE AFTER TESTING
-    function onConnect() {
-      setIsConnected(true);
-    }
-
-    function onDisconnect() {
-      setIsConnected(false);
-    }
-
-    socket.on('serverReply', (data) => console.log(data));
-    socket.on('connect', onConnect);
-    socket.on('disconnect', onDisconnect);
-    socket.on('home', () => setHome(true));
-    socket.on('join', (data) => console.log(data)); // ????
-    socket.on('munch', (event) => console.log(event)); // Get timestamp from event then setMunch(true)
-    socket.on('ready', (data) => setReady(true));
+    socket.on('joinReply', (response) => setCookie('name', response.name, { path: '/' }));
     socket.on("connect_error", (err) => {
       console.log(`connect_error due to ${err.message}`);
     });
 
     return () => {
-      socket.off('connect', onConnect);
-      socket.off('serverReply', (data) => console.log(data));
-      socket.off('disconnect', onDisconnect);
-      socket.off('home', () => setHome(true));
-      socket.off('join', (data) => console.log(data));
-      socket.off('munch', (event) => console.log(event));
-      socket.off('ready', (data) => setReady(true));
+      socket.off('joinReply', (response) => setCookie('name', response.name, { path: '/' }));
+      socket.off("connect_error", (err) => {
+        console.log(`connect_error due to ${err.message}`);
+      });
     };
   }, []);
 
   useEffect(() => {
     axios.get('http://localhost:8080/', { withCredentials: true })
     .then((response) => {
-      setCookie('cookie_uuid', response.data, { path: '/' })
+      console.log('RESPONSE FROM AXIOS', response);
+      const { name, cookie_uuid } = response.data;
+      setCookie('cookie_uuid', cookie_uuid, { path: '/' })
+      setCookie('name', name, { path: '/' })
+      setDefaultName(name);
     })
     .catch((error) => {
       console.log(error);
@@ -64,7 +45,11 @@ function App() {
   }, []);
 
   return (
+<<<<<<< HEAD
     <Table  handleSubmission={handleSubmission} />
+=======
+    <Home handleSubmission={handleSubmission} defaultName={defaultName}/>
+>>>>>>> feature/playername
   );
 }
 
