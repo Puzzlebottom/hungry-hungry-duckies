@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
 
   socket.on('join', (playerNameObj) => {
     const { cookie_uuid, name } = playerNameObj;
-    const socketFunction = (data) => {
+    const joinFunction = (data) => {
       socket.emit('joinReply', { 'name': data });
     };
 
@@ -55,10 +55,10 @@ io.on('connection', (socket) => {
       .then(data => {
         if(data.rows[0]) {
           console.log('player exists');
-          socketHelpers.compareName(data.rows[0].name, name, cookie_uuid, socketFunction);
+          socketHelpers.compareName(data.rows[0].name, name, cookie_uuid, joinFunction);
         } else {
           console.log('player does not exist');
-          socketHelpers.createNewPlayer(cookie_uuid, name, socketFunction);
+          socketHelpers.createNewPlayer(cookie_uuid, name, joinFunction);
         }
       })
       .catch(err => {
