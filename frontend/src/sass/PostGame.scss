@@ -174,8 +174,8 @@ div.audiobutton {
   width: 0;
   height: 0;
   position: absolute;
-  top: -50px; /* Adjust the top position as needed */
-  right: 100px; /* Adjust the right position as needed */
+  top: 200px; /* Adjust the top position as needed */
+  right: -40px; /* Adjust the right position as needed */
 }
 
 .audio-player-container {
@@ -192,5 +192,10 @@ div.audiobutton {
   height: 50px;
   position: absolute;
   top: 200px; /* Adjust the top position as needed */
-  right: 0px; /* Adjust the right position as needed */
+  right: -40px; /* Adjust the right position as needed */
+}
+
+.audio-container {
+  width: 0;
+  height: 0;
 }

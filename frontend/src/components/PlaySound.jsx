@@ -10,11 +10,13 @@ const PlaySound = () => {
 
   return (
     <div className="audio-player-container">
+      <audio src="/audio/quacknoises.mp3" preload="auto" loop style={{ display: isMuted ? 'none' : 'block' }}></audio>
       <ReactPlayer
         url="/audio/quacknoises.mp3"
         playing={!isMuted}
         loop={true}
         volume={isMuted ? 0 : 1}
+        style={{ display: 'none' }}
       />
       <button
         onClick={toggleMute}
