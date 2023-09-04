@@ -5,6 +5,7 @@ import { socket } from './socket';
 import PostGame from './PostGame';
 import Loading from './Loading';
 import { CookiesProvider, useCookies } from 'react-cookie';
+import axios from 'axios';
 
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
@@ -17,7 +18,7 @@ function App() {
 
   const handleSubmission = (name) => {
     console.log('HANDLE SUBMIT', name);
-    console.log('COOKIE', cookies.cookie_uuid)
+    console.log('COOKIE before', cookies);
     socket.emit('playerName', { 'name': name, 'cookie': cookies.cookie_uuid });
   };
   useEffect(() => {
@@ -50,6 +51,17 @@ function App() {
       socket.off('munch', (event) => console.log(event));
       socket.off('ready', (data) => setReady(true));
     };
+  }, []);
+
+  useEffect(() => {
+    console.log('RUNNING AXIOS GET')
+    axios.get('http://localhost:8080/', { withCredentials: true })
+    .then((response) => {
+      console.log("RES FROM SERVER WITH COOKIE ==>", response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }, []);
 
   return (
