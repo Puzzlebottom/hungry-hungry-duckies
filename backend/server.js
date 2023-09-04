@@ -139,11 +139,6 @@ io.on('connection', (socket) => {
 
     socket.emit('serverReply', `server says: name => ${playerNameObj.name}`);
   });
-
-  // You can handle other socket.io events here
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg); // Broadcast the message to all connected clients
-  });
 });
 
 httpServer.listen(PORT, () => {

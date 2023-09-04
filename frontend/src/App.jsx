@@ -50,6 +50,10 @@ function App() {
     return () => {
       socket.off('connect', onConnect);
       socket.off('serverReply', (data) => console.log(data));
+      socket.off('checkCookieReply', (response) => {
+        console.log('REPLY FROM SERVER', response.msg);
+        setDefaultName(response.name);
+      });
       socket.off('disconnect', onDisconnect);
       socket.off('home', () => setHome(true));
       socket.off('join', (data) => console.log(data));
