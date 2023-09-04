@@ -67,6 +67,7 @@ io.on('connection', (socket) => {
 
   socket.on('checkPlayerCookie', (cookie) => {
     console.log('SERVER CHECK COOKIE: ', cookie);
+    if (cookie.cookie_uuid) {
     const query = `
       SELECT * FROM players
       WHERE cookie_uuid = $1;
@@ -79,12 +80,15 @@ io.on('connection', (socket) => {
           socket.emit('checkCookieReply', { 'msg': `server says: name => ${data.rows[0].name}`, 'name': data.rows[0].name });
         } else {
           console.log('cookie_uuid does not exist');
-          socket.emit('checkCookieReply', { 'msg': `server says: name => ${data.rows[0].name}`, 'name': null });
+          socket.emit('checkCookieReply', { 'msg': `server says: name => ''`, 'name': null });
         }
       })
       .catch(err => {
         console.log('err: ', err);
       });
+    } else {
+      socket.emit('checkCookieReply', { 'msg': `server says: no cookie found`, 'name': null });
+    }
   });
 
   socket.on('playerName', (playerNameObj) => {
