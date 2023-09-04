@@ -5,6 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 const { Pool } = require('pg');
 const db = require('./db/connection');
 const playerQueries = require('./db/queries/players');
+const socketHelpers = require('./helpers/socketHelpers');
 
 
 const cookieParser = require('cookie-parser');
@@ -27,32 +28,11 @@ app.use(cors({ credentials: true, origin: 'http://localhost:5173', methods: ['GE
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+
+//Routes
+app.use('/', require('./routes/home'));
 app.use('/api/players', require('./routes/users-api'));
 
-// Runs cookie check on page load and returns cookie_uuid
-app.get('/', (req, res) => {
-  const {cookie_uuid} = req.cookies
-  console.log('HELLO: ', cookie_uuid)
-
-  if(cookie_uuid) {
-    console.log('cookie_uuid present');
-    playerQueries.getPlayerByUUID(cookie_uuid)
-      .then(data => {
-        if(data.rows[0]) {
-          res.json({ 'cookie_uuid': data.rows[0].cookie_uuid, 'name': data.rows[0].name })
-        } else {
-          const cookie_uuid = uuidv4();
-          res.json({cookie_uuid, 'name': null});
-        }
-      })
-      .catch(err => {
-        console.log('err: ', err);
-      });
-  } else {
-    const cookie_uuid = uuidv4();
-    res.json({ cookie_uuid, 'name': null });
-    }
-});
 
 io.on('connect_error', (err) => {
   console.log(`connect_error due to ${err.message}`);
@@ -64,43 +44,24 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 
-  socket.on('playerName', (playerNameObj) => {
-    console.log('playerName: ' + playerNameObj.name);
-    console.log('cookie_uuid: ' + playerNameObj.cookie_uuid);
+  socket.on('join', (playerNameObj) => {
     const { cookie_uuid, name } = playerNameObj;
+    const socketFunction = (data) => {
+      socket.emit('joinReply', { 'name': data });
+    };
     playerQueries.getPlayerByUUID(cookie_uuid)
       .then(data => {
         if(data.rows[0]) {
           console.log('player exists');
-          if(data.rows[0].name !== name) {
-            console.log('name changed');
-            playerQueries.updatePlayerName(cookie_uuid, name)
-              .then(data => {
-                socket.emit('serverReply', {'msg': `server says: name => ${data.rows[0].name}`, 'name': data.rows[0].name});
-              })
-              .catch(err => {
-                console.log('err: ', err);
-              });
-          } else {
-            socket.emit('serverReply', {'msg': `server says: name => ${data.rows[0].name}`, 'name': data.rows[0].name});
-          }
+          socketHelpers.compareName(data.rows[0].name, name, cookie_uuid, socketFunction);
         } else {
           console.log('player does not exist');
-          playerQueries.addPlayer(cookie_uuid, name)
-            .then(data => {
-              socket.emit('serverReply', {'msg': `server says: name => ${data.rows[0].name}`, 'name': data.rows[0].name});
-            })
-            .catch(err => {
-              console.log('err: ', err);
-            });
+          socketHelpers.createNewPlayer(cookie_uuid, name, socketFunction);
         }
       })
       .catch(err => {
         console.log('err: ', err);
       });
-
-
-    socket.emit('serverReply', `server says: name => ${playerNameObj.name}`);
   });
 });
 

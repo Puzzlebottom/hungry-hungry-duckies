@@ -20,22 +20,12 @@ function App() {
   const handleSubmission = (name) => {
     console.log('HANDLE SUBMIT', name);
     console.log('COOKIE before', cookies);
-    socket.emit('playerName', { 'name': name, 'cookie_uuid': cookies.cookie_uuid });
+    socket.emit('join', { 'name': name, 'cookie_uuid': cookies.cookie_uuid });
   };
   useEffect(() => {
-    function onConnect() {
-      setIsConnected(true);
-    }
 
-    function onDisconnect() {
-      setIsConnected(false);
-    }
-
-    socket.on('serverReply', (response) => setCookie('name', response.name, { path: '/' }));
-    socket.on('connect', onConnect);
-    socket.on('disconnect', onDisconnect);
+    socket.on('joinReply', (response) => setCookie('name', response.name, { path: '/' }));
     socket.on('home', () => setHome(true));
-    socket.on('join', (data) => console.log(data)); // ????
     socket.on('munch', (event) => console.log(event)); // Get timestamp from event then setMunch(true)
     socket.on('ready', (data) => setReady(true));
     socket.on("connect_error", (err) => {
@@ -43,15 +33,9 @@ function App() {
     });
 
     return () => {
-      socket.off('connect', onConnect);
-      socket.off('serverReply', (data) => console.log(data));
-      socket.off('checkCookieReply', (response) => {
-        console.log('REPLY FROM SERVER', response.msg);
-        setDefaultName(response.name);
-      });
-      socket.off('disconnect', onDisconnect);
+
       socket.off('home', () => setHome(true));
-      socket.off('join', (data) => console.log(data));
+      socket.off('joinReply', (response) => setCookie('name', response.name, { path: '/' }));
       socket.off('munch', (event) => console.log(event));
       socket.off('ready', (data) => setReady(true));
     };
@@ -64,6 +48,7 @@ function App() {
       const { name, cookie_uuid } = response.data;
       setCookie('cookie_uuid', cookie_uuid, { path: '/' })
       setCookie('name', name, { path: '/' })
+      setDefaultName(name);
     })
     .catch((error) => {
       console.log(error);
