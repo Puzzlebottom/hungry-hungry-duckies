@@ -25,6 +25,7 @@ function App() {
   useEffect(() => {
     function onConnect() {
       setIsConnected(true);
+      console.log('COOKIE when connected', cookies);
       socket.emit('checkPlayerCookie', { 'cookie_uuid': cookies.cookie_uuid });
     }
 
@@ -70,7 +71,7 @@ function App() {
     .catch((error) => {
       console.log(error);
     });
-  }, []);
+  }, [cookies, setCookie]);
 
   return (
     <Home handleSubmission={handleSubmission} defaultName={defaultName}/>
