@@ -16,4 +16,14 @@ const getTopPlayers = () => {
   return db.query(query);
 }
 
-module.exports = { getAllPlayers, getTopPlayers };
+const getPlayerByUUID = (UUID) => {
+  const query = `
+    SELECT * FROM players
+    WHERE cookie_uuid = $1;
+  `;
+  const values = [UUID];
+  return db.query(query, values);
+}
+
+
+module.exports = { getAllPlayers, getTopPlayers, getPlayerByUUID };
