@@ -7,6 +7,7 @@ export default function PlayerNameForm (props) {
     <form className='playername-form' onSubmit={
       (event) => {
         event.preventDefault()
+        handleSubmission(playerName)
       }
     }>
       <label htmlFor='name'>Name</label>

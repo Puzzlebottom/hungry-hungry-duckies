@@ -65,10 +65,53 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 
-  socket.on('playerName', (name) => {
-    console.log('playerName: ' + name);
+  socket.on('playerName', (playerNameObj) => {
+    console.log('playerName: ' + playerNameObj.name);
+    console.log('cookie_uuid: ' + playerNameObj.cookie_uuid);
+    db.query(`
+    SELECT * FROM players WHERE cookie_uuid = $1;
+    `, [playerNameObj.cookie_uuid])
+      .then(data => {
+        if(data.rows[0]) {
+          console.log('player exists');
+          if(data.rows[0].name !== playerNameObj.name) {
+            console.log('name changed');
+            db.query(`
+            UPDATE players
+            SET name = $1
+            WHERE cookie_uuid = $2;
+            RETURNING *;
+            `, [playerNameObj.name, playerNameObj.cookie_uuid])
+              .then(data => {
+                socket.emit('serverReply', {'msg': `server says: name => ${data.rows[0].name}`, 'name': data.rows[0].name});
+              })
+              .catch(err => {
+                console.log('err: ', err);
+              });
+          } else {
+            socket.emit('serverReply', {'msg': `server says: name => ${data.rows[0].name}`, 'name': data.rows[0].name});
+          }
+        } else {
+          console.log('player does not exist');
+          db.query(`
+          INSERT INTO players (cookie_uuid, name)
+          VALUES ($1, $2)
+          RETURNING *;
+          `, [playerNameObj.cookie_uuid, playerNameObj.name])
+            .then(data => {
+              socket.emit('serverReply', {'msg': `server says: name => ${data.rows[0].name}`, 'name': data.rows[0].name});
+            })
+            .catch(err => {
+              console.log('err: ', err);
+            });
+        }
+      })
+      .catch(err => {
+        console.log('err: ', err);
+      });
 
-    socket.emit('serverReply', `server says: name => ${name}`);
+
+    socket.emit('serverReply', `server says: name => ${playerNameObj.name}`);
   });
 
   // You can handle other socket.io events here

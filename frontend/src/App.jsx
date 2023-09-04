@@ -19,10 +19,9 @@ function App() {
   const handleSubmission = (name) => {
     console.log('HANDLE SUBMIT', name);
     console.log('COOKIE before', cookies);
-    socket.emit('playerName', { 'name': name, 'cookie': cookies.cookie_uuid });
+    socket.emit('playerName', { 'name': name, 'cookie_uuid': cookies.cookie_uuid });
   };
   useEffect(() => {
-    // setCookie('cookie_uuid', 'f52d45a6-9d74-48d9-b30b-d487a40f7a77', { path: '/' }) //REMOVE AFTER TESTING
     function onConnect() {
       setIsConnected(true);
     }
