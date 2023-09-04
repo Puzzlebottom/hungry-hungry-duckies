@@ -79,7 +79,7 @@ io.on('connection', (socket) => {
             db.query(`
             UPDATE players
             SET name = $1
-            WHERE cookie_uuid = $2;
+            WHERE cookie_uuid = $2
             RETURNING *;
             `, [playerNameObj.name, playerNameObj.cookie_uuid])
               .then(data => {

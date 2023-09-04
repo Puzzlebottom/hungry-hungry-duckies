@@ -30,7 +30,7 @@ function App() {
       setIsConnected(false);
     }
 
-    socket.on('serverReply', (data) => console.log(data));
+    socket.on('serverReply', (response) => setCookie('name', response.name, { path: '/' }));
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
     socket.on('home', () => setHome(true));
