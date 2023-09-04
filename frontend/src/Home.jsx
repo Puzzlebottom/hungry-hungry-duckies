@@ -22,21 +22,21 @@ function Home(props) {
   }, []);
 
   return (
-    <main>
+    <main className='home-main'>
       <PlaySound />
-      <div className='hero'>
-        <h1 className='title'>Hungry, Hungry Duckies!™</h1>
-        <div className='logo'>
+      <div className='home-hero'>
+        <h1 className='home-title'>Hungry, Hungry Duckies!™</h1>
+        <div className='home-logo'>
 
           <img src="https://i.redd.it/a7w8qv77ctl31.png"></img>
         </div>
-        <section className='instructions'>
+        <section className='home-instructions'>
           <h1>How To Play</h1>
           <h3>Spacebar to MUNCH! 😤</h3>
           <h3>Spacebar to quack! 🦆</h3>
         </section>
       </div >
-      <div className='leaderboard-and-form'>
+      <div className='home-leaderboard-and-form'>
         <Leaderboard players={players}/>
         <PlayerNameForm handleSubmission={handleSubmission} defaultName={defaultName}/>
       </div>
