@@ -4,6 +4,7 @@ require('dotenv').config();
 const { v4: uuidv4 } = require('uuid');
 const { Pool } = require('pg');
 const db = require('./db/connection');
+const playerQueries = require('./db/queries/players');
 
 
 const cookieParser = require('cookie-parser');
@@ -35,12 +36,7 @@ app.get('/', (req, res) => {
 
   if(cookie_uuid) {
     console.log('cookie_uuid present');
-    const query = `
-      SELECT * FROM players
-      WHERE cookie_uuid = $1;
-    `;
-    const values = [cookie_uuid];
-    db.query(query, values)
+    playerQueries.getPlayerByUUID(cookie_uuid)
       .then(data => {
         if(data.rows[0]) {
           res.json({ 'cookie_uuid': data.rows[0].cookie_uuid, 'name': data.rows[0].name })
@@ -97,9 +93,8 @@ io.on('connection', (socket) => {
   socket.on('playerName', (playerNameObj) => {
     console.log('playerName: ' + playerNameObj.name);
     console.log('cookie_uuid: ' + playerNameObj.cookie_uuid);
-    db.query(`
-    SELECT * FROM players WHERE cookie_uuid = $1;
-    `, [playerNameObj.cookie_uuid])
+    const { cookie_uuid, name } = playerNameObj;
+    playerQueries.getPlayerByUUID(cookie_uuid)
       .then(data => {
         if(data.rows[0]) {
           console.log('player exists');
