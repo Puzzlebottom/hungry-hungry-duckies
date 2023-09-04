@@ -22,21 +22,17 @@ function App() {
   const currentView = () => {
     switch (view) {
       case 'home':
-        return <Home handleSubmission={handleSubmission} defaultName={defaultName} />;
+        return <Home { ...{ handleSubmission, defaultName, handleViewChange } } />;
       case 'table':
-        return <Table />;
+        return <Table { ...{ handleViewChange } } />;
       case 'postGame':
-        return <PostGame />;
+        return <PostGame { ...{ handleViewChange } } />;
       case 'loading':
-        return <Loading />;
+        return <Loading  { ...{ handleViewChange } } />;
       default:
-        return <Home handleSubmission={handleSubmission} defaultName={defaultName} />;
+        return <Home { ...{ handleSubmission, defaultName, handleViewChange } } />;
     }
   };
-
-
-
-
 
   useEffect(() => {
     socket.on('joinReply', (response) => setCookie('name', response.name, { path: '/' }));
