@@ -7,14 +7,13 @@ import axios from 'axios';
 import PlaySound from './components/PlaySound.jsx';
 
 function Home(props) {
-  const { handleSubmission, defaultName, handleViewChange } = props;
-  const [leaderboardPlayers, setLeaderboardPlayers] = useState([]);
+  const { handleSubmission, defaultName, handleViewChange, leaderBoardPlayers, setLeaderBoardPlayers } = props;
 
   useEffect(() => {
     axios.get('http://localhost:8080/api/players')
       .then((response) => {
         console.log("RES FROM SERVER ==>", response.data.players);
-        setLeaderboardPlayers(response.data.players);
+        setLeaderBoardPlayers(response.data.players);
       })
       .catch((error) => {
         console.log(error);
@@ -36,7 +35,7 @@ function Home(props) {
         </section>
       </div >
       <div className='home-leaderboard-and-form'>
-        <Leaderboard players={leaderboardPlayers}/>
+        <Leaderboard players={leaderBoardPlayers}/>
         <PlayerNameForm { ...{ handleSubmission, defaultName, handleViewChange } } />
       </div>
     </main>
