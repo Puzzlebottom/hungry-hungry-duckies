@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import axios from "axios";
 import { useCookies } from 'react-cookie';
 import { socket } from '../../socket';
@@ -8,24 +8,52 @@ import PostGame from '../../PostGame';
 import Loading from '../../Loading';
 
 
-const useApplicationData = () => {
-
   //useStates
   const [leaderBoardPlayers, setLeaderBoardPlayers] = useState([]);
   const [defaultName, setDefaultName] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies(['name']);
   const [view, setView] = useState('home');
 
-
-  //functions
-  const handleSubmission = (name) => {
-    socket.emit('join', { 'name': name, 'cookie_uuid': cookies.cookie_uuid });
+  const ACTIONS = {
+    SET_LEADERBOARD: 'SET_LEADERBOARD',
+    SET_DEFAULTNAME: 'SET_DEFAULTNAME',
+    SET_VIEW: 'SET_VIEW'
   };
 
-  const handleViewChange = (view) => {
-    setView(view);
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+
+      case SET_LEADERBOARD:
+        return { ...state, leaderBoardPlayers: action.payload };
+
+      case SET_DEFAULTNAME:
+        return { ...state, defaultName: action.payload };
+
+      case SET_VIEW:
+        return { ...state, view: action.payload };
+
+      default:
+        throw new Error(`Tried to reduce with unsupported action type: ${action.type}`);
+    }
   };
 
+
+
+
+
+
+
+const useApplicationData = () => {
+
+  const initialState = {
+    leaderBoardPlayers: [],
+    defaultName: "",
+    cookies: [],
+    view: 'home'
+  };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   //useEffects
 
@@ -65,6 +93,15 @@ const useApplicationData = () => {
         console.log(error);
       });
   }, []);
+
+
+  const handleSubmission = (name) => {
+    socket.emit('join', { 'name': name, 'cookie_uuid': cookies.cookie_uuid });
+  };
+
+  const handleViewChange = (view) => {
+    setView(view);
+  };
 
 
   return {
