@@ -64,9 +64,6 @@ function App() {
   // }, []);
 const {
   state,
-  cookies,
-  setCookie,
-  removeCookie,
   handleSubmission,
   handleDefaultName,
   handleViewChange

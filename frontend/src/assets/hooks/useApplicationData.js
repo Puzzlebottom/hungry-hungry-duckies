@@ -102,9 +102,6 @@ const useApplicationData = () => {
 
   return {
     state,
-    cookies,
-    setCookie,
-    removeCookie,
     handleSubmission,
     handleDefaultName,
     handleViewChange
