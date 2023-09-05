@@ -36,8 +36,6 @@ function Table(props) {
     [bottomRight1, bottomRight2, bottomRight3]
   ];
 
-
-
   const playerMunchStates = [useState(false), useState(false), useState(false), useState(false)];
   const playerNameStates = [useState(''), useState(''), useState(''), useState('')];
   const playerScoreStates = [useState(0), useState(0), useState(0), useState(0)];
@@ -48,7 +46,7 @@ function Table(props) {
     marbles: [],
     player: sanitizedPlayer1,
     opponents: [sanitizedPlayer2, sanitizedPlayer3, sanitizedPlayer4],
-    isActive: true
+    isActive: false
   });
 
   useEffect(() => {
@@ -101,9 +99,9 @@ function Table(props) {
     const [isMunching, setIsMunching] = playerMunchStates[seat];
     if (isMunching !== player.isMunching) {
       setIsMunching(player.isMunching);
-      if (player.isMunching) {
-        munchAudio.currentTime = 0; // makes sure it resets as soon as you press the spacebar
-        munchAudio.play();
+      if (isMunching) {
+        munchAudios.currentTime = 0; // makes sure it resets as soon as you press the spacebar
+        munchAudios.play();
       }
     }
   };
@@ -158,19 +156,14 @@ function Table(props) {
   };
 
   return (
-    <main className='arena'>
-      <img src={arena} className='table' />
-      <Countdown
-        onComplete={handleCountdownComplete}
-      />
-      {countdownComplete && (<GameTimer initialMinutes={12} initialSeconds={59}
-      />
-      )};
+    <main className='table-view'>
+      <img src={arena} className='arena' />
       <Bugs bugState={bugState} />
-      <span className='timer'>12:59</span>
-      {/* <span className='countdown'>GO!</span> */}
       {quarters}
+      {countdownComplete && (<GameTimer initialMinutes={12} initialSeconds={59} />)};
+      <Countdown seconds={3} onComplete={handleCountdownComplete} />
     </main>
-};
+  );
+}
 
 export default Table;
