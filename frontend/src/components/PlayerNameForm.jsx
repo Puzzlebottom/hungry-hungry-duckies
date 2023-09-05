@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 export default function PlayerNameForm (props) {
-  const [playerName, setPlayerName] = useState('')
   const { handleSubmission, defaultName, handleViewChange } = props
   return (
     <form className='playername-form' onSubmit={
@@ -13,7 +12,7 @@ export default function PlayerNameForm (props) {
       }
     }>
       <label htmlFor='name'>Name</label>
-      <input type='text' id='name' name='name' onChange={(event) => setPlayerName(event.target.value)}
+      <input type='text' id='name' name='name'
       placeholder='Enter player name' defaultValue={defaultName} />
       <button type='submit'>Submit</button>
     </form>

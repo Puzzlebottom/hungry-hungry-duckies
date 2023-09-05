@@ -1,25 +1,10 @@
 import '../public/stylesheets/Home.css';
 import Leaderboard from './components/Leaderboard';
 import PlayerNameForm from './components/PlayerNameForm';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 
-import PlaySound from './components/PlaySound.jsx';
 
 function Home(props) {
-  const { handleSubmission, defaultName, handleViewChange } = props;
-  const [players, setPlayers] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://localhost:8080/api/players')
-      .then((response) => {
-        console.log("RES FROM SERVER ==>", response.data.players);
-        setPlayers(response.data.players);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  const { handleSubmission, defaultName, handleViewChange, leaderBoardPlayers } = props;
 
   return (
     <main className='home-main'>
@@ -36,7 +21,7 @@ function Home(props) {
         </section>
       </div >
       <div className='home-leaderboard-and-form'>
-        <Leaderboard players={players}/>
+        <Leaderboard players={leaderBoardPlayers}/>
         <PlayerNameForm { ...{ handleSubmission, defaultName, handleViewChange } } />
       </div>
     </main>

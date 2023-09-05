@@ -1,18 +1,25 @@
-import React, { useState, useEffect } from 'react';
 import Home from './Home';
 import Table from './Table';
-import { socket } from './socket';
 import PostGame from './PostGame';
 import Loading from './Loading';
-import { CookiesProvider, useCookies } from 'react-cookie';
-import axios from 'axios';
 import PlaySound from './components/PlaySound.jsx';
-
+import useApplicationData from './assets/hooks/useApplicationData';
 function App() {
-  const [defaultName, setDefaultName] = useState('');
-  const [cookies, setCookie] = useCookies(['name']);
-  const [view, setView] = useState('home');
+
+const {
+  state,
+  handleSubmission,
+  handleDefaultName,
+  handleViewChange
+} = useApplicationData();
+
+const { defaultName, view, leaderBoardPlayers } = state;
+
   const [backgroundMusic, setBackgroundMusic] = useState(true);
+
+  useEffect(() => {
+    setBackgroundMusic(view === 'home');
+  }, [view]);
 
   //Emits player name form info to server
   const handleSubmission = (name) => {
