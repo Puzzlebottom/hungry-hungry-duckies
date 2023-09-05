@@ -32,7 +32,7 @@ const Instance = {
     engine.gravity.scale = 0;
     const runner = Runner.create();
     // Render.run(render);
-    Runner.run(runner, engine.current);
+    Runner.run(runner, engine);
 
     const WIDTH = 1000;
     const HEIGHT = 1000;
