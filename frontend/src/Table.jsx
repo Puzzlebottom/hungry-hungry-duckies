@@ -165,9 +165,9 @@ function Table(props) {
       />
       {countdownComplete && (<GameTimer initialMinutes={12} initialSeconds={59} />)};
       <Bugs bugState={bugState} />
-      <span className='timer'>12:59</span>
-      {/* <span className='countdown'>GO!</span> */}
       {quarters}
+      {countdownComplete && (<GameTimer initialMinutes={12} initialSeconds={59} />)};
+      <Countdown seconds={3} onComplete={handleCountdownComplete} />
     </main>
   );
 }
