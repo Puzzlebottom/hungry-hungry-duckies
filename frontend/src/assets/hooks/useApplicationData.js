@@ -1,21 +1,19 @@
-import { useState, useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import axios from "axios";
 import { useCookies } from 'react-cookie';
 import { socket } from '../../socket';
-import Home from '../../Home';
-import Table from '../../Table';
-import PostGame from '../../PostGame';
-import Loading from '../../Loading';
 
-
-  //useStates
   const ACTIONS = {
     SET_LEADERBOARD: 'SET_LEADERBOARD',
     SET_DEFAULTNAME: 'SET_DEFAULTNAME',
     SET_VIEW: 'SET_VIEW'
   };
 
-  const { SET_LEADERBOARD, SET_DEFAULTNAME, SET_VIEW } = ACTIONS;
+  const {
+    SET_LEADERBOARD,
+    SET_DEFAULTNAME,
+    SET_VIEW
+  } = ACTIONS;
 
 
   const reducer = (state, action) => {
@@ -63,6 +61,7 @@ const useApplicationData = () => {
 
   //useEffects
 
+  //For sockets
   useEffect(() => {
     socket.on('joinReply', (response) => setCookie('name', response.name, { path: '/' }));
     socket.on("connect_error", (err) => {
@@ -77,6 +76,7 @@ const useApplicationData = () => {
     };
   }, []);
 
+  //For axios
   useEffect(() => {
     axios.get('http://localhost:8080/', { withCredentials: true })
       .then((response) => {
