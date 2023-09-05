@@ -2,7 +2,7 @@ import { useEffect, useReducer } from "react";
 import axios from "axios";
 import { useCookies } from 'react-cookie';
 import { socket } from '../../socket';
-import { use } from "matter-js";
+
 
   const ACTIONS = {
     SET_LEADERBOARD: 'SET_LEADERBOARD',
@@ -44,7 +44,7 @@ const useApplicationData = () => {
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [cookies, setCookie, removeCookie, updateCookies] = useCookies(['name']);
+  const [cookies, setCookie, removeCookie] = useCookies(['name']);
 
   //Functions
   const handleSubmission = (name) => {
