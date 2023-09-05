@@ -170,34 +170,41 @@ td.player-status {
 }
 
 div.audiobutton {
+  display: none;
   width: 0;
   height: 0;
-  position: absolute;
+  position: relative;
   top: -50px; /* Adjust the top position as needed */
-  right: -20px; /* Adjust the right position as needed */
+  right: -50px; /* Adjust the right position as needed */
+  z-index: -1;
 }
 
 .audio-player-container {
-  display: flex;
+  display: none;
   flex-direction: column;
-  align-items: center;
+  align-items: right;
   justify-content: center;
   text-align: center;
+  z-index: -1;
 }
 
 /* Style all child elements within .audio-player-container */
 .audio-player-container * {
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  top: 200px; /* Adjust the top position as needed */
-  right: -40px; /* Adjust the right position as needed */
+  display: none;
+  width: 0px;
+  height: 0px;
+  position: relative;
+  top: 30px; /* Adjust the top position as needed */
+  right: -50; /* Adjust the right position as needed */
+  z-index: -1;
 }
 
 .audio-container {
+  display: none;
   width: 50px;
   height: 50px;
-  position: absolute;
+  position: relative;
   top: 200px; /* Adjust the top position as needed */
-  right: -40px; /* Adjust the right position as needed */
+  right: -50px; /* Adjust the right position as needed */
+  z-index: -1;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactPlayer from 'react-player';
 
 const PlaySound = () => {
@@ -8,8 +8,34 @@ const PlaySound = () => {
     setIsMuted(!isMuted);
   };
 
+  const playSoundContainerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickAnywhere = (event) => {
+      if (
+        playSoundContainerRef.current &&
+        !playSoundContainerRef.current.contains(event.target)
+      ) {
+        toggleMute();
+      }
+    };
+
+    const handleContextMenu = (event) => {
+      event.preventDefault();
+      toggleMute();
+    };
+
+    document.addEventListener('mousedown', handleClickAnywhere);
+    document.addEventListener('contextmenu', handleContextMenu);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickAnywhere);
+      document.removeEventListener('contextmenu', handleContextMenu);
+    };
+  }, []);
+
   return (
-    <div className="audio-player-container">
+    <div className="audio-player-container" ref={playSoundContainerRef}>
       <audio src="/audio/quacknoises.mp3" preload="auto" loop style={{ display: isMuted ? 'none' : 'block' }}></audio>
       <ReactPlayer
         url="/audio/quacknoises.mp3"
@@ -20,6 +46,7 @@ const PlaySound = () => {
       />
       <button
         onClick={toggleMute}
+        onContextMenu={(e) => e.preventDefault()}
         style={{
           borderRadius: '50%',
           backgroundColor: 'transparent',
