@@ -12,6 +12,7 @@ function App() {
   const [defaultName, setDefaultName] = useState('');
   const [cookies, setCookie] = useCookies(['name']);
   const [view, setView] = useState('home');
+  const [backgroundMusic, setBackgroundMusic] = useState(true); // State for background music
 
   //Emits player name form info to server
   const handleSubmission = (name) => {
@@ -50,6 +51,10 @@ function App() {
   }, []);
 
   useEffect(() => {
+    setBackgroundMusic(view === 'home');
+  }, [view]);
+
+  useEffect(() => {
     axios.get('http://localhost:8080/', { withCredentials: true })
       .then((response) => {
         console.log('RESPONSE FROM AXIOS', response);
@@ -66,7 +71,7 @@ function App() {
 
   return (
     <div className="App">
-       <PlaySound />
+    <PlaySound audioSource={backgroundMusic ? '/audio/mainmenumusic.mp3' : '/audio/quacknoises.mp3'} />
       {currentView()}
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactPlayer from 'react-player';
 
-const PlaySound = () => {
+const PlaySound = ({ audioSource }) => {
   const [isMuted, setIsMuted] = useState(true);
 
   const toggleMute = () => {
@@ -20,28 +20,21 @@ const PlaySound = () => {
       }
     };
 
-    const handleContextMenu = (event) => {
-      event.preventDefault();
-      toggleMute();
-    };
-
     document.addEventListener('mousedown', handleClickAnywhere);
-    document.addEventListener('contextmenu', handleContextMenu);
 
     return () => {
       document.removeEventListener('mousedown', handleClickAnywhere);
-      document.removeEventListener('contextmenu', handleContextMenu);
     };
   }, []);
 
   return (
     <div className="audio-player-container" ref={playSoundContainerRef}>
-      <audio src="/audio/quacknoises.mp3" preload="auto" loop style={{ display: isMuted ? 'none' : 'block' }}></audio>
+      <audio src={audioSource} preload="auto" loop style={{ display: isMuted ? 'none' : 'block' }}></audio>
       <ReactPlayer
-        url="/audio/quacknoises.mp3"
+        url={audioSource}
         playing={!isMuted}
         loop={true}
-        volume={isMuted ? 0 : 1}
+        volume={isMuted ? 0 : 0.75}
         style={{ display: 'none' }}
       />
       <button
@@ -57,13 +50,13 @@ const PlaySound = () => {
           <img
             src="https://freesvg.org/img/pink_button_sound_on_morgaine1976.png"
             alt="Muted"
-            style={{ width: '50px', height: '50px' }}
+            style={{ width: '30px', height: '30px' }}
           />
         ) : (
           <img
             src="https://freesvg.org/img/pink_button_sound_off_morgaine1976.png"
             alt="Unmuted"
-            style={{ width: '50px', height: '50px' }}
+            style={{ width: '30px', height: '30px' }}
           />
         )}
       </button>
