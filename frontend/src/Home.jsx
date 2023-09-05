@@ -9,17 +9,6 @@ import PlaySound from './components/PlaySound.jsx';
 function Home(props) {
   const { handleSubmission, defaultName, handleViewChange, leaderBoardPlayers, setLeaderBoardPlayers } = props;
 
-  useEffect(() => {
-    axios.get('http://localhost:8080/api/players')
-      .then((response) => {
-        console.log("RES FROM SERVER ==>", response.data.players);
-        setLeaderBoardPlayers(response.data.players);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
   return (
     <main className='home-main'>
       <div className='home-hero'>

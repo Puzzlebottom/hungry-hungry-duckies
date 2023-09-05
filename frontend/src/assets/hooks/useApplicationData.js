@@ -55,7 +55,17 @@ const useApplicationData = () => {
       .catch((error) => {
         console.log(error);
       });
+
+      axios.get('http://localhost:8080/api/players')
+      .then((response) => {
+        console.log("RES FROM SERVER ==>", response.data.players);
+        setLeaderBoardPlayers(response.data.players);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
+
 
   return {
     leaderBoardPlayers,
