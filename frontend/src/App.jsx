@@ -45,7 +45,7 @@ function App() {
   }, []);
 
   return (
-    <Table handleSubmission={handleSubmission} defaultName={defaultName}/>
+    <PostGame handleSubmission={handleSubmission} defaultName={defaultName}/>
   );
 }
 

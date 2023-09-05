@@ -13,6 +13,7 @@ import bottomLeft3 from './assets/duckie-bottom-left-3.png';
 import bottomRight1 from './assets/duckie-bottom-right-1.png';
 import bottomRight2 from './assets/duckie-bottom-right-2.png';
 import bottomRight3 from './assets/duckie-bottom-right-3.png';
+import PlaySound from './components/PlaySound.jsx';
 
 import Quarter from './components/Quarter';
 import Bugs from './components/Bugs';
@@ -80,9 +81,7 @@ function Table(props) {
 
   const toggleReady = () => {
     const [isReady, setIsReady] = playerReadyStates[gameState.player.current_seat];
-    setIsReady(() => {
-      return !isReady;
-    });
+    setIsReady(!isReady); // Toggle the readiness state directly
   };
 
   const updateName = (player, seat) => {
@@ -153,11 +152,13 @@ function Table(props) {
 
   const handleCountdownComplete = () => {
     setCountdownComplete(true);
+
   };
 
   return (
     <main className="table-view">
       <img src={arena} className="table" />
+      <PlaySound />
       <Countdown
         onComplete={handleCountdownComplete}
       />
