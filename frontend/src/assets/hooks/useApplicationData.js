@@ -80,7 +80,7 @@ const useApplicationData = () => {
   useEffect(() => {
     axios.get('http://localhost:8080/', { withCredentials: true })
       .then((response) => {
-        console.log('RESPONSE FROM AXIOS', response);
+        console.log('RESPONSE FROM AXIOS', response.data);
         const { name, cookie_uuid } = response.data;
         setCookie('cookie_uuid', cookie_uuid, { path: '/' });
         setCookie('name', name, { path: '/' });
@@ -92,7 +92,6 @@ const useApplicationData = () => {
 
       axios.get('http://localhost:8080/api/players')
       .then((response) => {
-        console.log("RES FROM SERVER ==>", response.data.players);
         dispatch({ type: ACTIONS.SET_LEADERBOARD, payload: response.data.players });
       })
       .catch((error) => {

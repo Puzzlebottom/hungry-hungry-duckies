@@ -7,6 +7,7 @@ const { v4: uuidv4 } = require('uuid');
 
 router.get('/', (req, res) => {
   const {cookie_uuid} = req.cookies
+  console.log('cookie server check: ', req.cookies);
 
   if(cookie_uuid) {
     playerQueries.getPlayerByUUID(cookie_uuid)
