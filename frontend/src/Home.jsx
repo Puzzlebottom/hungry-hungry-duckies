@@ -1,13 +1,10 @@
 import '../public/stylesheets/Home.css';
 import Leaderboard from './components/Leaderboard';
 import PlayerNameForm from './components/PlayerNameForm';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 
-import PlaySound from './components/PlaySound.jsx';
 
 function Home(props) {
-  const { handleSubmission, defaultName, handleViewChange, leaderBoardPlayers, setLeaderBoardPlayers } = props;
+  const { handleSubmission, defaultName, handleViewChange, leaderBoardPlayers } = props;
 
   return (
     <main className='home-main'>

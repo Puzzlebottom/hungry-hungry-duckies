@@ -2,6 +2,7 @@ import { useEffect, useReducer } from "react";
 import axios from "axios";
 import { useCookies } from 'react-cookie';
 import { socket } from '../../socket';
+import { use } from "matter-js";
 
   const ACTIONS = {
     SET_LEADERBOARD: 'SET_LEADERBOARD',
@@ -43,10 +44,12 @@ const useApplicationData = () => {
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [cookies, setCookie, removeCookie] = useCookies(['name']);
+  const [cookies, setCookie, removeCookie, updateCookies] = useCookies(['name']);
 
   //Functions
   const handleSubmission = (name) => {
+    console.log('name: ', name);
+    console.log('cookie_uuid: ', cookies.cookie_uuid);
     socket.emit('join', { 'name': name, 'cookie_uuid': cookies.cookie_uuid });
   };
 
@@ -82,21 +85,26 @@ const useApplicationData = () => {
       .then((response) => {
         console.log('RESPONSE FROM AXIOS', response.data);
         const { name, cookie_uuid } = response.data;
-        setCookie('cookie_uuid', cookie_uuid, { path: '/' });
+        removeCookie('name', { path: '/' });
+        removeCookie('cookie_uuid', { path: '/' });
+        setCookie('cookie_uuid', cookie_uuid, { path: '/' })
         setCookie('name', name, { path: '/' });
         dispatch({ type: ACTIONS.SET_DEFAULTNAME, payload: name });
+        console.log('current cookies: ', cookies)
       })
       .catch((error) => {
         console.log(error);
       });
+  }, []);
 
-      axios.get('http://localhost:8080/api/players')
-      .then((response) => {
-        dispatch({ type: ACTIONS.SET_LEADERBOARD, payload: response.data.players });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/players')
+    .then((response) => {
+      dispatch({ type: ACTIONS.SET_LEADERBOARD, payload: response.data.players });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }, []);
 
 
