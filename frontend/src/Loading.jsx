@@ -3,6 +3,7 @@ import duckieTopLeft from './assets/duckie-top-left-no-shadow-1.png';
 import duckieTopRight from './assets/duckie-top-right-no-shadow-1.png';
 import duckieBottomLeft from './assets/duckie-bottom-left-no-shadow-1.png';
 import duckieBottomRight from './assets/duckie-bottom-right-no-shadow-1.png';
+import getRandomMessage from './assets/loading_messages';
 
 function Loading(props) {
   const changeView = () => {
@@ -23,8 +24,7 @@ function Loading(props) {
         <h3>LOADING...</h3>
       </span>
       <div className='instructions'>
-        <span>Spacebar to eat bugs</span>
-        <span>Spacebar to quack</span>
+        <span>{getRandomMessage()}</span>
       </div>
     </main>
   );
