@@ -24,7 +24,7 @@ const useGameTableLogic = () => {
     isActive: true
   });
 
-  const munchSounds = ['/audio/munchquack.mp3', '/audio/munchquack2.mp3', '/audio/munchquack3.mp3', '/audio/munchquack4.mp3', '/audio/munchquack5.mp3', '/audio/munchquack6.mp3', '/audio/munchquack7.mp3', '/audio/munchquack8.mp3', '/audio/munchquack9.mp3', '/audio/munchquack10.mp3'];
+  const munchSounds = ['../../../public/audio/munchquack.mp3', '../../../public/audio/munchquack2.mp3', '../../../public/audio/munchquack3.mp3', '../../../public/audio/munchquack4.mp3', '../../../public/audio/munchquack5.mp3', '../../../public/audio/munchquack6.mp3', '../../../public/audio/munchquack7.wav', '../../../public/audio/munchquack8.mp3', '../../../public/audio/munchquack10.mp3'];
   const munchAudios = munchSounds.map((sound) => new Audio(sound));
 
 
