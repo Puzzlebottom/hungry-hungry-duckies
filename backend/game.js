@@ -1,4 +1,15 @@
-import { Body, Composite } from 'matter-js';
-import instance from './physics';
+import Matter from 'matter-js';
+import Instance from './physics.js';
 
+const { Body, Composite } = Matter;
+const { composite, getNewBug } = Instance.run();
 
+const a = getNewBug();
+const b = getNewBug();
+
+Composite.add(composite, [a, b]);
+
+setInterval(() => {
+  console.log('A: ', a.position);
+  console.log('B: ', b.position);
+},);
