@@ -109,15 +109,15 @@ export default function Bugs({ bugState }) {
     const offsetRatio = radius * 0.125;
     const innerSensorRadius = radius * BUG_SIZE_COEFFECIENT * 1;
     const outerSensorRadius = radius * BUG_SIZE_COEFFECIENT * 4;
-    const coordinates = [{ x: offsetRatio, y: -offsetRatio }, { x: -offsetRatio, y: -offsetRatio }, { x: offsetRatio, y: offsetRatio }, { x: -offsetRatio, y: offsetRatio }][seat];
+    const coordinates = [{ x: -offsetRatio, y: -offsetRatio }, { x: offsetRatio, y: -offsetRatio }, { x: -offsetRatio, y: offsetRatio }, { x: offsetRatio, y: offsetRatio }][seat];
     const label = ['top-left', 'top-right', 'bottom-left', 'bottom-right'][seat];
 
     const munchSensorInner = Bodies.circle(centerpoint.x + coordinates.x, centerpoint.y + coordinates.y, innerSensorRadius, {
-      isStatic: true, isSensor: true, label: label + '-inner', render: { visible: false }
+      isStatic: true, isSensor: true, label: label + '-inner', render: { visible: true }
     });
 
     const munchSensorOuter = Bodies.circle(centerpoint.x + coordinates.x, centerpoint.y + coordinates.y, outerSensorRadius, {
-      isStatic: true, isSensor: true, label: label + '-outer', render: { visible: false }
+      isStatic: true, isSensor: true, label: label + '-outer', render: { visible: true }
     });
 
     return [munchSensorInner, munchSensorOuter];
@@ -171,7 +171,7 @@ export default function Bugs({ bugState }) {
       options: {
         width: viewWidth,
         height: viewHeight,
-        wireframes: false,
+        wireframes: true,
         background: 'transparent',
       }
     });
@@ -213,13 +213,16 @@ export default function Bugs({ bugState }) {
     });
 
     const handleKeyPress = (e) => {
-      if (e.key === ' ') detectMunch(composite);
+      if (e.key === ' ') {
+        detectMunch(composite);
+        detectMiss(composite);
+      }
     };
 
     window.addEventListener('keydown', handleKeyPress);
 
     const detectMunch = (composite) => {
-      const seat = 1; // this will be an argument
+      const seat = 0; // this will be an argument
       const label = ['top-left', 'top-right', 'bottom-left', 'bottom-right'][seat] + '-inner';
       const bugs = [];
       let sensor;
@@ -229,7 +232,11 @@ export default function Bugs({ bugState }) {
       });
       const collisions = Query.collides(sensor, bugs);
       collisions.forEach(collision => Composite.remove(composite, collision.bodyB));
-      console.log(collisions.reduce((acc, collision) => acc += `${collision.bodyB.id}, `, `${collisions.length} collisions: `));
+      // console.log(collisions.reduce((acc, collision) => acc += `${collision.bodyB.id}, `, `${collisions.length} collisions: `));
+    };
+
+    const detectMiss = (composite) => {
+      const seat = 0;
     };
 
 
