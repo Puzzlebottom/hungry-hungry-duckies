@@ -6,6 +6,7 @@ import PostGame from './PostGame';
 import Loading from './Loading';
 import { CookiesProvider, useCookies } from 'react-cookie';
 import axios from 'axios';
+import PlaySound from './components/PlaySound.jsx';
 
 function App() {
   const [defaultName, setDefaultName] = useState('');
@@ -65,6 +66,7 @@ function App() {
 
   return (
     <div className="App">
+       <PlaySound />
       {currentView()}
     </div>
   );

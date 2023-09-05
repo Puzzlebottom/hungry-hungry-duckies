@@ -23,7 +23,6 @@ function Home(props) {
 
   return (
     <main className='home-main'>
-      <PlaySound />
       <div className='home-hero'>
         <h1 className='home-title'>Hungry, Hungry Duckies!™</h1>
         <div className='home-logo'>

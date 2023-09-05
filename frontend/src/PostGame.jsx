@@ -50,7 +50,7 @@ function PostGame() {
         <button className="play-again-button">Play again</button>
       </div>
       <div className="audiobutton">
-        <PlaySound />
+
       </div>
     </div>
   );

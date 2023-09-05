@@ -160,6 +160,7 @@ function Table(props) {
   return (
     <main className='table-view'>
       <img src={arena} className='arena' />
+
       <Bugs bugState={bugState} />
       {quarters}
       <Countdown seconds={3} onComplete={handleCountdownComplete} />
