@@ -6,7 +6,7 @@ import bug1 from '../assets/bug1.png';
 import bug2 from '../assets/bug2.png';
 
 Matter.use(MatterAttractors);
-const { Engine, Render, Runner, Body, Bodies, Composite, Events, Vector } = Matter;
+const { Engine, Render, Runner, Body, Bodies, Composite, Events, Vector, Query } = Matter;
 
 const TOTAL_BOUNDARY_FACES = 100; // controls the smoothness of the arena walls; more faces = smoother walls
 const WALL_SEGMENT_DIMENSIONAL_COEFFICIENT = 0.15; // controls the thickness of the arena walls; bigger number = thicker walls
@@ -41,7 +41,6 @@ export default function Bugs({ bugState }) {
   };
 
   const handleMouseDown = () => {
-    console.log('new');
     setBugs((prev) => [...prev, getNewBug()]);
   };
 
@@ -106,6 +105,25 @@ export default function Bugs({ bugState }) {
     return newBug;
   };
 
+  const getMunchSensor = (seat) => {
+    const offsetRatio = radius * 0.125;
+    const innerSensorRadius = radius * BUG_SIZE_COEFFECIENT * 1;
+    const outerSensorRadius = radius * BUG_SIZE_COEFFECIENT * 4;
+    const coordinates = [{ x: offsetRatio, y: -offsetRatio }, { x: -offsetRatio, y: -offsetRatio }, { x: offsetRatio, y: offsetRatio }, { x: -offsetRatio, y: offsetRatio }][seat];
+    const label = ['top-left', 'top-right', 'bottom-left', 'bottom-right'][seat];
+
+    const munchSensorInner = Bodies.circle(centerpoint.x + coordinates.x, centerpoint.y + coordinates.y, innerSensorRadius, {
+      isStatic: true, isSensor: true, label: label + '-inner', render: { visible: false }
+    });
+
+    const munchSensorOuter = Bodies.circle(centerpoint.x + coordinates.x, centerpoint.y + coordinates.y, outerSensorRadius, {
+      isStatic: true, isSensor: true, label: label + '-outer', render: { visible: false }
+    });
+
+    return [munchSensorInner, munchSensorOuter];
+  };
+
+
   const updateBugs = (composite) => {
     if (bugs.length === 0) {
       return setBugs(bugs);
@@ -140,7 +158,6 @@ export default function Bugs({ bugState }) {
         }
       });
     }
-    console.log(Composite.allBodies(composite).filter(body => body.label === 'bug'));
   };
 
   useEffect(() => {
@@ -178,7 +195,7 @@ export default function Bugs({ bugState }) {
       Body.setAngle(bug, bearing - Math.PI / 2); // Math.PI / 2 (-90deg) adjustment is needed because the png is facing the wrong way.
     };
 
-    const composite = Composite.add(engine.current.world, [getAttractor(), ...getBounds(), ...bugs]);
+    const composite = Composite.add(engine.current.world, [getAttractor(), ...getBounds(), ...bugs, ...getMunchSensor(0), ...getMunchSensor(1), ...getMunchSensor(2), ...getMunchSensor(3)]);
     const runner = Runner.create();
 
     Events.on(runner, 'tick', () => {
@@ -194,6 +211,27 @@ export default function Bugs({ bugState }) {
 
       if (tickCounter.current === BUG_TEMPO) tickCounter.current = 0;
     });
+
+    const handleKeyPress = (e) => {
+      if (e.key === ' ') detectMunch(composite);
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+
+    const detectMunch = (composite) => {
+      const seat = 1; // this will be an argument
+      const label = ['top-left', 'top-right', 'bottom-left', 'bottom-right'][seat] + '-inner';
+      const bugs = [];
+      let sensor;
+      Composite.allBodies(composite).forEach(body => {
+        if (body.label === label) sensor = body;
+        if (body.label === 'bug') bugs.push(body);
+      });
+      const collisions = Query.collides(sensor, bugs);
+      collisions.forEach(collision => Composite.remove(composite, collision.bodyB));
+      console.log(collisions.reduce((acc, collision) => acc += `${collision.bodyB.id}, `, `${collisions.length} collisions: `));
+    };
+
 
     updateBugs(composite, engine);
 
@@ -211,6 +249,7 @@ export default function Bugs({ bugState }) {
       render.textures = {};
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('keydown', handleKeyPress);
     };
 
 

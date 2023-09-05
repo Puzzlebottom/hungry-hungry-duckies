@@ -10,6 +10,6 @@ const b = getNewBug();
 Composite.add(composite, [a, b]);
 
 setInterval(() => {
-  console.log('A: ', a.position);
-  console.log('B: ', b.position);
-},);
+  console.log('A: ', a.position, a.id);
+  console.log('B: ', b.position, b.id);
+}, 500);
