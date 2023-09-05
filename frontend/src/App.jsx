@@ -32,20 +32,20 @@ function App() {
 
   useEffect(() => {
     axios.get('http://localhost:8080/', { withCredentials: true })
-    .then((response) => {
-      console.log('RESPONSE FROM AXIOS', response);
-      const { name, cookie_uuid } = response.data;
-      setCookie('cookie_uuid', cookie_uuid, { path: '/' })
-      setCookie('name', name, { path: '/' })
-      setDefaultName(name);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .then((response) => {
+        console.log('RESPONSE FROM AXIOS', response);
+        const { name, cookie_uuid } = response.data;
+        setCookie('cookie_uuid', cookie_uuid, { path: '/' });
+        setCookie('name', name, { path: '/' });
+        setDefaultName(name);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
-    <Table handleSubmission={handleSubmission} defaultName={defaultName}/>
+    <Table handleSubmission={handleSubmission} defaultName={defaultName} />
   );
 }
 

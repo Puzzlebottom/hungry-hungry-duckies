@@ -42,6 +42,7 @@ function Table(props) {
   const playerNameStates = [useState(''), useState(''), useState(''), useState('')];
   const playerScoreStates = [useState(0), useState(0), useState(0), useState(0)];
   const playerReadyStates = [useState(false), useState(false), useState(false), useState(false)];
+  const [bugState, setBugState] = useState([]);
 
   const [gameState, setGameState] = useState({
     marbles: [],
@@ -65,6 +66,7 @@ function Table(props) {
         setTimeout(() => {
           setMunchStateCB(false);
         }, 285);
+        //makeMunchSound()
         return true;
       }
       return prev;
@@ -132,7 +134,7 @@ function Table(props) {
         name: playerNameStates[i][0],
         score: playerScoreStates[i][0],
         isReady: playerReadyStates[i][0],
-        toggleReady: i === clientIndex ? toggleReady : () => {},
+        toggleReady: i === clientIndex ? toggleReady : () => { },
         isMunching: playerMunchStates[i][0]
       });
     }
@@ -156,24 +158,18 @@ function Table(props) {
   };
 
   return (
-    <main className="table-view">
-      <img src={arena} className="table" />
+    <main className='arena'>
+      <img src={arena} className='table' />
       <Countdown
         onComplete={handleCountdownComplete}
       />
-      {countdownComplete && (
-        <>
-          <GameTimer
-            initialMinutes={12}
-            initialSeconds={59}
-          />
-          <Bugs />
-        </>
-      )}
-
+      {countdownComplete && (<GameTimer initialMinutes={12} initialSeconds={59} />)};
+      <Bugs bugState={bugState} />
+      <span className='timer'>12:59</span>
+      {/* <span className='countdown'>GO!</span> */}
       {quarters}
     </main>
   );
-};
+}
 
-export default Table
+export default Table;
