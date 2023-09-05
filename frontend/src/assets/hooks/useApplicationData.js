@@ -9,16 +9,13 @@ import Loading from '../../Loading';
 
 
   //useStates
-  const [leaderBoardPlayers, setLeaderBoardPlayers] = useState([]);
-  const [defaultName, setDefaultName] = useState("");
-  const [cookies, setCookie, removeCookie] = useCookies(['name']);
-  const [view, setView] = useState('home');
-
   const ACTIONS = {
     SET_LEADERBOARD: 'SET_LEADERBOARD',
     SET_DEFAULTNAME: 'SET_DEFAULTNAME',
     SET_VIEW: 'SET_VIEW'
   };
+
+  const { SET_LEADERBOARD, SET_DEFAULTNAME, SET_VIEW } = ACTIONS;
 
 
   const reducer = (state, action) => {
@@ -39,21 +36,34 @@ import Loading from '../../Loading';
   };
 
 
-
-
-
-
-
 const useApplicationData = () => {
 
   const initialState = {
     leaderBoardPlayers: [],
     defaultName: "",
-    cookies: [],
     view: 'home'
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [cookies, setCookie, removeCookie] = useCookies(['name']);
+
+  //Functions
+  const handleSubmission = (name) => {
+    socket.emit('join', { 'name': name, 'cookie_uuid': cookies.cookie_uuid });
+  };
+
+  const handleLeaderBoardPlayers = (players) => {
+    dispatch({ type: ACTIONS.SET_LEADERBOARD, payload: players });
+  };
+
+  const handleDefaultName = (name) => {
+    dispatch({ type: ACTIONS.SET_DEFAULTNAME, payload: name });
+  };
+
+  const handleViewChange = (view) => {
+    dispatch({ type: ACTIONS.SET_VIEW, payload: view });
+  };
+
 
   //useEffects
 
@@ -78,7 +88,7 @@ const useApplicationData = () => {
         const { name, cookie_uuid } = response.data;
         setCookie('cookie_uuid', cookie_uuid, { path: '/' });
         setCookie('name', name, { path: '/' });
-        setDefaultName(name);
+        dispatch({ type: ACTIONS.SET_DEFAULTNAME, payload: name });
       })
       .catch((error) => {
         console.log(error);
@@ -87,7 +97,7 @@ const useApplicationData = () => {
       axios.get('http://localhost:8080/api/players')
       .then((response) => {
         console.log("RES FROM SERVER ==>", response.data.players);
-        setLeaderBoardPlayers(response.data.players);
+        dispatch({ type: ACTIONS.SET_LEADERBOARD, payload: response.data.players });
       })
       .catch((error) => {
         console.log(error);
@@ -95,29 +105,17 @@ const useApplicationData = () => {
   }, []);
 
 
-  const handleSubmission = (name) => {
-    socket.emit('join', { 'name': name, 'cookie_uuid': cookies.cookie_uuid });
-  };
-
-  const handleViewChange = (view) => {
-    setView(view);
-  };
-
-
   return {
-    leaderBoardPlayers,
-    setLeaderBoardPlayers,
-    defaultName,
-    setDefaultName,
+    state,
     cookies,
     setCookie,
     removeCookie,
-    view,
-    setView,
     handleSubmission,
+    handleDefaultName,
     handleViewChange
   };
 
 }
 
 export default useApplicationData;
+

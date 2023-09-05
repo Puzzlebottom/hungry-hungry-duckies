@@ -8,7 +8,6 @@ import { CookiesProvider, useCookies } from 'react-cookie';
 import axios from 'axios';
 import PlaySound from './components/PlaySound.jsx';
 import useApplicationData from './assets/hooks/useApplicationData';
-
 function App() {
   // const [defaultName, setDefaultName] = useState('');
   // const [cookies, setCookie] = useCookies(['name']);
@@ -64,20 +63,22 @@ function App() {
   //     });
   // }, []);
 const {
-  leaderBoardPlayers,
-  setLeaderBoardPlayers,
+  state,
+  cookies,
+  setCookie,
+  removeCookie,
   handleSubmission,
-  defaultName,
-  handleViewChange,
-  view,
-  setView,
-  setCookie
+  handleDefaultName,
+  handleViewChange
 } = useApplicationData();
+
+const { defaultName, view, leaderBoardPlayers } = state;
+
 
 const currentView = () => {
   switch (view) {
     case 'home':
-      return <Home { ...{ handleSubmission, defaultName, handleViewChange, leaderBoardPlayers, setLeaderBoardPlayers } } />;
+      return <Home { ...{ handleSubmission, defaultName, handleViewChange, leaderBoardPlayers, handleDefaultName } } />;
     case 'table':
       return <Table { ...{ handleViewChange } } />;
     case 'postGame':
