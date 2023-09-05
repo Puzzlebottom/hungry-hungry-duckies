@@ -4,7 +4,13 @@ import duckieTopRight from './assets/duckie-top-right-no-shadow-1.png';
 import duckieBottomLeft from './assets/duckie-bottom-left-no-shadow-1.png';
 import duckieBottomRight from './assets/duckie-bottom-right-no-shadow-1.png';
 
-function Loading() {
+function Loading(props) {
+  const changeView = () => {
+    props.handleViewChange('table');
+  };
+
+  setTimeout(changeView, 3000);
+
   return (
     <main className='loading-view'>
       <div className="duckie-container rotate">
