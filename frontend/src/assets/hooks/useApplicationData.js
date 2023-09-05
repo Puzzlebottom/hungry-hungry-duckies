@@ -52,10 +52,6 @@ const useApplicationData = () => {
     socket.emit('join', { 'name': name, 'cookie_uuid': cookies.cookie_uuid });
   };
 
-  const handleLeaderBoardPlayers = (players) => {
-    dispatch({ type: ACTIONS.SET_LEADERBOARD, payload: players });
-  };
-
   const handleDefaultName = (name) => {
     dispatch({ type: ACTIONS.SET_DEFAULTNAME, payload: name });
   };
