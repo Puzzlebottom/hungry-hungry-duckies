@@ -12,7 +12,7 @@ function App() {
   const [defaultName, setDefaultName] = useState('');
   const [cookies, setCookie] = useCookies(['name']);
   const [view, setView] = useState('home');
-  const [backgroundMusic, setBackgroundMusic] = useState(true); // State for background music
+  const [backgroundMusic, setBackgroundMusic] = useState(true);
 
   //Emits player name form info to server
   const handleSubmission = (name) => {
@@ -71,7 +71,10 @@ function App() {
 
   return (
     <div className="App">
-    <PlaySound audioSource={backgroundMusic ? '/audio/mainmenumusic.mp3' : '/audio/quacknoises.mp3'} />
+    <PlaySound audioSource={
+        view === 'loading' ? '/audio/Loadingmusic.mp3' :
+        backgroundMusic ? '/audio/mainmenumusic.mp3' : '/audio/quacknoises.mp3'
+      } />
       {currentView()}
     </div>
   );
