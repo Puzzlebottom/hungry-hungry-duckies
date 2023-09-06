@@ -5,7 +5,6 @@ const ACTIONS = {
   SET_NAME: 'SET_NAME',
   SET_SCORE: 'SET_SCORE',
   TOGGLE_MUNCH: 'TOGGLE_MUNCH',
-  UPDATE_READY: 'UPDATE_READY',
   SET_COUNTDOWN_COMPLETE: 'SET_COUNTDOWN_COMPLETE'
 };
 
@@ -14,7 +13,6 @@ const {
   SET_NAME,
   SET_SCORE,
   TOGGLE_MUNCH,
-  UPDATE_READY,
   SET_COUNTDOWN_COMPLETE
 } = ACTIONS;
 
@@ -39,11 +37,6 @@ const reducer = (state, action) => {
     case TOGGLE_MUNCH:
       return { ...state, playerMunchStates: state.playerMunchStates.map((munchState, index) => {
         return index === action.payload.seat ? !munchState : munchState
-      }
-    )};
-    case UPDATE_READY:
-      return { ...state, playerReadyStates: state.playerReadyStates.map((readyState, index) => {
-        index === action.payload.seat ? !readyState : readyState
       }
     )};
     case SET_COUNTDOWN_COMPLETE:
@@ -81,7 +74,7 @@ const useGameTableLogic = () => {
   const munchAudios = munchSounds.map((sound) => new Audio(sound));
 
   const munch = (seat, munchState) => {
-    // if (munchState) {
+    if (munchState) {
       const randomMunchSoundIndex = Math.floor(Math.random() * munchSounds.length);
       const munchAudio = munchAudios[randomMunchSoundIndex]; // Select a random audio file
       munchAudio.currentTime = 0; // Hard reset for the quack to start immediately
@@ -89,7 +82,7 @@ const useGameTableLogic = () => {
       setTimeout(() => {
         dispatch({ type: TOGGLE_MUNCH, payload: { seat } });
       }, 285);
-    // }
+    }
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -135,7 +128,7 @@ const useGameTableLogic = () => {
 
   const updateReady = (player, seat) => {
     if (player.isReady !== playerReadyStates[seat][0] && !gameState.isActive) {
-      dispatch({ type: UPDATE_READY, payload: { seat } });
+      dispatch({ type: TOGGLE_READY, payload: { seat } });
     }
   };
 
