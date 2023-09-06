@@ -32,6 +32,11 @@ const reducer = (state, action) => {
         index === action.payload.seat ? action.payload.name : currentName
       }
     )};
+    case SET_SCORE:
+      return { ...state, playerScoreStates: state.playerScoreStates.map((currentScore, index) => {
+        index === action.payload.seat ? action.payload.score : currentScore
+      }
+    )};
   }
 };
 
@@ -121,13 +126,11 @@ const useGameTableLogic = () => {
   };
 
   const updateName = (player, seat) => {
-    // const [name, setName] = playerNameStates[seat];
     dispatch({ type: SET_NAME, payload: { name: player.name, seat } });
   };
 
   const updateScore = (player, seat) => {
-    const [score, setScore] = playerScoreStates[seat];
-    if (score !== player.current_score) setScore(player.current_score);
+    dispatch({ type: SET_SCORE, payload: { score: player.current_score, seat } });
   };
 
   const updateMunch = (player, seat) => {
