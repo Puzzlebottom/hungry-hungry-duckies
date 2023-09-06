@@ -5,38 +5,78 @@ const ACTIONS = {
   SET_NAME: 'SET_NAME',
   SET_SCORE: 'SET_SCORE',
   TOGGLE_MUNCH: 'TOGGLE_MUNCH',
+  START_MUNCH: 'START_MUNCH',
+  STOP_MUNCH: 'STOP_MUNCH',
   SET_COUNTDOWN_COMPLETE: 'SET_COUNTDOWN_COMPLETE'
 };
 
-const {
-  TOGGLE_READY,
-  SET_NAME,
-  SET_SCORE,
-  TOGGLE_MUNCH,
-  SET_COUNTDOWN_COMPLETE
-} = ACTIONS;
-
 const reducer = (state, action) => {
-  switch (action.type) {
-    case TOGGLE_READY:
-      return { ...state, playerReadyStates: state.playerReadyStates.map((readyState, index) => {
-        console.log('toggle ready')
-        return index === state.gameState.player.current_seat ? !readyState : readyState
-      })
-    };
-    case SET_NAME:
-      return { ...state, playerNameStates: state.playerNameStates.map((currentName, index) => {
-        return index === action.payload.seat ? action.payload.name : currentName
+  const player = {...state.player};
+  const opponents = state.opponents.map(opponent => { return {...opponent}});
+  const players = [player, ...opponents].sort((a, b) => a - b)
+
+  const updatePlayers = (seat, property, value = null) => {
+    let updatedPlayers;
+
+    if (!value) {
+      updatedPlayers = toggleProperty()
+    } else {
+      updatedPlayers = updateProperty()
+    }
+
+    let updatedPlayer;
+    let updatedOpponents = [];
+
+    updatedPlayers.forEach(p => {
+      if (p.current_seat === player.current_seat) {
+        updatedPlayer = p;
+      } else {
+        updatedOpponents.push(p)
       }
-    )};
+    })
+
+    const toggleProperty = () => {
+      return players.map(p => {
+        if (p.current_seat === seat) {p[property] = !p[property]}
+      })
+    }
+
+    const updateProperty = () => {
+      return players.map(p => {
+        if (p.current_seat === seat){p[property] = value}
+      })
+    }
+
+    return {player: updatedPlayer, opponents: updatedOpponents};
+  }
+
+switch (action.type) {
+    case SET_NAME:
+      let { seat } = action.payload
+      let {player, opponents} = updatePlayers(seat, 'isReady')
+      return { ...state, player, opponents}
+
     case SET_SCORE:
       return { ...state, playerScoreStates: state.playerScoreStates.map((currentScore, index) => {
+        seat = action.payload
+        player = updatePlayers(seat, 'current_score', action.payload.score).player
+        opponents = updatePlayers(seat, 'current_score', action.payload.score).opponents
         return index === action.payload.seat ? action.payload.score : currentScore
       }
     )};
     case TOGGLE_MUNCH:
       return { ...state, playerMunchStates: state.playerMunchStates.map((munchState, index) => {
         return index === action.payload.seat ? !munchState : munchState
+      }
+    )};
+    case START_MUNCH:
+      return { ...state, playerMunchStates: state.playerMunchStates.map((munchState, index) => {
+        return index === action.payload.seat ? true : munchState
+      }
+    )};
+    case STOP_MUNCH:
+      return { ...state, playerMunchStates: state.playerMunchStates.map((munchState, index) => {
+        return index === action.payload.seat ? false : munchState
       }
     )};
     case SET_COUNTDOWN_COMPLETE:
@@ -47,7 +87,15 @@ const reducer = (state, action) => {
 };
 
 
+
+
+
+
 const useGameTableLogic = () => {
+
+  const initialState = {bugs: [], player: {}, opponents:[], isActive: false}
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { TOGGLE_READY, SET_NAME, SET_SCORE, TOGGLE_MUNCH, START_MUNCH, STOP_MUNCH, SET_COUNTDOWN_COMPLETE } = ACTIONS;
 
   const sanitizedPlayer1 = { name: 'Top Left', current_score: 0, current_seat: 0, isMunching: false, isReady: false };
   const sanitizedPlayer2 = { name: 'Top Right', current_score: 0, current_seat: 1, isMunching: false, isReady: false };
@@ -57,56 +105,41 @@ const useGameTableLogic = () => {
   const munchSounds = ['/audio/munchquack.mp3', '/audio/munchquack2.mp3', '/audio/munchquack3.mp3', '/audio/munchquack4.mp3', '/audio/munchquack5.mp3', '/audio/munchquack6.mp3', '/audio/munchquack7.wav', '/audio/munchquack8.mp3', '/audio/munchquack10.mp3'];
   const munchAudios = munchSounds.map((sound) => new Audio(sound));
 
-  const initialState = {
-    gameState: {
-      marbles: [],
+  const gameState = {
+      bugs: [],
       player: sanitizedPlayer1,
       opponents: [sanitizedPlayer2, sanitizedPlayer3, sanitizedPlayer4],
       isActive: true
-    },
-    playerReadyStates: [false, false, false, false],
-    playerNameStates: ['1', '2', '3', '4'],
-    playerScoreStates: [0, 0, 0, 0],
-    playerMunchStates: [false, false, false, false],
-    bugState: [],
-    countdownComplete: false
   };
 
-  const munch = (seat, munchState) => {
-    if (munchState) {
+  const munch = (seat) => {
+    // if (munchState) {
       const randomMunchSoundIndex = Math.floor(Math.random() * munchSounds.length);
       const munchAudio = munchAudios[randomMunchSoundIndex]; // Select a random audio file
       munchAudio.currentTime = 0; // Hard reset for the quack to start immediately
       munchAudio.play();
-      setTimeout(() => {
-        dispatch({ type: TOGGLE_MUNCH, payload: { seat } });
-      }, 285);
-    }
+      // setTimeout(() => {
+      //   dispatch({ type: TOGGLE_MUNCH, payload: { seat } });
+      // }, 285);
+    // }
   };
 
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const {
-    gameState,
-    playerReadyStates,
-    playerNameStates,
-    playerScoreStates,
-    playerMunchStates,
-    bugState,
-    countdownComplete
-  } = state;
 
   const handleKeyDown = (e) => {
     if (e.key === ' ') {
       e.preventDefault();
       console.log('spacebar pressed');
-      dispatch({ type: TOGGLE_MUNCH, payload: { seat: gameState.player.current_seat } });
-      munch(gameState.player.current_seat, playerMunchStates[gameState.player.current_seat]);
+      dispatch({ type: START_MUNCH, payload: { seat: gameState.player.current_seat } });
+      munch();
+      setTimeout(() => {
+        dispatch({ type: STOP_MUNCH, payload: { seat: gameState.player.current_seat } });
+      }, 285);
     }
   };
 
-  const toggleReady = () => {
+  const toggleReady = (seat) => {
     console.log('toggle ready');
-    dispatch({ type: TOGGLE_READY });
+    dispatch({ type: TOGGLE_READY, payload: { seat } });
   };
 
   const updateName = (player, seat) => {
@@ -125,7 +158,7 @@ const useGameTableLogic = () => {
 
 
   const updateReady = (player, seat) => {
-    if (player.isReady !== playerReadyStates[seat][0] && !gameState.isActive) {
+    if (!gameState.isActive) {
       dispatch({ type: TOGGLE_READY, payload: { seat } });
     }
   };
@@ -142,6 +175,7 @@ const useGameTableLogic = () => {
       updateMunch(player, seat);
       updateReady(player, seat);
     });
+
   };
 
   const getPlayersArray = () => {
@@ -171,9 +205,8 @@ const useGameTableLogic = () => {
   });
 
   return {
-    bugState,
+    state,
     handleCountdownComplete,
-    countdownComplete,
     getPlayersArray
 }
 };
