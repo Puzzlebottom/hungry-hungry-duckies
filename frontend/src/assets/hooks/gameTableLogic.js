@@ -1,50 +1,86 @@
 import { useState, useEffect } from 'react';
 
+const ACTIONS = {
+  TOGGLE_READY: 'TOGGLE_READY',
+  SET_NAME: 'SET_NAME',
+  SET_SCORE: 'SET_SCORE',
+  TOGGLE_MUNCH: 'TOGGLE_MUNCH',
+  UPDATE_READY: 'UPDATE_READY',
+  UPDATE_PLAYER_STATES: 'UPDATE_PLAYER_STATES',
+  SET_COUNTDOWN_COMPLETE: 'SET_COUNTDOWN_COMPLETE'
+};
+
+const {
+  TOGGLE_READY,
+  SET_NAME,
+  SET_SCORE,
+  TOGGLE_MUNCH,
+  UPDATE_READY,
+  UPDATE_PLAYER_STATES,
+  SET_COUNTDOWN_COMPLETE
+} = ACTIONS;
+
+const reducer = (state, action) => {
+  switch (action.type) {
+
+
+
 
 
 
 const useGameTableLogic = () => {
 
-
-  const playerMunchStates = [useState(false), useState(false), useState(false), useState(false)];
-  const playerNameStates = [useState(''), useState(''), useState(''), useState('')];
-  const playerScoreStates = [useState(0), useState(0), useState(0), useState(0)];
-  const playerReadyStates = [useState(false), useState(false), useState(false), useState(false)];
-
-  const sanitizedPlayer1 = { name: 'Top Left', current_score: 0, current_seat: 0, isMunching: false, isReady: false };
-  const sanitizedPlayer2 = { name: 'Top Right', current_score: 0, current_seat: 1, isMunching: false, isReady: false };
-  const sanitizedPlayer3 = { name: 'Bottom Left', current_score: 0, current_seat: 2, isMunching: false, isReady: false };
-  const sanitizedPlayer4 = { name: 'Bottom Right', current_score: 0, current_seat: 3, isMunching: false, isReady: false };
-
-  const [bugState, setBugState] = useState([]);
-  const [gameState, setGameState] = useState({
-    marbles: [],
-    player: sanitizedPlayer1,
-    opponents: [sanitizedPlayer2, sanitizedPlayer3, sanitizedPlayer4],
-    isActive: true
-  });
-
-  const munchSounds = ['/audio/munchquack.mp3', '/audio/munchquack2.mp3', '/audio/munchquack3.mp3', '/audio/munchquack4.mp3', '/audio/munchquack5.mp3', '/audio/munchquack6.mp3', '/audio/munchquack7.wav', '/audio/munchquack8.mp3', '/audio/munchquack10.mp3'];
-  const munchAudios = munchSounds.map((sound) => new Audio(sound));
-
-
-  /* FUNCTIONS  */
-  const munch = (setMunchStateCB) => {
-    setMunchStateCB((prev) => {
-      if (!prev) {
-        const randomMunchSoundIndex = Math.floor(Math.random() * munchSounds.length);
-        const munchAudio = munchAudios[randomMunchSoundIndex]; // Select a random audio file
-        munchAudio.currentTime = 0; // Hard reset for the quack to start immediately
-        munchAudio.play();
-        setTimeout(() => {
-          setMunchStateCB(false);
-        }, 285);
-        //makeMunchSound()
-        return true;
-      }
-      return prev;
-    });
+  const initialState = {
+    gameState: {
+      marbles: [],
+      player: sanitizedPlayer1,
+      opponents: [sanitizedPlayer2, sanitizedPlayer3, sanitizedPlayer4],
+      isActive: true
+    },
+    bugState: [],
+    countdownComplete: false
   };
+
+
+  // const playerMunchStates = [useState(false), useState(false), useState(false), useState(false)];
+  // const playerNameStates = [useState(''), useState(''), useState(''), useState('')];
+  // const playerScoreStates = [useState(0), useState(0), useState(0), useState(0)];
+  // const playerReadyStates = [useState(false), useState(false), useState(false), useState(false)];
+
+  // const sanitizedPlayer1 = { name: 'Top Left', current_score: 0, current_seat: 0, isMunching: false, isReady: false };
+  // const sanitizedPlayer2 = { name: 'Top Right', current_score: 0, current_seat: 1, isMunching: false, isReady: false };
+  // const sanitizedPlayer3 = { name: 'Bottom Left', current_score: 0, current_seat: 2, isMunching: false, isReady: false };
+  // const sanitizedPlayer4 = { name: 'Bottom Right', current_score: 0, current_seat: 3, isMunching: false, isReady: false };
+
+  // const [bugState, setBugState] = useState([]);
+  // const [gameState, setGameState] = useState({
+  //   marbles: [],
+  //   player: sanitizedPlayer1,
+  //   opponents: [sanitizedPlayer2, sanitizedPlayer3, sanitizedPlayer4],
+  //   isActive: true
+  // });
+
+  // const munchSounds = ['/audio/munchquack.mp3', '/audio/munchquack2.mp3', '/audio/munchquack3.mp3', '/audio/munchquack4.mp3', '/audio/munchquack5.mp3', '/audio/munchquack6.mp3', '/audio/munchquack7.wav', '/audio/munchquack8.mp3', '/audio/munchquack10.mp3'];
+  // const munchAudios = munchSounds.map((sound) => new Audio(sound));
+
+
+  // /* FUNCTIONS  */
+  // const munch = (setMunchStateCB) => {
+  //   setMunchStateCB((prev) => {
+  //     if (!prev) {
+  //       const randomMunchSoundIndex = Math.floor(Math.random() * munchSounds.length);
+  //       const munchAudio = munchAudios[randomMunchSoundIndex]; // Select a random audio file
+  //       munchAudio.currentTime = 0; // Hard reset for the quack to start immediately
+  //       munchAudio.play();
+  //       setTimeout(() => {
+  //         setMunchStateCB(false);
+  //       }, 285);
+  //       //makeMunchSound()
+  //       return true;
+  //     }
+  //     return prev;
+  //   });
+  // };
 
 
   const handleKeyDown = (e) => {
