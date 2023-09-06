@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 
 const ACTIONS = {
   TOGGLE_READY: 'TOGGLE_READY',
@@ -20,8 +20,8 @@ const {
   SET_COUNTDOWN_COMPLETE
 } = ACTIONS;
 
-const reducer = (state, action) => {
-  switch (action.type) {
+// const reducer = (state, action) => {
+//   switch (action.type) {
 
 
 
@@ -37,6 +37,10 @@ const useGameTableLogic = () => {
       opponents: [sanitizedPlayer2, sanitizedPlayer3, sanitizedPlayer4],
       isActive: true
     },
+    playerReadyStates: [false, false, false, false],
+    playerNameStates: ['', '', '', ''],
+    playerScoreStates: [0, 0, 0, 0],
+    playerMunchStates: [false, false, false, false],
     bugState: [],
     countdownComplete: false
   };
@@ -47,10 +51,10 @@ const useGameTableLogic = () => {
   // const playerScoreStates = [useState(0), useState(0), useState(0), useState(0)];
   // const playerReadyStates = [useState(false), useState(false), useState(false), useState(false)];
 
-  // const sanitizedPlayer1 = { name: 'Top Left', current_score: 0, current_seat: 0, isMunching: false, isReady: false };
-  // const sanitizedPlayer2 = { name: 'Top Right', current_score: 0, current_seat: 1, isMunching: false, isReady: false };
-  // const sanitizedPlayer3 = { name: 'Bottom Left', current_score: 0, current_seat: 2, isMunching: false, isReady: false };
-  // const sanitizedPlayer4 = { name: 'Bottom Right', current_score: 0, current_seat: 3, isMunching: false, isReady: false };
+  const sanitizedPlayer1 = { name: 'Top Left', current_score: 0, current_seat: 0, isMunching: false, isReady: false };
+  const sanitizedPlayer2 = { name: 'Top Right', current_score: 0, current_seat: 1, isMunching: false, isReady: false };
+  const sanitizedPlayer3 = { name: 'Bottom Left', current_score: 0, current_seat: 2, isMunching: false, isReady: false };
+  const sanitizedPlayer4 = { name: 'Bottom Right', current_score: 0, current_seat: 3, isMunching: false, isReady: false };
 
   // const [bugState, setBugState] = useState([]);
   // const [gameState, setGameState] = useState({
@@ -84,6 +88,18 @@ const useGameTableLogic = () => {
 
 
   const handleKeyDown = (e) => {
+
+    const [state, dispatch] = useState(initialState);
+    const {
+      gameState,
+      playerReadyStates,
+      playerNameStates,
+      playerScoreStates,
+      playerMunchStates,
+      bugState,
+      countdownComplete
+    } = state;
+
     if (e.key === ' ') {
       e.preventDefault();
       munch(playerMunchStates[gameState.player.current_seat][1]);
