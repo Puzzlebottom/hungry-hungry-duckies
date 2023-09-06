@@ -20,9 +20,15 @@ const {
   SET_COUNTDOWN_COMPLETE
 } = ACTIONS;
 
-// const reducer = (state, action) => {
-//   switch (action.type) {
-
+const reducer = (state, action) => {
+  switch (action.type) {
+    case TOGGLE_READY:
+      return { ...state, playerReadyStates: state.playerReadyStates.map((readyState, index) => {
+        index === state.gameState.player.current_seat ? !readyState : readyState
+      })
+    };
+  }
+};
 
 
 
@@ -86,20 +92,19 @@ const useGameTableLogic = () => {
   //   });
   // };
 
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const {
+    gameState,
+    playerReadyStates,
+    playerNameStates,
+    playerScoreStates,
+    playerMunchStates,
+    bugState,
+    countdownComplete
+  } = state;
+
 
   const handleKeyDown = (e) => {
-
-    const [state, dispatch] = useState(initialState);
-    const {
-      gameState,
-      playerReadyStates,
-      playerNameStates,
-      playerScoreStates,
-      playerMunchStates,
-      bugState,
-      countdownComplete
-    } = state;
-
     if (e.key === ' ') {
       e.preventDefault();
       munch(playerMunchStates[gameState.player.current_seat][1]);
@@ -107,8 +112,7 @@ const useGameTableLogic = () => {
   };
 
   const toggleReady = () => {
-    const [isReady, setIsReady] = playerReadyStates[gameState.player.current_seat];
-    setIsReady(!isReady); // Toggle the readiness state directly
+    dispatch({ type: TOGGLE_READY });
   };
 
   const updateName = (player, seat) => {
