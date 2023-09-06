@@ -1,6 +1,9 @@
 body {
   margin: 0;
-
+  background-color: rgba(0, 240, 240, 0.7); /* Cyanish-blue with transparency */
+  background-size: cover;
+  background-position: center top -400px; /* Move the wallpaper to the center at the top with an additional -100px offset */
+  opacity: 1;
 }
 
 .table-view {
@@ -17,22 +20,22 @@ body {
 
 .background__red {
   right: 0;
-  background-color: rgb(255, 109, 61);
+  background-color: rgba(255, 105, 180, 0.5); /* Transparent red */
 }
 
 .background__yellow {
   right: 0;
   bottom: 0;
-  background-color: rgb(255, 227, 66);
+  background-color: rgba(142, 68, 173, 0.5); /* Transparent purple */
 }
 
 .background__blue {
   bottom: 0;
-  background-color: rgb(65, 100, 255);
+  background-color: rgba(255, 105, 180, 0.5); /* Transparent red */
 }
 
 .background__green {
-  background-color: rgb(73, 255, 152);
+  background-color: rgba(1, 154, 154, 0.5); /* Cyanish-green with transparency */
 }
 
 .arena,
@@ -56,7 +59,8 @@ body {
   transform: translate(-50%, -50%);
   font-size: min(40vh, 40vw);
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
+  color: rgba(240, 240, 240, 0.7); /* Text color with transparency */
+  text-shadow: 0 0 5px rgba(252, 0, 255, 0.7), 0 0 10px rgba(252, 0, 255, 0.7), 0 0 15px rgba(252, 0, 255, 0.7);
 }
 
 .player-detail-panel {
@@ -67,12 +71,13 @@ body {
   width: 15vw;
   height: 35vh;
   border-radius: 8px;
-  border: 3px solid white;
+  border: 3px solid rgba(255, 255, 255, 0.7); /* Border with transparency */
   padding: 1em;
   justify-content: space-between;
   align-items: center;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  color: white;
+  color: rgba(255, 255, 255, 0.7); /* Text color with transparency */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with transparency */
 }
 
 .player-name {
@@ -91,43 +96,44 @@ body {
   bottom: 0;
   margin: 0.2em;
   padding: 0.2em;
-  color: white;
-  background-color: black;
+  color: rgba(255, 255, 255, 0.7); /* Text color with transparency */
+  background-color: rgba(0, 0, 0, 0.7); /* Background color with transparency */
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: min(5vh, 5vw);
-  border: 3px solid white;
+  border: 3px solid rgba(255, 255, 255, 0.7); /* Border with transparency */
   border-radius: 8px;
 }
 
 .button__ready {
-  color: white;
+  color: rgba(255, 255, 255, 0.7); /* Text color with transparency */
   background-color: transparent;
   font-size: min(2.5vh, 2.5vw);
   padding: 0.5em 1em 0.5em 1em;
-  border: 3px solid white;
+  border: 3px solid rgba(255, 255, 255, 0.7); /* Border with transparency */
   border-radius: 8px;
 }
 
+/* Player Detail Panel Background Colors with transparency */
 .player-detail-panel__top-left {
   top: 0;
   left: 0;
-  background-color: rgb(0, 255, 110);
+  background-color: rgba(255, 105, 180, 0.9); /* Transparent red */
 }
 
 .player-detail-panel__top-right {
   top: 0;
   right: 0;
-  background-color: rgb(255, 64, 0);
+  background-color: rgba(0, 240, 240, 0.9); /* Cyanish-blue with transparency */
 }
 
 .player-detail-panel__bottom-right {
   bottom: 0;
   right: 0;
-  background-color: rgb(255, 217, 0);
+  background-color: rgba(170, 136, 204, 0.9); /* Transparent purple */
 }
 
 .player-detail-panel__bottom-left {
   bottom: 0;
   left: 0;
-  background-color: rgb(0, 47, 255);
+  background-color: rgba(0, 128, 128, 0.9); /* Transparent dark cyan */
 }

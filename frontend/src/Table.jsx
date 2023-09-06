@@ -19,6 +19,8 @@ import Quarter from './components/Quarter';
 import Bugs from './components/Bugs';
 import GameTimer from './components/Gametimer';
 import Countdown from './components/Countdown';
+import videoBackground from '../public/videos/badass.mp4';
+
 
 const munchSounds = [
   '/audio/munchquack.mp3',
@@ -178,6 +180,9 @@ function Table(props) {
 
   return (
     <main className='table-view'>
+      <video className="background-video" autoPlay loop muted>
+      <source src={videoBackground} type="video/mp4" />
+      </video>
       <img src={arena} className='arena' />
 
       <Bugs bugState={bugState} />
