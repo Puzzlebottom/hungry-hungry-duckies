@@ -20,10 +20,8 @@ function PostGame() {
   const sortedPlayers = [...Players].sort((a, b) => b.score - a.score);
 
   return (
+
     <div className="Leaderboard-container">
-      <video className="background-video" autoPlay loop muted>
-        <source src={videoBackground} type="video/mp4" />
-      </video>
       <h1 className="Winner">Leaderboard</h1>
       <table className="true-leaderboard-table">
         <thead>
@@ -50,7 +48,6 @@ function PostGame() {
         <button className="play-again-button">Play again</button>
       </div>
       <div className="audiobutton">
-
       </div>
     </div>
   );

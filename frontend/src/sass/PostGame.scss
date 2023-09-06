@@ -6,20 +6,69 @@ html, body {
 }
 
 .Leaderboard-container {
+  /* Your existing styles for .Leaderboard-container */
+}
+
+body {
+  position: relative; /* Make the body a positioning context for pseudo-elements */
+  overflow: hidden;
+  background-color: rgba(0, 240, 240, 0.7);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/videos/PostGameBackground.png');
+  background-size: 400% 100%; /* Adjust as needed to show 25% of the image */
+  background-position: 100% 0; /* Start at the top right */
+  background-repeat: no-repeat;
+  z-index: -2; /* Place it behind everything else */
+  animation: horizontalParallax 100s linear infinite; /* Adjust the animation duration and timing function as needed */
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/videos/PostGameBackgroundPlanets.png');
+  background-size: 400% 400%; /* Adjust as needed to show 25% of the image */
+  background-position: 100% 0; /* Start at the top right */
+  background-repeat: no-repeat;
+  z-index: -1; /* Place it further behind the background image */
+  animation: diagonalParallaxPlanets 60s linear infinite; /* Adjust the animation duration as needed */
+}
+
+@keyframes horizontalParallax {
+  0% {
+    background-position: 0 100%; /* Start at the top right */
+  }
+  100% {
+    background-position: 100% 0; /* Move to the bottom left */
+  }
+}
+
+@keyframes diagonalParallaxPlanets {
+  0% {
+    background-position: 100% 0; /* Start at the top right */
+  }
+  100% {
+    background-position: 0 100%; /* Move to the bottom left (reverse direction) */
+  }
+}
+.Leaderboard-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  background-color: rgba(0, 240, 240, 0.7);
-  margin: 0;
-  background-image: url("https://i.pinimg.com/originals/35/5d/cd/355dcd3190bdf010ce05937e4f30e829.gif");
-  opacity: 1; /* Reduce opacity for a softer look */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
 }
+
 
 h1.Winner {
   margin-top: 10px;

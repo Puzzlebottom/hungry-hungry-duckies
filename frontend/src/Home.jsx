@@ -4,7 +4,7 @@ import PlayerNameForm from './components/PlayerNameForm';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import videoBackground from '../public/videos/dancingduck.mp4';
+import combinedBackground from '../public/videos/handcraftedbackground.png';
 
 function Home(props) {
   const { handleSubmission, defaultName, handleViewChange } = props;
@@ -30,31 +30,28 @@ function Home(props) {
         </div>
         <section className='home-instructions'>
           <h1>How To Play</h1>
-          <h3>Spacebar to MUNCH! 😤</h3>
-          <h3>Spacebar to quack! 🦆</h3>
-          {/* Add two duck images inside home-hero */}
+          <h3>Press Spacebar to MUNCH! 😤</h3>
+          <h3>Press Spacebar to quack! 🦆</h3>
           <div className='image-container top-left'>
             <img className="duck-image" src="https://gifdb.com/images/high/duck-happy-dance-76yta26qy8v77wfr.gif" alt="Background" />
           </div>
           <div className='image-container top-right'>
             <img className="duck-image" src="https://gifdb.com/images/high/duck-happy-dance-76yta26qy8v77wfr.gif" alt="Background" />
           </div>
-          {/* End of duck images in home-hero */}
         </section>
       </div>
       <div className='home-leaderboard-and-form'>
-        {/* Add two duck images inside home-leaderboard-and-form */}
         <div className='image-container bottom-left'>
           <img className="duck-image" src="https://gifdb.com/images/high/duck-happy-dance-76yta26qy8v77wfr.gif" alt="Background" />
         </div>
         <div className='image-container bottom-right'>
           <img className="duck-image" src="https://gifdb.com/images/high/duck-happy-dance-76yta26qy8v77wfr.gif" alt="Background" />
         </div>
-        {/* End of duck images in home-leaderboard-and-form */}
+
         <Leaderboard players={players} />
         <PlayerNameForm {...{ handleSubmission, defaultName, handleViewChange }} />
       </div>
     </main>
   );
-  }
+}
 export default Home;
