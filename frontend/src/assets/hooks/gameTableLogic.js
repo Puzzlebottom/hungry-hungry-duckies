@@ -42,6 +42,11 @@ const reducer = (state, action) => {
         index === action.payload.seat ? !munchState : munchState
       }
     )};
+    case UPDATE_READY:
+      return { ...state, playerReadyStates: state.playerReadyStates.map((readyState, index) => {
+        index === action.payload.seat ? !readyState : readyState
+      }
+    )};
   }
 };
 
@@ -154,8 +159,11 @@ const useGameTableLogic = () => {
 
 
   const updateReady = (player, seat) => {
-    const [isReady, setIsReady] = playerReadyStates[seat];
-    if (isReady !== player.isReady && !gameState.isActive) setIsReady(!isReady);
+    // const [isReady, setIsReady] = playerReadyStates[seat];
+    // if (isReady !== player.isReady && !gameState.isActive) setIsReady(!isReady);
+    if (player.isReady !== playerReadyStates[seat][0] && !gameState.isActive) {
+      dispatch({ type: UPDATE_READY, payload: { seat } });
+    }
   };
 
   const updatePlayerStates = () => {
