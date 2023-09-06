@@ -4,7 +4,19 @@ import PlayerNameForm from './components/PlayerNameForm';
 
 
 function Home(props) {
-  const { handleSubmission, defaultName, handleViewChange, leaderBoardPlayers } = props;
+  const { handleSubmission, defaultName, handleViewChange } = props;
+  const [players, setPlayers] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/players')
+      .then((response) => {
+        console.log("RES FROM SERVER ==>", response.data.players);
+        setPlayers(response.data.players);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <main className='home-main'>
