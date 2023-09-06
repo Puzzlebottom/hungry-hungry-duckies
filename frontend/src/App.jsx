@@ -51,7 +51,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setBackgroundMusic(view === 'home');
+    setBackgroundMusic(view === 'home'); //test
   }, [view]);
 
   useEffect(() => {
