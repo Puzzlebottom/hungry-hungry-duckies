@@ -13,7 +13,6 @@ import bottomLeft3 from './assets/duckie-bottom-left-3.png';
 import bottomRight1 from './assets/duckie-bottom-right-1.png';
 import bottomRight2 from './assets/duckie-bottom-right-2.png';
 import bottomRight3 from './assets/duckie-bottom-right-3.png';
-import PlaySound from './components/PlaySound.jsx';
 import useGameTableLogic from './assets/hooks/gameTableLogic';
 
 import Quarter from './components/Quarter';
