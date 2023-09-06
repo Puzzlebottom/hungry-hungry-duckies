@@ -22,7 +22,8 @@ const reducer = (state, action) => {
   switch (action.type) {
     case TOGGLE_READY:
       return { ...state, playerReadyStates: state.playerReadyStates.map((readyState, index) => {
-        index === state.gameState.player.current_seat ? !readyState : readyState
+        console.log('toggle ready')
+        return index === state.gameState.player.current_seat ? !readyState : readyState
       })
     };
     case SET_NAME:
@@ -54,8 +55,6 @@ const reducer = (state, action) => {
 
 
 
-
-
 const useGameTableLogic = () => {
 
   const sanitizedPlayer1 = { name: 'Top Left', current_score: 0, current_seat: 0, isMunching: false, isReady: false };
@@ -77,12 +76,6 @@ const useGameTableLogic = () => {
     bugState: [],
     countdownComplete: false
   };
-
-
-
-
-
-
 
   const munchSounds = ['/audio/munchquack.mp3', '/audio/munchquack2.mp3', '/audio/munchquack3.mp3', '/audio/munchquack4.mp3', '/audio/munchquack5.mp3', '/audio/munchquack6.mp3', '/audio/munchquack7.wav', '/audio/munchquack8.mp3', '/audio/munchquack10.mp3'];
   const munchAudios = munchSounds.map((sound) => new Audio(sound));
@@ -117,10 +110,11 @@ const useGameTableLogic = () => {
       console.log('spacebar pressed');
       dispatch({ type: TOGGLE_MUNCH, payload: { seat: gameState.player.current_seat } });
       munch(gameState.player.current_seat, playerMunchStates[gameState.player.current_seat]);
-    } //makes munch when spacebar is pressed
+    }
   };
 
   const toggleReady = () => {
+    console.log('toggle ready');
     dispatch({ type: TOGGLE_READY });
   };
 
@@ -133,14 +127,6 @@ const useGameTableLogic = () => {
   };
 
   const updateMunch = (player, seat) => {
-    // const [isMunching, setIsMunching] = playerMunchStates[seat];
-    // if (isMunching !== player.isMunching) {
-    //   setIsMunching(player.isMunching);
-    //   if (player.isMunching) {
-    //     munchAudio.currentTime = 0; // makes sure it resets as soon as you press the spacebar
-    //     munchAudio.play();
-    //   }
-    // }
     if (player.isMunching) {
       dispatch({ type: TOGGLE_MUNCH, payload: { seat } });
     }
@@ -148,8 +134,6 @@ const useGameTableLogic = () => {
 
 
   const updateReady = (player, seat) => {
-    // const [isReady, setIsReady] = playerReadyStates[seat];
-    // if (isReady !== player.isReady && !gameState.isActive) setIsReady(!isReady);
     if (player.isReady !== playerReadyStates[seat][0] && !gameState.isActive) {
       dispatch({ type: UPDATE_READY, payload: { seat } });
     }
