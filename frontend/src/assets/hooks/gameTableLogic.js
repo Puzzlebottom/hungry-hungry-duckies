@@ -47,13 +47,15 @@ const reducer = (state, action) => {
 };
 
 
-
 const useGameTableLogic = () => {
 
   const sanitizedPlayer1 = { name: 'Top Left', current_score: 0, current_seat: 0, isMunching: false, isReady: false };
   const sanitizedPlayer2 = { name: 'Top Right', current_score: 0, current_seat: 1, isMunching: false, isReady: false };
   const sanitizedPlayer3 = { name: 'Bottom Left', current_score: 0, current_seat: 2, isMunching: false, isReady: false };
   const sanitizedPlayer4 = { name: 'Bottom Right', current_score: 0, current_seat: 3, isMunching: false, isReady: false };
+
+  const munchSounds = ['/audio/munchquack.mp3', '/audio/munchquack2.mp3', '/audio/munchquack3.mp3', '/audio/munchquack4.mp3', '/audio/munchquack5.mp3', '/audio/munchquack6.mp3', '/audio/munchquack7.wav', '/audio/munchquack8.mp3', '/audio/munchquack10.mp3'];
+  const munchAudios = munchSounds.map((sound) => new Audio(sound));
 
   const initialState = {
     gameState: {
@@ -69,9 +71,6 @@ const useGameTableLogic = () => {
     bugState: [],
     countdownComplete: false
   };
-
-  const munchSounds = ['/audio/munchquack.mp3', '/audio/munchquack2.mp3', '/audio/munchquack3.mp3', '/audio/munchquack4.mp3', '/audio/munchquack5.mp3', '/audio/munchquack6.mp3', '/audio/munchquack7.wav', '/audio/munchquack8.mp3', '/audio/munchquack10.mp3'];
-  const munchAudios = munchSounds.map((sound) => new Audio(sound));
 
   const munch = (seat, munchState) => {
     if (munchState) {
@@ -95,7 +94,6 @@ const useGameTableLogic = () => {
     bugState,
     countdownComplete
   } = state;
-
 
   const handleKeyDown = (e) => {
     if (e.key === ' ') {
@@ -132,6 +130,10 @@ const useGameTableLogic = () => {
     }
   };
 
+  const handleCountdownComplete = () => {
+    dispatch({ type: SET_COUNTDOWN_COMPLETE });
+  };
+
   const updatePlayerStates = () => {
     const players = [gameState.player, ...gameState.opponents].sort((a, b) => a.current_seat - b.current_seat);
     players.forEach((player, seat) => {
@@ -162,15 +164,6 @@ const useGameTableLogic = () => {
   useEffect(() => {
     updatePlayerStates();
   }, [gameState]);
-
-
-
-
-  const handleCountdownComplete = () => {
-    dispatch({ type: SET_COUNTDOWN_COMPLETE });
-  };
-
-
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
