@@ -6,7 +6,6 @@ const ACTIONS = {
   SET_SCORE: 'SET_SCORE',
   TOGGLE_MUNCH: 'TOGGLE_MUNCH',
   UPDATE_READY: 'UPDATE_READY',
-  UPDATE_PLAYER_STATES: 'UPDATE_PLAYER_STATES',
   SET_COUNTDOWN_COMPLETE: 'SET_COUNTDOWN_COMPLETE'
 };
 
@@ -16,7 +15,6 @@ const {
   SET_SCORE,
   TOGGLE_MUNCH,
   UPDATE_READY,
-  UPDATE_PLAYER_STATES,
   SET_COUNTDOWN_COMPLETE
 } = ACTIONS;
 
@@ -47,6 +45,10 @@ const reducer = (state, action) => {
         index === action.payload.seat ? !readyState : readyState
       }
     )};
+    case SET_COUNTDOWN_COMPLETE:
+      return { ...state, countdownComplete: true };
+    default:
+      throw new Error(`Tried to reduce with unsupported action type: ${action.type}`);
   }
 };
 
@@ -200,14 +202,11 @@ const useGameTableLogic = () => {
 
 
 
-  // COUNTDOWN LOGIC
-  // const [countdownComplete, setCountdownComplete] = useState(false);
 
   const handleCountdownComplete = () => {
-    setCountdownComplete(true);
-
+    dispatch({ type: SET_COUNTDOWN_COMPLETE });
   };
-  // COUNTDOWN LOGIC END
+
 
 
   useEffect(() => {
