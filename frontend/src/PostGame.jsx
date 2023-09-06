@@ -1,7 +1,7 @@
 import React from 'react';
 import '../src/sass/Postgame.scss';
 import videoBackground from '../public/videos/Wormhole Animation.mp4';
-import PlaySound from './components/PlaySound.jsx';
+
 
 
 function PostGame() {
