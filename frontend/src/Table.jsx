@@ -13,14 +13,25 @@ import bottomLeft3 from './assets/duckie-bottom-left-3.png';
 import bottomRight1 from './assets/duckie-bottom-right-1.png';
 import bottomRight2 from './assets/duckie-bottom-right-2.png';
 import bottomRight3 from './assets/duckie-bottom-right-3.png';
-import PlaySound from './components/PlaySound.jsx';
+
 
 import Quarter from './components/Quarter';
 import Bugs from './components/Bugs';
 import GameTimer from './components/Gametimer';
 import Countdown from './components/Countdown';
 
-const munchSounds = ['/audio/munchquack.mp3', '/audio/munchquack2.mp3', '/audio/munchquack3.mp3', '/audio/munchquack4.mp3', '/audio/munchquack5.mp3', '/audio/munchquack6.mp3', '/audio/munchquack7.mp3', '/audio/munchquack8.mp3', '/audio/munchquack9.mp3', '/audio/munchquack10.mp3'];
+const munchSounds = [
+  '/audio/munchquack.mp3',
+  '/audio/munchquack2.mp3',
+  '/audio/munchquack3.mp3',
+  '/audio/munchquack4.mp3',
+  '/audio/munchquack5.mp3',
+  '/audio/munchquack6.mp3',
+  '/audio/munchquack7.mp3',
+  '/audio/munchquack8.mp3',
+  '/audio/munchquack9.mp3',
+  '/audio/munchquack10.mp3'
+];
 
 const munchAudios = munchSounds.map((sound) => new Audio(sound));
 
@@ -36,6 +47,7 @@ function Table(props) {
     [bottomLeft1, bottomLeft2, bottomLeft3],
     [bottomRight1, bottomRight2, bottomRight3]
   ];
+
 
 
 
@@ -57,17 +69,24 @@ function Table(props) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   });
 
+  const [lastMunchIndex, setLastMunchIndex] = useState(-1);
   const munch = (setMunchStateCB) => {
     setMunchStateCB((prev) => {
       if (!prev) {
-        const randomMunchSoundIndex = Math.floor(Math.random() * munchSounds.length);
-        const munchAudio = munchAudios[randomMunchSoundIndex]; // Select a random audio file
-        munchAudio.currentTime = 0; // Hard reset for the quack to start immediately
+        let randomMunchSoundIndex;
+        do {
+          randomMunchSoundIndex = Math.floor(Math.random() * munchSounds.length);
+        } while (randomMunchSoundIndex === lastMunchIndex); // the same sound doesn't play twice
+        setLastMunchIndex(randomMunchSoundIndex);
+
+        const munchAudio = munchAudios[randomMunchSoundIndex];
+        munchAudio.currentTime = 0;
         munchAudio.play();
+
         setTimeout(() => {
           setMunchStateCB(false);
         }, 285);
-        //makeMunchSound()
+
         return true;
       }
       return prev;
