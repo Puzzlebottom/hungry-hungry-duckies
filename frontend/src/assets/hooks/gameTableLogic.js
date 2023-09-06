@@ -27,6 +27,11 @@ const reducer = (state, action) => {
         index === state.gameState.player.current_seat ? !readyState : readyState
       })
     };
+    case SET_NAME:
+      return { ...state, playerNameStates: state.playerNameStates.map((currentName, index) => {
+        index === action.payload.seat ? action.payload.name : currentName
+      }
+    )};
   }
 };
 
@@ -116,8 +121,8 @@ const useGameTableLogic = () => {
   };
 
   const updateName = (player, seat) => {
-    const [name, setName] = playerNameStates[seat];
-    if (name !== player.name) setName(player.name);
+    // const [name, setName] = playerNameStates[seat];
+    dispatch({ type: SET_NAME, payload: { name: player.name, seat } });
   };
 
   const updateScore = (player, seat) => {
@@ -177,7 +182,7 @@ const useGameTableLogic = () => {
 
 
   // COUNTDOWN LOGIC
-  const [countdownComplete, setCountdownComplete] = useState(false);
+  // const [countdownComplete, setCountdownComplete] = useState(false);
 
   const handleCountdownComplete = () => {
     setCountdownComplete(true);
