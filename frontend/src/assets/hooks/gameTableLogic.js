@@ -115,6 +115,7 @@ const useGameTableLogic = () => {
     if (e.key === ' ') {
       e.preventDefault();
       console.log('spacebar pressed');
+      dispatch({ type: TOGGLE_MUNCH, payload: { seat: gameState.player.current_seat } });
       munch(gameState.player.current_seat, playerMunchStates[gameState.player.current_seat]);
     } //makes munch when spacebar is pressed
   };
