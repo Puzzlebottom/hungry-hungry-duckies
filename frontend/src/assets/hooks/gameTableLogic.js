@@ -37,6 +37,11 @@ const reducer = (state, action) => {
         index === action.payload.seat ? action.payload.score : currentScore
       }
     )};
+    case TOGGLE_MUNCH:
+      return { ...state, playerMunchStates: state.playerMunchStates.map((munchState, index) => {
+        index === action.payload.seat ? !munchState : munchState
+      }
+    )};
   }
 };
 
@@ -134,13 +139,16 @@ const useGameTableLogic = () => {
   };
 
   const updateMunch = (player, seat) => {
-    const [isMunching, setIsMunching] = playerMunchStates[seat];
-    if (isMunching !== player.isMunching) {
-      setIsMunching(player.isMunching);
-      if (player.isMunching) {
-        munchAudio.currentTime = 0; // makes sure it resets as soon as you press the spacebar
-        munchAudio.play();
-      }
+    // const [isMunching, setIsMunching] = playerMunchStates[seat];
+    // if (isMunching !== player.isMunching) {
+    //   setIsMunching(player.isMunching);
+    //   if (player.isMunching) {
+    //     munchAudio.currentTime = 0; // makes sure it resets as soon as you press the spacebar
+    //     munchAudio.play();
+    //   }
+    // }
+    if (player.isMunching) {
+      dispatch({ type: TOGGLE_MUNCH, payload: { seat } });
     }
   };
 
