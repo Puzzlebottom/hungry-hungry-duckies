@@ -1,8 +1,9 @@
 body {
   margin: 0;
   background-color: rgba(0, 240, 240, 0.7); /* Cyanish-blue with transparency */
+  background-image: url('https://media.tenor.com/LpHjGuCCrPwAAAAC/love-spiral.gif');
   background-size: cover;
-  background-position: center top -400px; /* Move the wallpaper to the center at the top with an additional -100px offset */
+  background-position: center top -300px; /* Move the wallpaper to the center at the top with an additional -100px offset */
   opacity: 1;
 }
 
@@ -20,22 +21,22 @@ body {
 
 .background__red {
   right: 0;
-  background-color: rgba(255, 105, 180, 0.5); /* Transparent red */
+  background-color: rgba(255, 105, 180, 0.7); /* Transparent red */
 }
 
 .background__yellow {
   right: 0;
   bottom: 0;
-  background-color: rgba(142, 68, 173, 0.5); /* Transparent purple */
+  background-color: rgba(142, 68, 173, 0.7); /* Transparent purple */
 }
 
 .background__blue {
   bottom: 0;
-  background-color: rgba(255, 105, 180, 0.5); /* Transparent red */
+  background-color: rgba(255, 105, 180, 0.7); /* Transparent red */
 }
 
 .background__green {
-  background-color: rgba(1, 154, 154, 0.5); /* Cyanish-green with transparency */
+  background-color: rgba(0, 240, 240, 0.7); /* Cyanish-green with transparency */
 }
 
 .arena,
