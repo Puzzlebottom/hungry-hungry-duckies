@@ -12,7 +12,6 @@ const TOTAL_BOUNDARY_FACES = 100; // controls the smoothness of the arena walls;
 const WALL_SEGMENT_DIMENSIONAL_COEFFICIENT = 0.15; // controls the thickness of the arena walls; bigger number = thicker walls
 const INSIDE_DIAMETER_ADJUSTMENT = 0.436; // used to scale boundary radius to match arena.png; bigger number = bigger arena
 const ATTRACTION_COEFFICIENT = 160e-10; // contols how strongly bugs are pulled toward the center. default 5e-7
-const NUMBER_OF_BUGS = 25;
 const BUG_SIZE_COEFFECIENT = 44e-3; // scales the bug physics object; bigger number = bigger bugs
 const BUG_TEMPO = 8; // controls the speed of the bug leg animation; bigger number = slower steps; must be > 1
 const SPRITE_SIZE_COEFFECIENT = 71e-5; // scales the bug sprite; bigger number = bigger sprite
@@ -27,9 +26,9 @@ export default function Bugs({ bugState }) {
   const engine = useRef(Engine.create());
   let tickCounter = useRef(0); // counts engine render updates
 
+
   const [viewWidth, setViewWidth] = useState(document.body.clientWidth);
   const [viewHeight, setViewHeight] = useState(document.body.clientHeight);
-  const [bugs, setBugs] = useState([]);
 
   const centerpoint = { x: viewWidth / 2, y: viewHeight / 2 };
   const smallerSide = Math.min(viewWidth, viewHeight);
@@ -38,11 +37,6 @@ export default function Bugs({ bugState }) {
   const handleResize = () => {
     setViewWidth(document.body.clientWidth);
     setViewHeight(document.body.clientHeight);
-  };
-
-  const handleMouseDown = () => {
-    console.log('new');
-    setBugs((prev) => [...prev, getNewBug()]);
   };
 
   const getAttractor = () => {
@@ -107,15 +101,12 @@ export default function Bugs({ bugState }) {
   };
 
   const updateBugs = (composite) => {
-    if (bugs.length === 0) {
-      return setBugs(bugs);
-    }
 
     const removeBug = (bug) => Composite.remove(composite, bug);
     const addBug = (bug) => Composite.add(composite, bug);
 
     const oldBugs = Composite.allBodies(composite).filter(body => body.label === 'bug');
-    const updatedBugs = bugs;
+    const updatedBugs = bugState;
 
     const oldBugMap = oldBugs.reduce((map, bug) => { return { ...map, [bug.id]: bug }; }, {});
     const updatedBugMap = updatedBugs.reduce((map, bug) => { return { ...map, [bug.id]: bug }; }, {});
@@ -140,13 +131,11 @@ export default function Bugs({ bugState }) {
         }
       });
     }
-    console.log(Composite.allBodies(composite).filter(body => body.label === 'bug'));
   };
 
   useEffect(() => {
 
     window.addEventListener('resize', handleResize);
-    window.addEventListener('mousedown', handleMouseDown);
 
     const render = Render.create({
       element: arena.current,
@@ -178,7 +167,7 @@ export default function Bugs({ bugState }) {
       Body.setAngle(bug, bearing - Math.PI / 2); // Math.PI / 2 (-90deg) adjustment is needed because the png is facing the wrong way.
     };
 
-    const composite = Composite.add(engine.current.world, [getAttractor(), ...getBounds(), ...bugs]);
+    const composite = Composite.add(engine.current.world, [getAttractor(), ...getBounds(), ...bugState]);
     const runner = Runner.create();
 
     Events.on(runner, 'tick', () => {
@@ -210,12 +199,11 @@ export default function Bugs({ bugState }) {
       render.context = null;
       render.textures = {};
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousedown', handleMouseDown);
     };
 
 
     return cleanup;
-  }, [viewHeight, viewWidth, bugs]);
+  }, [viewHeight, viewWidth, bugState]);
 
   return (
     <div ref={arena} className='arena' style={{ width: '100%', height: '100%' }} />

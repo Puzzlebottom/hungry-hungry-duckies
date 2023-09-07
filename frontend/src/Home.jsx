@@ -3,8 +3,7 @@ import Leaderboard from './components/Leaderboard';
 import PlayerNameForm from './components/PlayerNameForm';
 
 
-function Home(props) {
-  const { handleSubmission, defaultName, handleViewChange, leaderBoardPlayers } = props;
+function Home({ player, leaderboard, join }) {
 
   return (
     <main className='home-main'>
@@ -21,8 +20,8 @@ function Home(props) {
         </section>
       </div >
       <div className='home-leaderboard-and-form'>
-        <Leaderboard players={leaderBoardPlayers}/>
-        <PlayerNameForm { ...{ handleSubmission, defaultName, handleViewChange } } />
+        <Leaderboard {...{ leaderboard }} />
+        <PlayerNameForm {...{ player, join }} />
       </div>
     </main>
   );

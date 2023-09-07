@@ -1,31 +1,21 @@
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 const playerQueries = require('../db/queries/players');
 const { v4: uuidv4 } = require('uuid');
 
 // Runs cookie check on page load and returns cookie_uuid and player name
 
 router.get('/', (req, res) => {
-  const {cookie_uuid} = req.cookies
-  console.log('cookie server check: ', req.cookies);
+  const { addOrUpdatePlayer } = playerQueries;
+  const cookie = req.cookies.player;
+  console.log('COOKIES: ', req.cookies);
 
-  if(cookie_uuid) {
-    playerQueries.getPlayerByUUID(cookie_uuid)
-      .then(data => {
-        if(data.rows[0]) {
-          res.json({ 'cookie_uuid': data.rows[0].cookie_uuid, 'name': data.rows[0].name })
-        } else {
-          const cookie_uuid = uuidv4();
-          res.json({cookie_uuid, 'name': null});
-        }
-      })
-      .catch(err => {
-        console.log('err: ', err);
-      });
-  } else {
-    const cookie_uuid = uuidv4();
-    res.json({ cookie_uuid, 'name': null });
-    }
+  const uuid = cookie ? cookie : uuidv4();
+
+  addOrUpdatePlayer(uuid)
+    .then(result => {
+      res.send({ name: result.name, uuid: result.cookie_uuid });
+    });
 });
 
 module.exports = router;

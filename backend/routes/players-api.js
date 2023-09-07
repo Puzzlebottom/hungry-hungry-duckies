@@ -6,19 +6,16 @@
  */
 
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 const playerQueries = require('../db/queries/players');
 
 router.get('/', (req, res) => {
   playerQueries.getTopPlayers()
-    .then(playerData => {
-      const players = playerData.rows;
-      res.json({ players });
+    .then(result => {
+      res.send({ players: result.rows });
     })
     .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
+      res.status(500).send({ error: err.message });
     });
 });
 

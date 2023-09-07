@@ -5,7 +5,7 @@ const getAllPlayers = () => {
     SELECT * FROM players;
   `;
   return db.query(query);
-}
+};
 
 const getTopPlayers = () => {
   const query = `
@@ -14,37 +14,30 @@ const getTopPlayers = () => {
     LIMIT 10;
   `;
   return db.query(query);
-}
+};
 
-const getPlayerByUUID = (UUID) => {
-  const query = `
-    SELECT * FROM players
-    WHERE cookie_uuid = $1;
-  `;
-  const values = [UUID];
-  return db.query(query, values);
-}
-
-const updatePlayerName = (UUID, name) => {
+const updatePlayerName = (name, uuid) => {
   const query = `
     UPDATE players
     SET name = $1
     WHERE cookie_uuid = $2
     RETURNING *;
   `;
-  const values = [name, UUID];
+  const values = [name, uuid];
   return db.query(query, values);
-}
+};
 
-const addPlayer = (UUID, name) => {
-  const query = `
-    INSERT INTO players (cookie_uuid, name)
-    VALUES ($1, $2)
-    RETURNING *;
-  `;
-  const values = [UUID, name];
-  return db.query(query, values);
-}
+const addOrUpdatePlayer = async (uuid) => {
+  let result = await db.query('SELECT * FROM players WHERE cookie_uuid = $1', [uuid]);
+  let player = result.rows[0];
+
+  if (player) {
+    return player;
+  };
+
+  result = await db.query('INSERT INTO players (name, cookie_uuid) VALUES ($1, $2) RETURNING *;', ['', uuid]);
+  return result.rows[0];
+};
 
 
-module.exports = { getAllPlayers, getTopPlayers, getPlayerByUUID, updatePlayerName, addPlayer };
+module.exports = { getAllPlayers, getTopPlayers, updatePlayerName, addOrUpdatePlayer };

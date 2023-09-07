@@ -1,7 +1,7 @@
 import '../../public/stylesheets/Table.css';
 import { useEffect, useRef } from 'react';
 
-export default function Duckie({ images, isMunching }) {
+export default function Duckie({ images, isMunching, isClient }) {
 
   const image0 = useRef();
   const image1 = useRef();
@@ -31,8 +31,6 @@ export default function Duckie({ images, isMunching }) {
       }, 25); //in
     }
   }, [isMunching]);
-
-
 
   return (
     <div>

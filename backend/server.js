@@ -1,17 +1,14 @@
 // Load .env data into process.env
 require('dotenv').config();
 
-const { v4: uuidv4 } = require('uuid');
-const { Pool } = require('pg');
-const db = require('./db/connection');
-const playerQueries = require('./db/queries/players');
-const socketHelpers = require('./helpers/socketHelpers');
-
 
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
+const playerQueries = require('./db/queries/players');
+const { socketHelpers } = require('./helpers/socketHelpers');
+
 const app = express();
 const httpServer = require('http').createServer(app); // Create an HTTP server
 const { Server } = require('socket.io');
@@ -33,37 +30,48 @@ app.use(express.static('public'));
 app.use('/', require('./routes'));
 app.use('/api/players', require('./routes/players-api'));
 
+const { updatePlayerName } = playerQueries;
+const { sendUpdate } = socketHelpers;
+
 
 io.on('connect_error', (err) => {
   console.log(`connect_error due to ${err.message}`);
 });
 
 io.on('connection', (socket) => {
+
+  //game.match(socket)
+
   console.log('a user connected');
+  sendUpdate(socket, gameState);
+
+  const gameState = { bugs: [], player: {}, opponents: [], isActive: true };
+
+  const { id } = socket;
+
+  socket.on('join', (player) => {
+    updatePlayerName({ ...player });
+    gameState.player.name = player.name;
+    sendUpdate(socket, gameState);
+  });
+
+  socket.on('ready', () => {
+    gameState.player.isReady = !gameState.player.isReady;
+    sendUpdate(socket, gameState);
+  });
+
+  socket.on('munch', () => {
+    gameState.player.isMunching = true;
+    sendUpdate(socket, gameState);
+
+    setTimeout(() => {
+      gameState.player.isMunching = false;
+      sendUpdate(socket, gameState);
+    }, 285);
+  });
 
   socket.on('disconnect', () => {
     console.log('user disconnected');
-  });
-
-  socket.on('join', (playerNameObj) => {
-    const { cookie_uuid, name } = playerNameObj;
-    const joinFunction = (data) => {
-      socket.emit('joinReply', { 'name': data });
-    };
-
-    playerQueries.getPlayerByUUID(cookie_uuid)
-      .then(data => {
-        if(data.rows[0]) {
-          console.log('player exists');
-          socketHelpers.compareName(data.rows[0].name, name, cookie_uuid, joinFunction);
-        } else {
-          console.log('player does not exist');
-          socketHelpers.createNewPlayer(cookie_uuid, name, joinFunction);
-        }
-      })
-      .catch(err => {
-        console.log('err: ', err);
-      });
   });
 });
 

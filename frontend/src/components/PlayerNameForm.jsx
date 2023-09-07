@@ -1,20 +1,22 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
 
-export default function PlayerNameForm (props) {
-  const { handleSubmission, defaultName, handleViewChange } = props
+export default function PlayerNameForm({ player, join }) {
+  const [name, setName] = useState(player.name);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    join({ name, uuid: player.uuid });
+  };
+
+  const handleChange = (e) => {
+    setName(e.target.value);
+  };
+
   return (
-    <form className='playername-form' onSubmit={
-      (event) => {
-        event.preventDefault()
-        console.log('event target', event.target.name.value)
-        handleSubmission(event.target.name.value)
-        handleViewChange('loading')
-      }
-    }>
+    <form className='playername-form' onSubmit={handleSubmit}>
       <label htmlFor='name'>Name</label>
-      <input type='text' id='name' name='name'
-      placeholder='Enter player name' defaultValue={defaultName} />
-      <button type='submit'>Submit</button>
+      <input type='text' id='name' name='name' placeholder='Enter player name' defaultValue={name} onChange={handleChange} />
+      <button type='submit'>Join Game</button>
     </form>
-  )
+  );
 }
