@@ -22,15 +22,15 @@ function App() {
   const currentView = () => {
     switch (view) {
       case 'home':
-        return <Home { ...{ handleSubmission, defaultName, handleViewChange } } />;
+        return <Home {...{ handleSubmission, defaultName, handleViewChange }} />;
       case 'table':
-        return <Table { ...{ handleViewChange } } />;
+        return <Table {...{ handleViewChange }} />;
       case 'postGame':
-        return <PostGame { ...{ handleViewChange } } />;
+        return <PostGame {...{ handleViewChange }} />;
       case 'loading':
-        return <Loading  { ...{ handleViewChange } } />;
+        return <Loading  {...{ handleViewChange }} />;
       default:
-        return <Home { ...{ handleSubmission, defaultName, handleViewChange } } />;
+        return <Home {...{ handleSubmission, defaultName, handleViewChange }} />;
     }
   };
 
@@ -64,9 +64,7 @@ function App() {
 
 
   return (
-    <div className="App">
-      {currentView()}
-    </div>
+    <Table />
   );
 }
 
