@@ -20,20 +20,6 @@ import GameTimer from './components/Gametimer';
 import Countdown from './components/Countdown';
 import videoBackground from '../public/videos/badass.mp4';
 
-
-const munchSounds = [
-  '/audio/munchquack.mp3',
-  '/audio/munchquack2.mp3',
-  '/audio/munchquack3.mp3',
-  '/audio/munchquack4.mp3',
-  '/audio/munchquack5.mp3',
-  '/audio/munchquack6.mp3',
-  // '/audio/munchquack7.mp3',
-  '/audio/munchquack8.mp3',
-  // '/audio/munchquack9.mp3',
-  '/audio/munchquack10.mp3'
-];
-
 const munchAudios = munchSounds.map((sound) => new Audio(sound));
 
 function Table({ gameState, munch, toggleReady }) {
@@ -48,23 +34,6 @@ function Table({ gameState, munch, toggleReady }) {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   });
-
-  // const munch = (setMunchStateCB) => {
-  //   setMunchStateCB((prev) => {
-  //     if (!prev) {
-  //       const randomMunchSoundIndex = Math.floor(Math.random() * munchSounds.length);
-  //       const munchAudio = munchAudios[randomMunchSoundIndex]; // Select a random audio file
-  //       munchAudio.currentTime = 0; // Hard reset for the quack to start immediately
-  //       munchAudio.play();
-  //       setTimeout(() => {
-  //         setMunchStateCB(false);
-  //       }, 285);
-  //       //makeMunchSound()
-  //       return true;
-  //     }
-  //     return prev;
-  //   });
-  // };
 
   const handleKeyDown = (e) => {
     if (e.key === ' ') {

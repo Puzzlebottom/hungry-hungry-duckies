@@ -48,13 +48,13 @@ const PlaySound = ({ audioSource }) => {
       >
         {isMuted ? (
           <img
-            src="https://freesvg.org/img/pink_button_sound_on_morgaine1976.png"
+            src="https://freesvg.org/img/pink_button_sound_off_morgaine1976.png"
             alt="Muted"
             style={{ width: '30px', height: '30px' }}
           />
         ) : (
           <img
-            src="https://freesvg.org/img/pink_button_sound_off_morgaine1976.png"
+            src="https://freesvg.org/img/pink_button_sound_on_morgaine1976.png"
             alt="Unmuted"
             style={{ width: '30px', height: '30px' }}
           />
