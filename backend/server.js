@@ -1,13 +1,13 @@
 // Load .env data into process.env
 require('dotenv').config();
 
-
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
 const playerQueries = require('./db/queries/players');
 const { socketHelpers } = require('./helpers/socketHelpers');
+const Game = require('./game');
 
 const app = express();
 const httpServer = require('http').createServer(app); // Create an HTTP server
@@ -33,31 +33,24 @@ app.use('/api/players', require('./routes/players-api'));
 const { updatePlayerName } = playerQueries;
 const { sendUpdate } = socketHelpers;
 
-
 io.on('connect_error', (err) => {
   console.log(`connect_error due to ${err.message}`);
 });
 
 io.on('connection', (socket) => {
-
-  //game.match(socket)
-
   console.log('a user connected');
+  const gameState = Game.initialize();
+
   sendUpdate(socket, gameState);
-
-  const gameState = { bugs: [], player: {}, opponents: [], isActive: true };
-
-  const { id } = socket;
 
   socket.on('join', (player) => {
     updatePlayerName({ ...player });
-    gameState.player.name = player.name;
-    sendUpdate(socket, gameState);
+    Game.addPlayer(player, socket.id);
+    sendUpdate(socket, Game.getGameStateForSocketId(socket.id));
   });
 
   socket.on('ready', () => {
-    gameState.player.isReady = !gameState.player.isReady;
-    sendUpdate(socket, gameState);
+    sendUpdate(socket, Game.getGameStateForSocketId(socket.id));
   });
 
   socket.on('munch', () => {

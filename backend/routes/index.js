@@ -8,7 +8,6 @@ const { v4: uuidv4 } = require('uuid');
 router.get('/', (req, res) => {
   const { addOrUpdatePlayer } = playerQueries;
   const cookie = req.cookies.player;
-  console.log('COOKIES: ', req.cookies);
 
   const uuid = cookie ? cookie : uuidv4();
 

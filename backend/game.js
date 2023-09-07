@@ -1,86 +1,59 @@
-import Matter from 'matter-js';
-import Instance from './physics.js';
+const Instance = require('./physics');
 
-const { Body, Composite } = Matter;
-const { composite, getNewBug } = Instance.run();
+const Game = {
+  state: { bugs: [], players: [], isActive: false },
+  physics: {},
+  playerIndex: {},
 
-const players = {};
-const bugs = {};
-const isActive = false;
+  initialize() {
+    this.physics = Instance.run();
+    const initialState = { bugs: [], player: {}, opponents: [], isActive: false };
+    return initialState;
+  },
 
-// const a = getNewBug();
-// const b = getNewBug();
+  start() {
+    this.physics.addBugs(25);
+    this.state.bugs = this.physics.getBugUpdate();
+    this.state.isActive = true;
 
-// Composite.add(composite, [a, b]);
+    console.log('STATE: ', this.state);
 
-// setInterval(() => {
-//   console.log('A: ', a.position, a.id);
-//   console.log('B: ', b.position, b.id);
-// }, 500);
+    return this;
+  },
 
+  addPlayer(player, socketId) {
+    const seat = player.current_seat || this.state.players.length;
+    const score = player.current_score || 0;
+    const newPlayer = { name: player.name, current_score: score, current_seat: seat, isMunching: false, isReady: false, socketId };
+    this.state.players = [...this.state.players, newPlayer];
 
-const munch = (composite, seat) => {
-  const labelPrefix = [
-    'top-left',
-    'top-right',
-    'bottom-left',
-    'bottom-right'
-  ][seat];
+    return newPlayer;
+  },
 
-  const bugs = [];
-  let innerSensor;
-  let outerSensor;
+  getGameStateForSocketId(socketId) {
+    const { bugs, players, isActive } = this.state;
 
-  const innerLabel = labelPrefix + '-inner';
-  const outerLabel = labelPrefix + '-outer';
+    if (Object.keys(players).length === 0) return {};
 
-  Composite.allBodies(composite).forEach(body => {
-    if (body.label === innerLabel) innerSensor = body;
-    if (body.label === outerLabel) outerSensor = body;
-    if (body.label === 'bug') bugs.push(body);
-  });
+    const player = players.find(player => player.socketId === socketId) || {};
+    const playerSeat = player.current_seat;
 
-  const munchedBugs = Query.collides(innerSensor, bugs);
-  munchedBugs.forEach(munch => Composite.remove(composite, munch.bodyB));
+    const opponents = [0, 1, 2, 3]
+      .filter(i => i !== playerSeat)
+      .map(i => players[i])
+      .filter(p => p);
 
-  const missedBugs = Query.collides(outerSensor, bugs);
-  missedBugs.forEach(miss => {
-    const bug = miss.bodyB;
-    bounceBug(outerSensor, bug);
-  });
+    const sanitizePlayer = (player) => {
+      const sanitizedPlayer = { ...player };
+      delete sanitizedPlayer.socketId;
+      return sanitizedPlayer;
+    };
+
+    const bugData = bugs.map(bug => { return { id: bug.id, position: bug.position, velocity: bug.velocity }; });
+
+    return { bugs: bugData, player: sanitizePlayer(player), opponents: opponents.map(sanitizePlayer), isActive };
+  }
 };
 
-//PLAYER ACTIONS { name: 'Top Left', current_score: 0, current_seat: 0, isMunching: false, isReady: false }
-// add player
-// remove player
-// setName
-// setScore
-// setSeat
-// setIsMunching
-// setIsReady
 
-//BUG ACTIONS {position: {x: 0, y: 0}, velocity: {x: 0, y:0}, }
-// getBugUpdate
-// addBug
-// removeBug(id)
-
-//GAME ACTIONS
-// checkReady()
-// beginGame
-// munch(composite, seat)
-// updatePlayer(seat)
-// getGameStateForSeat(seat) game state will be calculated on an arena 1260 x 1260, client side rectification will have to happen
-// endGame
-
-
-const getGameStateForSeat = (seat) => {
-  if (Object.keys(players).length === 0) return {};
-
-  const player = players[seat] || {};
-
-  const opponents = [0, 1, 2, 3]
-    .filter(i => i !== seat)
-    .map(i => players[i]);
-
-  return { bugs, player, opponents, isActive };
-};
+module.exports = Game;

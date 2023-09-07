@@ -16,7 +16,8 @@ const getTopPlayers = () => {
   return db.query(query);
 };
 
-const updatePlayerName = (name, uuid) => {
+const updatePlayerName = ({ name, uuid }) => {
+  console.log('NAME', name, 'UUID', uuid);
   const query = `
     UPDATE players
     SET name = $1
