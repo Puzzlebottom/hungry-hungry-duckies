@@ -6,12 +6,7 @@ import duckieBottomRight from './assets/duckie-bottom-right-no-shadow-1.png';
 import getRandomMessage from './assets/loading_messages';
 import videoBackground from '../public/videos/Wormhole Animation.mp4';
 
-function Loading(props) {
-  const changeView = () => {
-    props.handleViewChange('table');
-  };
-
-  setTimeout(changeView, 3000);
+function Loading() {
 
   return (
     <main className='loading-view'>

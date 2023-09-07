@@ -6,20 +6,7 @@ import axios from 'axios';
 
 import videoBackground from '../public/videos/dancingduck.mp4';
 
-function Home(props) {
-  const { handleSubmission, defaultName, handleViewChange } = props;
-  const [players, setPlayers] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://localhost:8080/api/players')
-      .then((response) => {
-        console.log("RES FROM SERVER ==>", response.data.players);
-        setPlayers(response.data.players);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+function Home({ player, leaderboard, join }) {
 
   return (
     <main className='home-main'>
@@ -51,10 +38,10 @@ function Home(props) {
           <img className="duck-image" src="https://gifdb.com/images/high/duck-happy-dance-76yta26qy8v77wfr.gif" alt="Background" />
         </div>
         {/* End of duck images in home-leaderboard-and-form */}
-        <Leaderboard players={players} />
-        <PlayerNameForm {...{ handleSubmission, defaultName, handleViewChange }} />
+        <Leaderboard {...{ leaderboard }} />
+        <PlayerNameForm {...{ player, join }} />
       </div>
     </main>
   );
-  }
+}
 export default Home;

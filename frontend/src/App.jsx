@@ -4,49 +4,30 @@ import Table from './Table';
 import PostGame from './PostGame';
 import Loading from './Loading';
 import PlaySound from './components/PlaySound.jsx';
-import useApplicationData from './assets/hooks/useApplicationData';
+import useApplicationData from './hooks/useApplicationData';
+import useGame from './hooks/useGame';
+
 function App() {
 
-const {
-  state,
-  handleSubmission,
-  handleDefaultName,
-  handleViewChange
-} = useApplicationData();
-
-const { defaultName, view, leaderBoardPlayers } = state;
-
-  const currentView = () => {
-    switch (view) {
-      case 'home':
-        return <Home { ...{ handleSubmission, defaultName, handleViewChange, leaderBoardPlayers } } />;
-      case 'table':
-        return <Table { ...{ handleViewChange } } />;
-      case 'postGame':
-        return <PostGame { ...{ handleViewChange } } />;
-      case 'loading':
-        return <Loading  { ...{ handleViewChange } } />;
-      default:
-        return <Home { ...{ handleSubmission, defaultName, handleViewChange, leaderBoardPlayers } } />;
-    }
-  };
-
   // background music
-  const [backgroundMusic, setBackgroundMusic] = useState(true);
+  // const [backgroundMusic, setBackgroundMusic] = useState(true);
 
-  useEffect(() => {
-    setBackgroundMusic(state.view === 'home');
-  }, [state.view]);
+  // useEffect(() => {
+  //   setBackgroundMusic(state.view === 'home');
+  // }, [state.view]);
+
+  const { gameState, view, setView, player, leaderboard, join, munch, toggleReady, home } = useGame();
 
   return (
     <div className="App">
-    <PlaySound audioSource={
+      {/* <PlaySound audioSource={
         view === 'loading' ? '/audio/Loadingmusic.mp3' :
         backgroundMusic ? '/audio/mainmenumusic.mp3' : '/audio/quacknoises.mp3'
-      } />
-
-      {currentView()}
-
+      } /> */}
+      {view === 'loading' && <Loading {...{ setView }} />}
+      {view === 'home' && <Home {...{ player, leaderboard, join }} />}
+      {view === 'table' && <Table {...{ gameState, munch, toggleReady }} />}
+      {view === 'postgame' && <PostGame {...{ join, home }} />}
     </div>
   );
 }

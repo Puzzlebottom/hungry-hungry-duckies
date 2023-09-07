@@ -1,5 +1,4 @@
-export default function Leaderboard(props) {
-  const { players } = props;
+export default function Leaderboard({ leaderboard }) {
   return (
     <div className="leaderboard">
       <h1>Leaderboard</h1>
@@ -12,7 +11,7 @@ export default function Leaderboard(props) {
           </tr>
         </thead>
         <tbody className="leaderboard-body">
-          {players.map((player, index) => (
+          {leaderboard.map((player, index) => (
             <tr key={player.id}>
               <td>{index + 1}</td>
               <td>{player.name}</td>
