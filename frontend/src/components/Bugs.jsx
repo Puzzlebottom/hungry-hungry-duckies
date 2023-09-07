@@ -6,7 +6,7 @@ import bug1 from '../assets/bug1.png';
 import bug2 from '../assets/bug2.png';
 
 Matter.use(MatterAttractors);
-const { Engine, Render, Runner, Body, Bodies, Composite, Events, Vector } = Matter;
+const { Engine, Render, Runner, Body, Bodies, Composite, Events, Vector, Query } = Matter;
 
 const TOTAL_BOUNDARY_FACES = 100; // controls the smoothness of the arena walls; more faces = smoother walls
 const WALL_SEGMENT_DIMENSIONAL_COEFFICIENT = 0.15; // controls the thickness of the arena walls; bigger number = thicker walls
@@ -16,9 +16,10 @@ const BUG_SIZE_COEFFECIENT = 44e-3; // scales the bug physics object; bigger num
 const BUG_TEMPO = 8; // controls the speed of the bug leg animation; bigger number = slower steps; must be > 1
 const SPRITE_SIZE_COEFFECIENT = 71e-5; // scales the bug sprite; bigger number = bigger sprite
 const SPRITE_Y_OFFSET = -0.05; // shifts the sprite to more accurately match the apparent center of gravity
-const BUG_FRICTION_COEFFICIENT = -55e-5; // controls the negative friction of the bugs applying an innate churn without input; default -57e-5
+const BUG_FRICTION_COEFFICIENT = -2e-4; // controls the negative friction of the bugs applying an innate churn without input; default -57e-5
 const AIR_FRICTION_COEFFICIENT = 199e-7; // controls how rapidly the bugs slow down; bigger number = slower bugs
-const RESTITUTION = 1; // controls the bounciness of the bugs; bigger number = more bouncy;
+const RESTITUTION = 0.5; // controls the bounciness of the bugs; bigger number = more bouncy;
+const REPULSOR_SCALAR_COEFFICIENT = 0.05; // controls the knockback on a missed munch; bigger number = more knockback
 
 export default function Bugs({ bugState }) {
 
@@ -43,7 +44,10 @@ export default function Bugs({ bugState }) {
     const attractor = (bodyA, bodyB) => {
       const a = bodyA.position;
       const b = bodyB.position;
-      return { x: (a.x - b.x) * radius * ATTRACTION_COEFFICIENT, y: (a.y - b.y) * radius * ATTRACTION_COEFFICIENT * radius / 350 };
+      return {
+        x: (a.x - b.x) * radius * ATTRACTION_COEFFICIENT,
+        y: (a.y - b.y) * radius * ATTRACTION_COEFFICIENT
+      };
     };
 
     const center = Bodies.circle(centerpoint.x, centerpoint.y, 0, {
@@ -86,7 +90,10 @@ export default function Bugs({ bugState }) {
     const y = centerpoint.y + randomOffset.y;
     const size = radius * BUG_SIZE_COEFFECIENT;
     const newBug = Bodies.circle(x, y, size, {
-      restitution: RESTITUTION, friction: radius * BUG_FRICTION_COEFFICIENT, frictionAir: radius * AIR_FRICTION_COEFFICIENT, frictionStatic: 0, label: 'bug',
+      restitution: RESTITUTION,
+      friction: radius * BUG_FRICTION_COEFFICIENT,
+      frictionAir: radius * AIR_FRICTION_COEFFICIENT,
+      frictionStatic: 0, label: 'bug',
       render: {
         sprite: {
           texture: bug1,
@@ -99,6 +106,30 @@ export default function Bugs({ bugState }) {
 
     return newBug;
   };
+
+  const getMunchSensor = (seat) => {
+    const offsetRatio = radius * 0.125;
+    const innerSensorRadius = radius * BUG_SIZE_COEFFECIENT * 1;
+    const outerSensorRadius = radius * BUG_SIZE_COEFFECIENT * 3.1;
+    const coordinates = [
+      { x: -offsetRatio, y: -offsetRatio },
+      { x: offsetRatio, y: -offsetRatio },
+      { x: -offsetRatio, y: offsetRatio },
+      { x: offsetRatio, y: offsetRatio }
+    ][seat];
+    const label = ['top-left', 'top-right', 'bottom-left', 'bottom-right'][seat];
+
+    const munchSensorInner = Bodies.circle(centerpoint.x + coordinates.x, centerpoint.y + coordinates.y, innerSensorRadius, {
+      isStatic: true, isSensor: true, label: label + '-inner', render: { visible: false }
+    });
+
+    const munchSensorOuter = Bodies.circle(centerpoint.x + coordinates.x, centerpoint.y + coordinates.y, outerSensorRadius, {
+      isStatic: true, isSensor: true, label: label + '-outer', render: { visible: false }
+    });
+
+    return [munchSensorInner, munchSensorOuter];
+  };
+
 
   const updateBugs = (composite) => {
 
@@ -183,6 +214,44 @@ export default function Bugs({ bugState }) {
 
       if (tickCounter.current === BUG_TEMPO) tickCounter.current = 0;
     });
+
+    const handleKeyPress = (e) => {
+      if (e.key === ' ') {
+        detectMunch(composite);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+
+    const detectMunch = (composite) => {
+      const seat = 0; // this will be an argument
+      const labelPrefix = ['top-left', 'top-right', 'bottom-left', 'bottom-right'][seat];
+      const innerLabel = labelPrefix + '-inner';
+      const outerLabel = labelPrefix + '-outer';
+      const bugs = [];
+      let innerSensor;
+      let outerSensor;
+      Composite.allBodies(composite).forEach(body => {
+        if (body.label === innerLabel) innerSensor = body;
+        if (body.label === outerLabel) outerSensor = body;
+        if (body.label === 'bug') bugs.push(body);
+      });
+      const munched = Query.collides(innerSensor, bugs);
+      munched.forEach(munch => Composite.remove(composite, munch.bodyB));
+
+      console.log(`${munched.length} bugs munched, ${bugs.length - munched.length} remaining`);
+      const missed = Query.collides(outerSensor, bugs);
+
+      missed.forEach(miss => {
+        const vector = Vector.sub(miss.bodyB.position, miss.bodyA.position);
+        const normalized = Vector.normalise(vector);
+        const scalar = radius * REPULSOR_SCALAR_COEFFICIENT;
+
+        Body.setVelocity(miss.bodyB, Vector.mult(normalized, scalar));
+        // Body.setAngularSpeed(miss.bodyB, 0);
+      });
+    };
+
 
     updateBugs(composite, engine);
 
