@@ -2,7 +2,7 @@ const Matter = require("matter-js");
 const MatterAttractors = require("matter-attractors");
 
 Matter.use(MatterAttractors);
-const { Engine, Runner, Body, Bodies, Composite, Vector } = Matter;
+const { Engine, Runner, Body, Bodies, Composite, Vector, Query } = Matter;
 
 const ATTRACTION_COEFFICIENT = 160e-10; // contols how strongly bugs are pulled toward the center. default 5e-7
 
@@ -28,8 +28,8 @@ const Instance = {
     const runner = Runner.create();
     Runner.run(runner, engine);
 
-    const WIDTH = 1000;
-    const HEIGHT = 1000;
+    const WIDTH = 487;
+    const HEIGHT = 487;
 
     const centerpoint = { x: WIDTH / 2, y: HEIGHT / 2 };
     const smallerSide = Math.min(WIDTH, HEIGHT);
@@ -104,7 +104,7 @@ const Instance = {
 
     const getSensors = () => {
       const sensors = [];
-      for (let i = 0; i < 4; i++) sensors.push(getMunchSensor(i));
+      for (let i = 0; i < 4; i++) sensors.push(...getMunchSensor(i));
       return sensors;
     };
 
@@ -155,8 +155,8 @@ const Instance = {
       let innerSensor;
       let outerSensor;
 
-      const innerLabel = labelPrefix + '-inner';
-      const outerLabel = labelPrefix + '-outer';
+      const innerLabel = labelPrefix + '-munch';
+      const outerLabel = labelPrefix + '-miss';
 
       Composite.allBodies(composite).forEach(body => {
         if (body.label === innerLabel) innerSensor = body;

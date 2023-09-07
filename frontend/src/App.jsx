@@ -14,7 +14,7 @@ function App() {
 
   return (
     <div className="App">
-      <PlaySound audioSource={track} />
+      {/* <PlaySound audioSource={track} /> */}
       {view === 'loading' && <Loading {...{ setView }} />}
       {view === 'home' && <Home {...{ player, leaderboard, join }} />}
       {view === 'table' && <Table {...{ gameState, munch, toggleReady }} />}

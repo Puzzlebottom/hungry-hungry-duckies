@@ -6,7 +6,7 @@ import bug1 from '../assets/bug1.png';
 import bug2 from '../assets/bug2.png';
 
 Matter.use(MatterAttractors);
-const { Engine, Render, Runner, Body, Bodies, Composite, Events, Vector, Query } = Matter;
+const { Engine, Render, Runner, Body, Bodies, Composite, Events, Vector } = Matter;
 
 const TOTAL_BOUNDARY_FACES = 100; // controls the smoothness of the arena walls; more faces = smoother walls
 const WALL_SEGMENT_DIMENSIONAL_COEFFICIENT = 0.15; // controls the thickness of the arena walls; bigger number = thicker walls
@@ -16,22 +16,22 @@ const BUG_SIZE_COEFFECIENT = 44e-3; // scales the bug physics object; bigger num
 const BUG_TEMPO = 8; // controls the speed of the bug leg animation; bigger number = slower steps; must be > 1
 const SPRITE_SIZE_COEFFECIENT = 71e-5; // scales the bug sprite; bigger number = bigger sprite
 const SPRITE_Y_OFFSET = -0.05; // shifts the sprite to more accurately match the apparent center of gravity
-const BUG_FRICTION_COEFFICIENT = -2e-4; // controls the negative friction of the bugs applying an innate churn without input; default -57e-5
+const BUG_FRICTION_COEFFICIENT = -55e-5; // controls the negative friction of the bugs applying an innate churn without input; default -57e-5
 const AIR_FRICTION_COEFFICIENT = 199e-7; // controls how rapidly the bugs slow down; bigger number = slower bugs
-const RESTITUTION = 0.5; // controls the bounciness of the bugs; bigger number = more bouncy;
+const RESTITUTION = 1; // controls the bounciness of the bugs; bigger number = more bouncy;
 
 export default function Bugs({ bugState }) {
 
   const arena = useRef(); // arena element
   const engine = useRef(Engine.create());
   let tickCounter = useRef(0); // counts engine render updates
-
+  let composite = useRef();
 
   const [viewWidth, setViewWidth] = useState(document.body.clientWidth);
   const [viewHeight, setViewHeight] = useState(document.body.clientHeight);
 
-  const centerpoint = { x: viewWidth / 2, y: viewHeight / 2 };
   const smallerSide = Math.min(viewWidth, viewHeight);
+  const centerpoint = { x: smallerSide / 2, y: smallerSide / 2 };
   const radius = smallerSide * INSIDE_DIAMETER_ADJUSTMENT;
 
   const handleResize = () => {
@@ -77,16 +77,9 @@ export default function Bugs({ bugState }) {
     return wallSegments;
   };
 
-  const getRandomCoordinateInCircle = (radius) => {
-    const x = Math.random() * radius * Math.cos(Math.random() * 2 * Math.PI);
-    const y = Math.random() * radius * Math.sin(Math.random() * 2 * Math.PI);
-    return { x, y };
-  };
-
-  const getNewBug = () => {
-    const randomOffset = getRandomCoordinateInCircle(radius / Math.PI);
-    const x = centerpoint.x + randomOffset.x;
-    const y = centerpoint.y + randomOffset.y;
+  const getNewBug = (id, position, velocity) => {
+    const x = centerpoint.x + position.x;
+    const y = centerpoint.y + position.y;
     const size = radius * BUG_SIZE_COEFFECIENT;
     const newBug = Bodies.circle(x, y, size, {
       restitution: RESTITUTION,
@@ -103,6 +96,10 @@ export default function Bugs({ bugState }) {
       }
     });
 
+    newBug.id = id;
+    Body.setPosition(newBug, position);
+    Body.setVelocity(newBug, velocity);
+
     return newBug;
   };
 
@@ -110,9 +107,8 @@ export default function Bugs({ bugState }) {
 
     const removeBug = (bug) => Composite.remove(composite, bug);
     const addBug = (bug) => Composite.add(composite, bug);
-
     const oldBugs = Composite.allBodies(composite).filter(body => body.label === 'bug');
-    const updatedBugs = bugState;
+    const updatedBugs = [...bugState];
 
     const oldBugMap = oldBugs.reduce((map, bug) => { return { ...map, [bug.id]: bug }; }, {});
     const updatedBugMap = updatedBugs.reduce((map, bug) => { return { ...map, [bug.id]: bug }; }, {});
@@ -173,11 +169,11 @@ export default function Bugs({ bugState }) {
       Body.setAngle(bug, bearing - Math.PI / 2); // Math.PI / 2 (-90deg) adjustment is needed because the png is facing the wrong way.
     };
 
-    const composite = Composite.add(engine.current.world, [getAttractor(), ...getBounds(), ...bugState]);
+    composite.current = Composite.add(engine.current.world, [getAttractor(), ...getBounds()]);
     const runner = Runner.create();
 
     Events.on(runner, 'tick', () => {
-      const bugs = Matter.Composite.allBodies(composite).filter(body => body.label === 'bug');
+      const bugs = Matter.Composite.allBodies(composite.current).filter(body => body.label === 'bug');
       tickCounter.current++;
 
       for (const bug of bugs) {
@@ -189,8 +185,6 @@ export default function Bugs({ bugState }) {
 
       if (tickCounter.current === BUG_TEMPO) tickCounter.current = 0;
     });
-
-    updateBugs(composite, engine);
 
     Render.run(render);
     Runner.run(runner, engine.current);
@@ -206,12 +200,14 @@ export default function Bugs({ bugState }) {
       render.textures = {};
       window.removeEventListener('resize', handleResize);
     };
-
-
     return cleanup;
-  }, [viewHeight, viewWidth, bugState]);
+  }, []);
+
+  useEffect(() => {
+    updateBugs(composite.current);
+  }, [bugState]);
 
   return (
-    <div ref={arena} className='arena' style={{ width: '100%', height: '100%' }} />
+    <div ref={arena} className='arena' />
   );
 }

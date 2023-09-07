@@ -41,7 +41,6 @@ function Table({ gameState, munch, toggleReady }) {
   };
 
   const getPlayers = () => {
-    console.log([gameState.player, ...gameState.opponents]);
     const players = [gameState.player, ...gameState.opponents].sort((a, b) => a.current_seat - b.current_seat);
     const clientIndex = gameState.player.current_seat;
 

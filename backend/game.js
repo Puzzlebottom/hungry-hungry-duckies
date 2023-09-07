@@ -12,13 +12,9 @@ const Game = {
   },
 
   start() {
+    this.state.isActive = true;
     this.physics.addBugs(25);
     this.state.bugs = this.physics.getBugUpdate();
-    this.state.isActive = true;
-
-    console.log('STATE: ', this.state);
-
-    return this;
   },
 
   addPlayer(player, socketId) {
@@ -28,6 +24,33 @@ const Game = {
     this.state.players = [...this.state.players, newPlayer];
 
     return newPlayer;
+  },
+
+  togglePlayerReady(socketId) {
+    const [player] = this.state.players.filter(player => player.socketId === socketId);
+    player.isReady = !player.isReady;
+
+    if (this.checkAllReady()) this.start();
+  },
+
+  doMunch(socketId) {
+    const [player] = this.state.players.filter(player => player.socketId === socketId);
+    if (player.isMunching) return;
+
+    player.isMunching = true;
+    this.physics.processMunch(player.current_seat);
+    this.state.bugs = this.physics.getBugUpdate();
+
+    setTimeout(() => {
+      player.isMunching = false;
+    }, 285);
+  },
+
+  checkAllReady() {
+    const allPlayers = this.state.players;
+    const readyPlayers = allPlayers.filter(player => player.isReady);
+
+    return allPlayers.length === readyPlayers.length;
   },
 
   getGameStateForSocketId(socketId) {

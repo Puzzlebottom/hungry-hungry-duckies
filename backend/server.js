@@ -50,17 +50,13 @@ io.on('connection', (socket) => {
   });
 
   socket.on('ready', () => {
+    Game.togglePlayerReady(socket.id);
     sendUpdate(socket, Game.getGameStateForSocketId(socket.id));
   });
 
   socket.on('munch', () => {
-    gameState.player.isMunching = true;
-    sendUpdate(socket, gameState);
-
-    setTimeout(() => {
-      gameState.player.isMunching = false;
-      sendUpdate(socket, gameState);
-    }, 285);
+    Game.doMunch(socket.id);
+    sendUpdate(socket, Game.getGameStateForSocketId(socket.id));
   });
 
   socket.on('disconnect', () => {
