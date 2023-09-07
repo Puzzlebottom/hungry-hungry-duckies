@@ -20,8 +20,6 @@ import GameTimer from './components/Gametimer';
 import Countdown from './components/Countdown';
 import videoBackground from '../public/videos/badass.mp4';
 
-const munchAudios = munchSounds.map((sound) => new Audio(sound));
-
 function Table({ gameState, munch, toggleReady }) {
   const duckieImages = [
     [topLeft1, topLeft2, topLeft3],
