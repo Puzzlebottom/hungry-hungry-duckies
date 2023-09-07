@@ -41,11 +41,11 @@ io.on('connect_error', (err) => {
 io.on('connection', (socket) => {
 
   //game.match(socket)
+  const gameState = { bugs: [], player: {}, opponents: [], isActive: true };
 
   console.log('a user connected');
   sendUpdate(socket, gameState);
 
-  const gameState = { bugs: [], player: {}, opponents: [], isActive: true };
 
   const { id } = socket;
 
