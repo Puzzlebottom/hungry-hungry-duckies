@@ -1,7 +1,8 @@
 import '../../public/stylesheets/Table.css';
 import { useEffect, useRef } from 'react';
+import useAudio from '../hooks/useAudio';
 
-export default function Duckie({ images, isMunching, isClient }) {
+export default function Duckie({ images, isMunching }) {
 
   const image0 = useRef();
   const image1 = useRef();
@@ -14,11 +15,16 @@ export default function Duckie({ images, isMunching, isClient }) {
     }, 10);
   };
 
+  const { quack } = useAudio();
+
   useEffect(() => {
+
     image1.current.classList.add('hidden');
     image2.current.classList.add('hidden');
 
     if (isMunching) {
+      quack();
+
       switchImage(image0.current, image1.current);
       setTimeout(() => {
         switchImage(image1.current, image2.current);

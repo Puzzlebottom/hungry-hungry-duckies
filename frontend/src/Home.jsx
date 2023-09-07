@@ -1,10 +1,6 @@
 import '../public/stylesheets/Home.css';
 import Leaderboard from './components/Leaderboard';
 import PlayerNameForm from './components/PlayerNameForm';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-
-import videoBackground from '../public/videos/dancingduck.mp4';
 
 function Home({ player, leaderboard, join }) {
 

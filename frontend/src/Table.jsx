@@ -28,9 +28,9 @@ const munchSounds = [
   '/audio/munchquack4.mp3',
   '/audio/munchquack5.mp3',
   '/audio/munchquack6.mp3',
-  '/audio/munchquack7.mp3',
+  // '/audio/munchquack7.mp3',
   '/audio/munchquack8.mp3',
-  '/audio/munchquack9.mp3',
+  // '/audio/munchquack9.mp3',
   '/audio/munchquack10.mp3'
 ];
 
