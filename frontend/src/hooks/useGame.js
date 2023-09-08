@@ -61,7 +61,7 @@ const useGame = () => {
 
   useEffect(() => {
     socket.on('gameState', (gameState) => {
-      dispatch({ type: UPDATE, value: JSON.parse(gameState) });
+      dispatch({ type: UPDATE, value: gameState });
     });
 
     return () => {

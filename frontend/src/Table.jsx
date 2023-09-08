@@ -41,17 +41,21 @@ function Table({ gameState, munch, toggleReady }) {
   };
 
   const getPlayers = () => {
-    const players = [gameState.player, ...gameState.opponents].sort((a, b) => a.current_seat - b.current_seat);
-    const clientIndex = gameState.player.current_seat;
+    const { player, opponents } = gameState;
 
-    for (const player of players) {
-      const isClient = player.current_seat === clientIndex;
-      player.toggleReady = isClient ? toggleReady : () => { };
-    }
+    const players = [{ ...player }, ...opponents]
+      .filter(p => [0, 1, 2, 3].includes(p.current_seat))
+      .map((p => {
+        const isClient = p.current_seat === player.current_seat;
+        p.toggleReady = isClient ? toggleReady : () => { };
+        return p;
+      }));
+
     return players;
   };
 
-  const quarters = getPlayers().map((player, index) => {
+  const quarters = getPlayers().map((player) => {
+    const index = player.current_seat;
     const images = duckieImages[index];
     const color = ['green', 'red', 'blue', 'yellow'][index];
     return <Quarter key={index} {...{ images, player, color }} />;
@@ -71,7 +75,7 @@ function Table({ gameState, munch, toggleReady }) {
       <img src={arena} className='arena' />
       <Bugs bugState={gameState.bugs} />
       {quarters}
-      <Countdown seconds={3} onComplete={handleCountdownComplete} />
+      {/* <Countdown seconds={3} onComplete={handleCountdownComplete} /> */}
       {countdownComplete && (<GameTimer initialMinutes={12} initialSeconds={59} />)};
     </main>
   );

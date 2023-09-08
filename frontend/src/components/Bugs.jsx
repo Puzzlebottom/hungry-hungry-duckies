@@ -26,6 +26,7 @@ export default function Bugs({ bugState }) {
   const engine = useRef(Engine.create());
   let tickCounter = useRef(0); // counts engine render updates
   let composite = useRef();
+  let sprite = useRef(bug1);
 
   const [viewWidth, setViewWidth] = useState(document.body.clientWidth);
   const [viewHeight, setViewHeight] = useState(document.body.clientHeight);
@@ -77,7 +78,7 @@ export default function Bugs({ bugState }) {
     return wallSegments;
   };
 
-  const getNewBug = (id, position, velocity) => {
+  const getNewBug = (id, position, velocity, angle) => {
     const x = centerpoint.x + position.x;
     const y = centerpoint.y + position.y;
     const size = radius * BUG_SIZE_COEFFECIENT;
@@ -88,7 +89,7 @@ export default function Bugs({ bugState }) {
       frictionStatic: 0, label: 'bug',
       render: {
         sprite: {
-          texture: bug1,
+          texture: sprite.current,
           xScale: radius * SPRITE_SIZE_COEFFECIENT,
           yScale: radius * SPRITE_SIZE_COEFFECIENT,
           yOffset: SPRITE_Y_OFFSET
@@ -99,6 +100,7 @@ export default function Bugs({ bugState }) {
     newBug.id = id;
     Body.setPosition(newBug, position);
     Body.setVelocity(newBug, velocity);
+    Body.setAngle(newBug, angle);
 
     return newBug;
   };
@@ -118,6 +120,7 @@ export default function Bugs({ bugState }) {
       if (updatedBugMap[id]) {
         Body.setPosition(oldBugMap[id], updatedBugMap[id].position);
         Body.setVelocity(oldBugMap[id], updatedBugMap[id].velocity);
+        Body.setAngle(oldBugMap[id], updatedBugMap[id].angle);
       }
       // remove eaten bugs
       removeBug(oldBugMap[id]);
@@ -128,8 +131,8 @@ export default function Bugs({ bugState }) {
       Object.keys(updatedBugMap).forEach(id => {
         // add new bugs
         if (!oldBugMap[id]) {
-          const { position, velocity } = updatedBugMap[id];
-          addBug(getNewBug(id, position, velocity));
+          const { position, velocity, angle } = updatedBugMap[id];
+          addBug(getNewBug(id, position, velocity, angle));
         }
       });
     }
@@ -152,38 +155,18 @@ export default function Bugs({ bugState }) {
 
     render.engine.gravity.scale = 0; // removes standard y-axis gravity; we're looking down at a table
 
-    const toggleBugSprite = (bug) => {
-      const currentTexture = bug.render.sprite.texture;
-      const texture1 = bug1;
-      const texture2 = bug2;
-      if (currentTexture === texture1) {
-        bug.render.sprite.texture = texture2;
-      } else {
-        bug.render.sprite.texture = texture1;
-      }
-    };
-
-    const alignBug = (bug) => {
-      const velocity = Body.getVelocity(bug);
-      const bearing = Vector.angle({ x: 0, y: 0 }, velocity);
-      Body.setAngle(bug, bearing - Math.PI / 2); // Math.PI / 2 (-90deg) adjustment is needed because the png is facing the wrong way.
-    };
-
     composite.current = Composite.add(engine.current.world, [getAttractor(), ...getBounds()]);
     const runner = Runner.create();
 
     Events.on(runner, 'tick', () => {
-      const bugs = Matter.Composite.allBodies(composite.current).filter(body => body.label === 'bug');
       tickCounter.current++;
 
-      for (const bug of bugs) {
-        if (tickCounter.current === BUG_TEMPO) {
-          toggleBugSprite(bug);
-        }
-        alignBug(bug);
-      }
+      const newSprite = sprite.current === bug1 ? bug2 : bug1;
 
-      if (tickCounter.current === BUG_TEMPO) tickCounter.current = 0;
+      if (tickCounter.current === BUG_TEMPO) {
+        sprite.current = newSprite;
+        tickCounter.current = 0;
+      }
     });
 
     Render.run(render);

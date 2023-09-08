@@ -2,7 +2,7 @@ const Matter = require("matter-js");
 const MatterAttractors = require("matter-attractors");
 
 Matter.use(MatterAttractors);
-const { Engine, Runner, Body, Bodies, Composite, Vector, Query } = Matter;
+const { Engine, Runner, Body, Bodies, Composite, Vector, Query, Events } = Matter;
 
 const ATTRACTION_COEFFICIENT = 160e-10; // contols how strongly bugs are pulled toward the center. default 5e-7
 
@@ -19,6 +19,7 @@ const BUG_SIZE_COEFFICIENT = 44e-3; // scales the bug physics object; bigger num
 const BUG_FRICTION_COEFFICIENT = -55e-5; // controls the negative friction of the bugs applying an innate churn without input; default -57e-5
 const AIR_FRICTION_COEFFICIENT = 199e-7; // controls how rapidly the bugs slow down; bigger number = slower bugs
 const RESTITUTION = 1; // controls the bounciness of the bugs; bigger number = more bouncy;
+// const BUG_TEMPO = 8; // controls the speed of the bug leg animation; bigger number = slower steps; must be > 1
 
 const Instance = {
 
@@ -130,6 +131,12 @@ const Instance = {
       return newBug;
     };
 
+    const alignBug = (bug) => {
+      const velocity = Body.getVelocity(bug);
+      const bearing = Vector.angle({ x: 0, y: 0 }, velocity);
+      Body.setAngle(bug, bearing - Math.PI / 2); // Math.PI / 2 (-90deg) adjustment is needed because the png is facing the wrong way.
+    };
+
     const bounceBug = (sensor, bug) => {
       const vector = Vector.sub(bug.position, sensor.position);
       const normalized = Vector.normalise(vector);
@@ -173,6 +180,12 @@ const Instance = {
         bounceBug(outerSensor, bug);
       });
     };
+
+    Events.on(runner, 'tick', () => {
+      Composite.allBodies(composite)
+        .filter(body => body.label === 'bug')
+        .map(alignBug);
+    });
 
     const getBugUpdate = () => {
       return Composite.allBodies(composite).filter(body => body.label === 'bug');

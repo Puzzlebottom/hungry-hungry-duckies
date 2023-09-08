@@ -33,33 +33,52 @@ app.use('/api/players', require('./routes/players-api'));
 const { updatePlayerName } = playerQueries;
 const { sendUpdate } = socketHelpers;
 
+Game.initialize();
+
+io.use((socket, next) => {
+  if (Game.isFull()) {
+    return next(new Error('Server is full'));
+  }
+  next();
+});
+
 io.on('connect_error', (err) => {
   console.log(`connect_error due to ${err.message}`);
 });
 
 io.on('connection', (socket) => {
   console.log('a user connected');
-  const gameState = Game.initialize();
 
-  sendUpdate(socket, gameState);
+  let interval;
+
+  const runUpdater = () => {
+    const updater = setInterval(() => {
+      sendUpdate(socket, Game.getGameStateForSocketId(socket.id));
+    }, 25);
+    return updater;
+  };
 
   socket.on('join', (player) => {
-    updatePlayerName({ ...player });
-    Game.addPlayer(player, socket.id);
-    sendUpdate(socket, Game.getGameStateForSocketId(socket.id));
+    updatePlayerName({ ...player })
+      .then(() => {
+        Game.addPlayer(player.name, socket.id);
+        interval = runUpdater();
+      });
   });
 
   socket.on('ready', () => {
     Game.togglePlayerReady(socket.id);
-    sendUpdate(socket, Game.getGameStateForSocketId(socket.id));
   });
 
   socket.on('munch', () => {
     Game.doMunch(socket.id);
-    sendUpdate(socket, Game.getGameStateForSocketId(socket.id));
   });
 
   socket.on('disconnect', () => {
+    clearInterval(interval);
+    Game.removePlayer(socket.id);
+    sendUpdate(socket, Game.getGameStateForSocketId(socket.id));
+    socket.removeAllListeners();
     console.log('user disconnected');
   });
 });
