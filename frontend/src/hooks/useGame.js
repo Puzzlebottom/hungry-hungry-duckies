@@ -42,7 +42,7 @@ const useGame = () => {
   };
 
   const munch = () => {
-    if (!gameState.player.isMunching) {
+    if (gameState.isActive && !gameState.player.isMunching) {
       socket.emit('munch');
       dispatch({ type: MUNCH, value: true });
       setTimeout(() => {

@@ -18,7 +18,7 @@ function App() {
       {view === 'loading' && <Loading {...{ setView }} />}
       {view === 'home' && <Home {...{ player, leaderboard, join }} />}
       {view === 'table' && <Table {...{ gameState, munch, toggleReady }} />}
-      {view === 'postgame' && <PostGame {...{ join, home }} />}
+      {view === 'postgame' && <PostGame {...{ gameState, join, home }} />}
     </div>
   );
 }

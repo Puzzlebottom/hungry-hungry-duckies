@@ -180,6 +180,8 @@ const Instance = {
         const bug = miss.bodyB;
         bounceBug(outerSensor, bug);
       });
+
+      return munchedBugs.length;
     };
 
     Events.on(runner, 'tick', () => {

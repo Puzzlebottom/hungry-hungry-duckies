@@ -10,8 +10,19 @@ const Game = {
 
   start() {
     this.state.isActive = true;
-    this.physics.addBugs(2);
+    this.physics.addBugs(10);
     this.state.bugs = this.physics.getBugUpdate();
+  },
+
+  end() {
+    setTimeout(() => {
+      this.state.isActive = false, 3000;
+      this.start();
+    });
+  },
+
+  reset() {
+    this.state = { bugs: [], players: [], isActive: false };
   },
 
   addPlayer(name, socketId) {
@@ -42,23 +53,30 @@ const Game = {
     const [player] = this.state.players.filter(player => player.socketId === socketId);
     player.isReady = !player.isReady;
 
-    if (this.checkAllReady()) this.start();
+    if (this.allReady()) this.start();
   },
 
   doMunch(socketId) {
     const [player] = this.state.players.filter(player => player.socketId === socketId);
-    if (player.isMunching) return;
+    if (!this.state.isActive || player.isMunching) return;
 
     player.isMunching = true;
-    this.physics.processMunch(player.current_seat);
+    const munched = this.physics.processMunch(player.current_seat);
+    player.current_score += munched;
     this.state.bugs = this.physics.getBugUpdate();
+
+    if (this.outOfBugs()) this.end();
 
     setTimeout(() => {
       player.isMunching = false;
     }, 285);
   },
 
-  checkAllReady() {
+  outOfBugs() {
+    return this.state.bugs.length === 0;
+  },
+
+  allReady() {
     const allPlayers = this.state.players;
     const readyPlayers = allPlayers.filter(player => player.isReady);
 
