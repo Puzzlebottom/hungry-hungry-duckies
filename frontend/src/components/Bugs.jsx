@@ -8,7 +8,7 @@ import bug2 from '../assets/bug2.png';
 Matter.use(MatterAttractors);
 const { Engine, Render, Runner, Body, Bodies, Composite, Events } = Matter;
 
-const SERVER_SIMULATION_SIZE = 1260; // the size of the physics world server side. It's gotta match backend/physics.js
+const SERVER_SIMULATION_SIZE = 360; // the size of the physics world server side. It's gotta match backend/physics.js
 
 const ATTRACTION_COEFFICIENT = 160e-10; // contols how strongly bugs are pulled toward the center. default 5e-7
 
@@ -157,8 +157,8 @@ export default function Bugs({ bugState }) {
       element: arena.current,
       engine: engine.current,
       options: {
-        width: viewWidth,
-        height: viewHeight,
+        width: viewWidth * serverClientSizeRatio,
+        height: viewHeight * serverClientSizeRatio,
         wireframes: false,
         background: 'transparent',
       }
