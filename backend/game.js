@@ -16,9 +16,8 @@ const Game = {
 
   end() {
     setTimeout(() => {
-      this.state.isActive = false, 3000;
-      this.start();
-    });
+      this.state.isActive = false;
+    }, 3000);
   },
 
   reset() {

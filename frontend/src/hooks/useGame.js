@@ -11,6 +11,9 @@ const ACTIONS = {
 
 const reducers = {
   UPDATE(state, action) {
+    if (state.isActive === true && action.value.isActive === false) {
+      //change view to postgame
+    }
     return action.value;
   },
 
@@ -31,14 +34,17 @@ const useGame = () => {
   const { view, setView } = useView();
   const { player, setPlayer, leaderboard } = useConnect(setView);
 
-  const initialState = ({ bugs: [], player: {}, opponents: [], isActive: false });
+  const initialState = ({ bugs: [], player: {}, opponents: [], isActive: false, view: 'loading' });
   const [gameState, dispatch] = useReducer(reducer, initialState);
   const { UPDATE, MUNCH } = ACTIONS;
 
   const join = (player) => {
     socket.emit('join', player);
     setPlayer(player);
-    setView('table');
+    setView('loading');
+    setTimeout(() => {
+      setView('table');
+    }, 2000);
   };
 
   const munch = () => {

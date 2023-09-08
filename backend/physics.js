@@ -23,7 +23,6 @@ const AIR_FRICTION_COEFFICIENT = 199e-7; // controls how rapidly the bugs slow d
 const RESTITUTION = 1; // controls the bounciness of the bugs; bigger number = more bouncy;
 
 const Instance = {
-
   run: () => {
     const engine = Engine.create();
     engine.gravity.scale = 0;
@@ -194,8 +193,14 @@ const Instance = {
       return Composite.allBodies(composite).filter(body => body.label === 'bug');
     };
 
-    return { addBugs, processMunch, getBugUpdate };
-  }
+    const stop = () => {
+      Composite.clear(engine.world);
+      Engine.clear(engine);
+      Runner.stop(runner);
+    };
+
+    return { addBugs, processMunch, getBugUpdate, stop };
+  },
 };
 
 module.exports = Instance;
