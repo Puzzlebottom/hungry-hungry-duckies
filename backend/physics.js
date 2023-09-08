@@ -4,6 +4,8 @@ const MatterAttractors = require("matter-attractors");
 Matter.use(MatterAttractors);
 const { Engine, Runner, Body, Bodies, Composite, Vector, Query, Events } = Matter;
 
+const SERVER_SIMULATION_SIZE = 1260; // the size of the physics world server side. It's gotta match backend/physics.js
+
 const ATTRACTION_COEFFICIENT = 160e-10; // contols how strongly bugs are pulled toward the center. default 5e-7
 
 const TOTAL_BOUNDARY_FACES = 100; // controls the smoothness of the arena walls; more faces = smoother walls
@@ -19,7 +21,6 @@ const BUG_SIZE_COEFFICIENT = 44e-3; // scales the bug physics object; bigger num
 const BUG_FRICTION_COEFFICIENT = -55e-5; // controls the negative friction of the bugs applying an innate churn without input; default -57e-5
 const AIR_FRICTION_COEFFICIENT = 199e-7; // controls how rapidly the bugs slow down; bigger number = slower bugs
 const RESTITUTION = 1; // controls the bounciness of the bugs; bigger number = more bouncy;
-// const BUG_TEMPO = 8; // controls the speed of the bug leg animation; bigger number = slower steps; must be > 1
 
 const Instance = {
 
@@ -29,8 +30,8 @@ const Instance = {
     const runner = Runner.create();
     Runner.run(runner, engine);
 
-    const WIDTH = 487;
-    const HEIGHT = 487;
+    const WIDTH = SERVER_SIMULATION_SIZE;
+    const HEIGHT = SERVER_SIMULATION_SIZE;
 
     const centerpoint = { x: WIDTH / 2, y: HEIGHT / 2 };
     const smallerSide = Math.min(WIDTH, HEIGHT);
