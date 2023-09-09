@@ -38,5 +38,14 @@ const addOrUpdatePlayer = async (uuid) => {
   return result.rows[0];
 };
 
+const updatePlayerScore = ({ uuid, score }) => {
+  const query = `
+    UPDATE players
+    SET total_score = total_score + $1
+    WHERE uuid = $2
+  `;
+  const values = [score, uuid];
+  return db.query(query, values);
+};
 
-module.exports = { getAllPlayers, getTopPlayers, updatePlayerName, addOrUpdatePlayer };
+module.exports = { getAllPlayers, getTopPlayers, updatePlayerName, addOrUpdatePlayer, updatePlayerScore };
