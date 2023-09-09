@@ -9,7 +9,7 @@ const getAllPlayers = () => {
 
 const getTopPlayers = () => {
   const query = `
-    SELECT name, total_score FROM players
+    SELECT id, name, total_score FROM players
     WHERE total_score > 0 AND name != ''
     ORDER BY total_score DESC;
   `;
