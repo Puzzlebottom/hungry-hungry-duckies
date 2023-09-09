@@ -5,13 +5,14 @@ import { useEffect, useState } from "react";
 const useConnect = (setView) => {
   const [leaderboard, setLeaderBoard] = useState([]);
   const [player, setPlayer] = useState({ name: '', uuid: '' });
-  // const [, setCookie] = useCookies();
-  const localUUID = JSON.parse(localStorage.getItem('UUID'));
-  const [UUID, setUUID] = useState(localUUID);
 
   useEffect(() => {
+    console.log(localStorage.getItem('uuid'))
+    const baseUrl = 'http://localhost:8080/';
+    const uuid = localStorage.getItem('uuid')
+    const url = uuid ? baseUrl + uuid : baseUrl
 
-    const playerPromise = axios.get('http://localhost:8080', { withCredentials: true });
+    const playerPromise = axios.get(url);
     const leaderboardPromise = axios.get('http://localhost:8080/api/players');
 
     Promise.all([playerPromise, leaderboardPromise])
@@ -19,8 +20,9 @@ const useConnect = (setView) => {
         const [player, leaderboard] = res;
 
         setPlayer(player.data);
-        localStorage.setItem('UUID', JSON.stringify(player.data.uuid));
-        console.log('player.data.uuid', JSON.parse(localStorage.getItem('UUID')));
+        localStorage.setItem('uuid', player.data.uuid);
+        console.log('player.data', player.data);
+        console.log('player.data.uuid', localStorage.getItem('uuid'));
 
         setLeaderBoard(leaderboard.data.players);
 
