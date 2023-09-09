@@ -9,19 +9,18 @@ const getAllPlayers = () => {
 
 const getTopPlayers = () => {
   const query = `
-    SELECT * FROM players
+    SELECT name, hi_score FROM players
     ORDER BY hi_score DESC
     LIMIT 10;
   `;
   return db.query(query);
 };
 
-const updatePlayerName = (name, uuid) => {
+const updatePlayerName = ({ name, uuid }) => {
   const query = `
     UPDATE players
     SET name = $1
     WHERE cookie_uuid = $2
-    RETURNING *;
   `;
   const values = [name, uuid];
   return db.query(query, values);

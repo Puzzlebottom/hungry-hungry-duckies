@@ -1,86 +1,103 @@
-import Matter from 'matter-js';
-import Instance from './physics.js';
+const Instance = require('./physics');
 
-const { Body, Composite } = Matter;
-const { composite, getNewBug } = Instance.run();
+const Game = {
+  state: { bugs: [], players: {}, isActive: false },
+  physics: {},
 
-const players = {};
-const bugs = {};
-const isActive = false;
+  initialize() {
+    this.physics = Instance.run();
+  },
 
-// const a = getNewBug();
-// const b = getNewBug();
+  start() {
+    this.state.isActive = true;
+    setTimeout(() => {
+      this.physics.addBugs(25);
+      this.state.bugs = this.physics.getBugUpdate();
+    }, 3000);
+  },
 
-// Composite.add(composite, [a, b]);
+  end() {
+    for (player of Object.values(this.state.players)) {
+      player.inGame = false;
+    }
+    setTimeout(() => {
+      this.state.isActive = false;
+    }, 3000);
+  },
 
-// setInterval(() => {
-//   console.log('A: ', a.position, a.id);
-//   console.log('B: ', b.position, b.id);
-// }, 500);
+  reset() {
+    for (player of Object.values(this.state.players)) {
+      if (!player.inGame) delete this.state.players[player.current_seat];
+    }
+  },
 
+  findPlayerBySocketId(socketId) {
+    const seat = [0, 1, 2, 3].find(seat => this.state.players[seat]?.socketId === socketId);
+    return seat !== undefined ? this.state.players[seat] : {};
+  },
 
-const munch = (composite, seat) => {
-  const labelPrefix = [
-    'top-left',
-    'top-right',
-    'bottom-left',
-    'bottom-right'
-  ][seat];
+  findFirstAvailableSeat() {
+    const seat = [0, 1, 2, 3].find(seat => !this.state.players[seat]);
+    return seat;
+  },
 
-  const bugs = [];
-  let innerSensor;
-  let outerSensor;
+  addPlayer(name, socketId) {
+    const seat = this.findFirstAvailableSeat();
+    const newPlayer = { name, current_score: 0, current_seat: seat, isMunching: false, isReady: false, inGame: true, socketId };
+    this.state.players[seat] = newPlayer;
+  },
 
-  const innerLabel = labelPrefix + '-inner';
-  const outerLabel = labelPrefix + '-outer';
+  removePlayer(socketId) {
+    const player = this.findPlayerBySocketId(socketId);
+    if (Object.keys(player).length) delete this.state.players[player.current_seat];
+  },
 
-  Composite.allBodies(composite).forEach(body => {
-    if (body.label === innerLabel) innerSensor = body;
-    if (body.label === outerLabel) outerSensor = body;
-    if (body.label === 'bug') bugs.push(body);
-  });
+  togglePlayerReady(socketId) {
+    const player = this.findPlayerBySocketId(socketId);
+    if (Object.keys(player).length) player.isReady = !player.isReady;
+    if (this.allReady()) this.start();
+  },
 
-  const munchedBugs = Query.collides(innerSensor, bugs);
-  munchedBugs.forEach(munch => Composite.remove(composite, munch.bodyB));
+  doMunch(socketId) {
+    const player = this.findPlayerBySocketId(socketId);
+    if (!this.state.bugs.length) return;
 
-  const missedBugs = Query.collides(outerSensor, bugs);
-  missedBugs.forEach(miss => {
-    const bug = miss.bodyB;
-    bounceBug(outerSensor, bug);
-  });
+    player.isMunching = true;
+    const munched = this.physics.processMunch(player.current_seat);
+    player.current_score += munched;
+    this.state.bugs = this.physics.getBugUpdate();
+
+    if (this.outOfBugs()) this.end();
+
+    setTimeout(() => {
+      player.isMunching = false;
+    }, 285);
+  },
+
+  outOfBugs() {
+    return this.state.bugs.length === 0;
+  },
+
+  allReady() { return !Object.values(this.state.players).some(player => !player.isReady); },
+
+  isFull() { return Object.keys(this.state.players).length >= 4; },
+
+  getGameStateForSocketId(socketId) {
+    const { bugs, players, isActive } = this.state;
+
+    const player = this.findPlayerBySocketId(socketId);
+    const opponents = Object.values(players).filter(player => player.socketId !== socketId);
+
+    const sanitizePlayer = (player) => {
+      const sanitizedPlayer = { ...player };
+      delete sanitizedPlayer.socketId;
+      return sanitizedPlayer;
+    };
+
+    const bugData = bugs.map(bug => { return { id: bug.id, position: bug.position, velocity: bug.velocity, angle: bug.angle }; });
+    return { bugs: bugData, player: sanitizePlayer(player), opponents: opponents.map(sanitizePlayer), isActive };
+  }
 };
 
-//PLAYER ACTIONS { name: 'Top Left', current_score: 0, current_seat: 0, isMunching: false, isReady: false }
-// add player
-// remove player
-// setName
-// setScore
-// setSeat
-// setIsMunching
-// setIsReady
 
-//BUG ACTIONS {position: {x: 0, y: 0}, velocity: {x: 0, y:0}, }
-// getBugUpdate
-// addBug
-// removeBug(id)
-
-//GAME ACTIONS
-// checkReady()
-// beginGame
-// munch(composite, seat)
-// updatePlayer(seat)
-// getGameStateForSeat(seat) game state will be calculated on an arena 1260 x 1260, client side rectification will have to happen
-// endGame
-
-
-const getGameStateForSeat = (seat) => {
-  if (Object.keys(players).length === 0) return {};
-
-  const player = players[seat] || {};
-
-  const opponents = [0, 1, 2, 3]
-    .filter(i => i !== seat)
-    .map(i => players[i]);
-
-  return { bugs, player, opponents, isActive };
-};
+module.exports = Game;

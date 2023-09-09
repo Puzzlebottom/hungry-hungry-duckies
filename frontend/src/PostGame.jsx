@@ -1,23 +1,17 @@
-import React from 'react';
+import { useEffect, useRef } from 'react';
 import '../src/sass/Postgame.scss';
 import videoBackground from '../public/videos/Wormhole Animation.mp4';
 
 
 
-function PostGame() {
-  const Players = [
-    { name: 'bob', score: 25, isWinner: true },
-    { name: 'rob', score: 6, isWinner: false },
-    { name: 'ronald', score: 21, isWinner: false },
-    { name: 'bonald', score: 15, isWinner: false },
-  ];
+function PostGame({ gameState, home, newGame }) {
+  const players = useRef([]);
+  const name = useRef('');
 
-
-
-
-
-
-  const sortedPlayers = [...Players].sort((a, b) => b.score - a.score);
+  useEffect(() => {
+    name.current = gameState.player.name;
+    players.current = [gameState.player, ...gameState.opponents].sort((a, b) => b.current_score - a.current_score);
+  }, []);
 
   return (
     <div className="Leaderboard-container">
@@ -34,20 +28,20 @@ function PostGame() {
           </tr>
         </thead>
         <tbody className="post-game-playas">
-         {sortedPlayers.map((player, index) => (
-         <tr className={index === 0 ? 'custom-first-row' : 'player-column'} key={index}>
-           <td className="player-name">{player.name}</td>
-           <td className="player-score">{player.score}</td>
-           <td className={`player-status ${player.isWinner ? 'winner' : 'loser'}`}>
-          {player.isWinner ? 'Winner' : 'Loser'}
-         </td>
-       </tr>
-       ))}
-      </tbody>
+          {players.current.map((player, index) => (
+            <tr className={index === 0 ? 'custom-first-row' : 'player-column'} key={index}>
+              <td className="player-name">{player.name}</td>
+              <td className="player-score">{player.current_score}</td>
+              <td className={`player-status ${index === 0 ? 'winner' : 'loser'}`}>
+                {index === 0 ? 'Winner' : 'Loser'}
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
       <div className="container-for-post-game-buttons">
-        <button className="main-menu-button1">Main Menu</button>
-        <button className="play-again-button">Play again</button>
+        <button className="main-menu-button1" onClick={() => home()}>Main Menu</button>
+        <button className="play-again-button" onClick={() => newGame(name.current)}>Play again</button>
       </div>
       <div className="audiobutton">
 
@@ -57,4 +51,4 @@ function PostGame() {
 }
 
 
-export default PostGame
+export default PostGame;

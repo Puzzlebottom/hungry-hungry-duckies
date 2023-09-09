@@ -1,13 +1,13 @@
 // Load .env data into process.env
 require('dotenv').config();
 
-
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
 const playerQueries = require('./db/queries/players');
 const { socketHelpers } = require('./helpers/socketHelpers');
+const Game = require('./game');
 
 const app = express();
 const httpServer = require('http').createServer(app); // Create an HTTP server
@@ -33,44 +33,59 @@ app.use('/api/players', require('./routes/players-api'));
 const { updatePlayerName } = playerQueries;
 const { sendUpdate } = socketHelpers;
 
+Game.initialize();
+
+io.use((socket, next) => {
+  if (Game.isFull()) {
+    return next(new Error('Server is full'));
+  }
+  next();
+});
 
 io.on('connect_error', (err) => {
   console.log(`connect_error due to ${err.message}`);
 });
 
 io.on('connection', (socket) => {
-
-  //game.match(socket)
-  const gameState = { bugs: [], player: {}, opponents: [], isActive: true };
-
   console.log('a user connected');
-  sendUpdate(socket, gameState);
 
+  let interval;
 
-  const { id } = socket;
+  const runUpdater = () => {
+    const updater = setInterval(() => {
+      sendUpdate(socket, Game.getGameStateForSocketId(socket.id));
+    }, 25);
+    return updater;
+  };
 
   socket.on('join', (player) => {
+    Game.addPlayer(player.name, socket.id);
+    interval = runUpdater();
     updatePlayerName({ ...player });
-    gameState.player.name = player.name;
-    sendUpdate(socket, gameState);
   });
 
   socket.on('ready', () => {
-    gameState.player.isReady = !gameState.player.isReady;
-    sendUpdate(socket, gameState);
+    Game.togglePlayerReady(socket.id);
   });
 
   socket.on('munch', () => {
-    gameState.player.isMunching = true;
-    sendUpdate(socket, gameState);
+    Game.doMunch(socket.id);
+  });
 
-    setTimeout(() => {
-      gameState.player.isMunching = false;
-      sendUpdate(socket, gameState);
-    }, 285);
+  socket.on('home', () => {
+    Game.reset();
+  });
+
+  socket.on('newgame', (name) => {
+    Game.reset();
+    Game.addPlayer(name, socket.id);
   });
 
   socket.on('disconnect', () => {
+    clearInterval(interval);
+    Game.removePlayer(socket.id);
+    sendUpdate(socket, Game.getGameStateForSocketId(socket.id));
+    socket.removeAllListeners();
     console.log('user disconnected');
   });
 });

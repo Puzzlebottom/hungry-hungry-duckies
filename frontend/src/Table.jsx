@@ -28,6 +28,8 @@ function Table({ gameState, munch, toggleReady }) {
     [bottomRight1, bottomRight2, bottomRight3]
   ];
 
+  const { bugs, player, opponents, isActive } = gameState;
+
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
@@ -41,27 +43,25 @@ function Table({ gameState, munch, toggleReady }) {
   };
 
   const getPlayers = () => {
-    const players = [gameState.player, ...gameState.opponents].sort((a, b) => a.current_seat - b.current_seat);
-    const clientIndex = gameState.player.current_seat;
+    const players = [{ ...player }, ...opponents]
+      .filter(p => [0, 1, 2, 3].includes(p.current_seat))
+      .map((p => {
+        const isClient = p.current_seat === player.current_seat;
+        p.toggleReady = isClient ? toggleReady : () => { };
+        return p;
+      }));
 
-    for (const player of players) {
-      const isClient = player.current_seat === clientIndex;
-      player.toggleReady = isClient ? toggleReady : () => { };
-    }
     return players;
   };
 
-  const quarters = getPlayers().map((player, index) => {
+  const quarters = getPlayers().map((player) => {
+    const index = player.current_seat;
     const images = duckieImages[index];
     const color = ['green', 'red', 'blue', 'yellow'][index];
-    return <Quarter key={index} {...{ images, player, color }} />;
+    return <Quarter key={index} {...{ images, player, color, isActive }} />;
   });
 
-  const [countdownComplete, setCountdownComplete] = useState(false);
-
-  const handleCountdownComplete = () => {
-    setCountdownComplete(true);
-  };
+  // const [countdownComplete, setCountdownComplete] = useState(false);
 
   return (
     <main className='table-view'>
@@ -69,10 +69,10 @@ function Table({ gameState, munch, toggleReady }) {
         <source src={videoBackground} type="video/mp4" />
       </video>
       <img src={arena} className='arena' />
-      <Bugs bugState={gameState.bugs} />
+      <Bugs bugState={bugs} />
       {quarters}
-      <Countdown seconds={3} onComplete={handleCountdownComplete} />
-      {countdownComplete && (<GameTimer initialMinutes={12} initialSeconds={59} />)};
+      {isActive && <Countdown {...{ bugs, isActive }} />}
+      {isActive && (<GameTimer initialMinutes={12} initialSeconds={59} />)};
     </main>
   );
 }

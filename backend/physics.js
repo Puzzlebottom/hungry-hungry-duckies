@@ -1,8 +1,10 @@
-import Matter from "matter-js";
-import MatterAttractors from "matter-attractors";
+const Matter = require("matter-js");
+const MatterAttractors = require("matter-attractors");
 
 Matter.use(MatterAttractors);
-const { Engine, Runner, Body, Bodies, Composite, Vector } = Matter;
+const { Engine, Runner, Body, Bodies, Composite, Vector, Query, Events } = Matter;
+
+const SERVER_SIMULATION_SIZE = 360; // the size of the physics world server side. It's gotta match backend/physics.js
 
 const ATTRACTION_COEFFICIENT = 160e-10; // contols how strongly bugs are pulled toward the center. default 5e-7
 
@@ -20,18 +22,15 @@ const BUG_FRICTION_COEFFICIENT = -55e-5; // controls the negative friction of th
 const AIR_FRICTION_COEFFICIENT = 199e-7; // controls how rapidly the bugs slow down; bigger number = slower bugs
 const RESTITUTION = 1; // controls the bounciness of the bugs; bigger number = more bouncy;
 
-
-
 const Instance = {
-
   run: () => {
     const engine = Engine.create();
     engine.gravity.scale = 0;
     const runner = Runner.create();
     Runner.run(runner, engine);
 
-    const WIDTH = 1000;
-    const HEIGHT = 1000;
+    const WIDTH = SERVER_SIMULATION_SIZE;
+    const HEIGHT = SERVER_SIMULATION_SIZE;
 
     const centerpoint = { x: WIDTH / 2, y: HEIGHT / 2 };
     const smallerSide = Math.min(WIDTH, HEIGHT);
@@ -106,7 +105,7 @@ const Instance = {
 
     const getSensors = () => {
       const sensors = [];
-      for (let i = 0; i < 4; i++) sensors.push(getMunchSensor(i));
+      for (let i = 0; i < 4; i++) sensors.push(...getMunchSensor(i));
       return sensors;
     };
 
@@ -132,48 +131,76 @@ const Instance = {
       return newBug;
     };
 
-    const bounceBugs = (sensor, bug) => {
+    const alignBug = (bug) => {
+      const velocity = Body.getVelocity(bug);
+      const bearing = Vector.angle({ x: 0, y: 0 }, velocity);
+      Body.setAngle(bug, bearing - Math.PI / 2); // Math.PI / 2 (-90deg) adjustment is needed because the png is facing the wrong way.
+    };
+
+    const bounceBug = (sensor, bug) => {
       const vector = Vector.sub(bug.position, sensor.position);
       const normalized = Vector.normalise(vector);
       const scalar = radius * REPULSOR_SCALAR_COEFFICIENT;
 
       Body.setVelocity(bug, Vector.mult(normalized, scalar));
-      Body.setAngularSpeed(bug, 0);
     };
 
-    const detectMunch = (composite) => {
-      const seat = 0; // this will be an argument
+    const composite = Composite.add(engine.world, [getAttractor(), ...getBounds(), ...getSensors()]);
+
+    const addBugs = (numberOfBugs) => {
+      const newBugs = [];
+      for (let i = 0; i < numberOfBugs; i++) {
+        newBugs.push(getNewBug());
+      }
+      Composite.add(composite, [...newBugs]);
+    };
+
+    const processMunch = (seat) => {
       const labelPrefix = ['top-left', 'top-right', 'bottom-left', 'bottom-right'][seat];
-      const innerLabel = labelPrefix + '-inner';
-      const outerLabel = labelPrefix + '-outer';
+
       const bugs = [];
       let innerSensor;
       let outerSensor;
+
+      const innerLabel = labelPrefix + '-munch';
+      const outerLabel = labelPrefix + '-miss';
+
       Composite.allBodies(composite).forEach(body => {
         if (body.label === innerLabel) innerSensor = body;
         if (body.label === outerLabel) outerSensor = body;
         if (body.label === 'bug') bugs.push(body);
       });
-      const munched = Query.collides(innerSensor, bugs);
-      munched.forEach(munch => Composite.remove(composite, munch.bodyB));
 
-      console.log(`${munched.length} bugs munched, ${bugs.length - munched.length} remaining`);
-      const missed = Query.collides(outerSensor, bugs);
+      const munchedBugs = Query.collides(innerSensor, bugs);
+      munchedBugs.forEach(munch => Composite.remove(composite, munch.bodyB));
 
-      missed.forEach(miss => {
-        const vector = Vector.sub(miss.bodyB.position, miss.bodyA.position);
-        const normalized = Vector.normalise(vector);
-        const scalar = radius * REPULSOR_SCALAR_COEFFICIENT;
-
-        Body.setVelocity(miss.bodyB, Vector.mult(normalized, scalar));
-        // Body.setAngularSpeed(miss.bodyB, 0);
+      const missedBugs = Query.collides(outerSensor, bugs);
+      missedBugs.forEach(miss => {
+        const bug = miss.bodyB;
+        bounceBug(outerSensor, bug);
       });
+
+      return munchedBugs.length;
     };
 
-    const composite = Composite.add(engine.world, [getAttractor(), ...getBounds(), ...getSensors()]);
+    Events.on(runner, 'tick', () => {
+      Composite.allBodies(composite)
+        .filter(body => body.label === 'bug')
+        .map(alignBug);
+    });
 
-    return { composite, getNewBug, bounceBugs };
-  }
+    const getBugUpdate = () => {
+      return Composite.allBodies(composite).filter(body => body.label === 'bug');
+    };
+
+    const stop = () => {
+      Composite.clear(engine.world);
+      Engine.clear(engine);
+      Runner.stop(runner);
+    };
+
+    return { addBugs, processMunch, getBugUpdate, stop };
+  },
 };
 
-export default Instance;
+module.exports = Instance;

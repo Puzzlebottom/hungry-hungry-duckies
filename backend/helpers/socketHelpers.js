@@ -1,6 +1,6 @@
 const socketHelpers = {
   sendUpdate(socket, gameState) {
-    socket.emit('gameState', JSON.stringify(gameState));
+    socket.emit('gameState', gameState);
   }
 };
 

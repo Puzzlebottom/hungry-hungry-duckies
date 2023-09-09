@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import '../public/stylesheets/Loading.css';
 import duckieTopLeft from './assets/duckie-top-left-no-shadow-1.png';
 import duckieTopRight from './assets/duckie-top-right-no-shadow-1.png';
@@ -7,6 +9,7 @@ import getRandomMessage from './assets/loading_messages';
 import videoBackground from '../public/videos/Wormhole Animation.mp4';
 
 function Loading() {
+  const message = useRef(getRandomMessage());
 
   return (
     <main className='loading-view'>
@@ -23,7 +26,7 @@ function Loading() {
         <h3>LOADING...</h3>
       </span>
       <div className='instructions'>
-        <span>{getRandomMessage()}</span>
+        <span>{message.current}</span>
       </div>
     </main>
   );
