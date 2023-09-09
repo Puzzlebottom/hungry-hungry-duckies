@@ -4,8 +4,6 @@ import PlayerNameForm from './components/PlayerNameForm';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import combinedBackground from '../public/videos/handcraftedbackground.png';
-
 function Home(props) {
   const { handleSubmission, defaultName, handleViewChange } = props;
   const [players, setPlayers] = useState([]);
@@ -22,36 +20,39 @@ function Home(props) {
   }, []);
 
   return (
-    <main className='home-main'>
+    <main className='home-main-screen'>
+      <div className='background-container sky'></div>
+      <div className='background-container mountain'></div>
+      <div className='background-container clouds'></div>
       <div className='home-hero'>
-        <h1 className='home-title'>Hungry, Hungry Duckies!™</h1>
+        <h1>
+          <span className="first-word">Hungry </span>
+          <span className="second-word">Hungry</span>
+          <span className="third-word">Duckies!™</span>
+        </h1>
         <div className='home-logo'>
           <img src="https://i.gifer.com/XOsX.gif" alt="Duck Logo" />
         </div>
         <section className='home-instructions'>
-          <h1>How To Play</h1>
+          <h2 className="instructions-header">How to play:</h2>
           <h3>Press Spacebar to MUNCH! 😤</h3>
-          <h3>Press Spacebar to quack! 🦆</h3>
-          <div className='image-container top-left'>
-            <img className="duck-image" src="https://gifdb.com/images/high/duck-happy-dance-76yta26qy8v77wfr.gif" alt="Background" />
-          </div>
-          <div className='image-container top-right'>
-            <img className="duck-image" src="https://gifdb.com/images/high/duck-happy-dance-76yta26qy8v77wfr.gif" alt="Background" />
-          </div>
         </section>
       </div>
       <div className='home-leaderboard-and-form'>
-        <div className='image-container bottom-left'>
-          <img className="duck-image" src="https://gifdb.com/images/high/duck-happy-dance-76yta26qy8v77wfr.gif" alt="Background" />
+        <div className="duck-image-container-1">
+          <img className="duck-image" src="https://gifdb.com/images/high/duck-happy-dance-76yta26qy8v77wfr.gif" alt="Duck" />
         </div>
-        <div className='image-container bottom-right'>
-          <img className="duck-image" src="https://gifdb.com/images/high/duck-happy-dance-76yta26qy8v77wfr.gif" alt="Background" />
+        <div className='image-container top-right'>
+          <div className='image-container bottom-right'></div>
         </div>
-
+        <div className="duck-image-container-real">
+          <img className="duck-image" src="https://gifdb.com/images/high/duck-happy-dance-76yta26qy8v77wfr.gif" alt="Duck" />
+        </div>
         <Leaderboard players={players} />
         <PlayerNameForm {...{ handleSubmission, defaultName, handleViewChange }} />
       </div>
     </main>
   );
+
 }
 export default Home;

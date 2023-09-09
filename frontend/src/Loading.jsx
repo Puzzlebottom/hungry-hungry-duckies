@@ -1,10 +1,6 @@
+import React from 'react';
 import '../public/stylesheets/Loading.css';
-import duckieTopLeft from './assets/duckie-top-left-no-shadow-1.png';
-import duckieTopRight from './assets/duckie-top-right-no-shadow-1.png';
-import duckieBottomLeft from './assets/duckie-bottom-left-no-shadow-1.png';
-import duckieBottomRight from './assets/duckie-bottom-right-no-shadow-1.png';
 import getRandomMessage from './assets/loading_messages';
-import videoBackground from '../public/videos/Wormhole Animation.mp4';
 
 function Loading(props) {
   const changeView = () => {
@@ -15,14 +11,11 @@ function Loading(props) {
 
   return (
     <main className='loading-view'>
-      <video className="background-video" autoPlay loop muted>
-        <source src={videoBackground} type="video/mp4" />
-      </video>
-      <div className="duckie-container rotate">
-        <img src={duckieTopLeft} className='duckie__top-left'></img>
-        <img src={duckieTopRight} className='duckie__top-right'></img>
-        <img src={duckieBottomLeft} className='duckie__bottom-left'></img>
-        <img src={duckieBottomRight} className='duckie__bottom-right'></img>
+      <div className="background-container sky-loading"></div>
+      <div className="background-container mountain-loading"></div>
+      <div className="background-container clouds-loading"></div>
+      <div className="sprite-container">
+        <div className='sprite-animation'></div>
       </div>
       <span className='loading-message'>
         <h3>LOADING...</h3>
@@ -32,6 +25,6 @@ function Loading(props) {
       </div>
     </main>
   );
-}
+};
 
 export default Loading;

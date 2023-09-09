@@ -34,7 +34,7 @@ const PlaySound = ({ audioSource }) => {
         url={audioSource}
         playing={!isMuted}
         loop={true}
-        volume={isMuted ? 0 : 0.75}
+        volume={isMuted ? 0 : 0.1}
         style={{ display: 'none' }}
       />
       <button

@@ -44,9 +44,9 @@ const { defaultName, view, leaderBoardPlayers } = state;
         view === 'loading' ? '/audio/Loadingmusic.mp3' :
         backgroundMusic ? '/audio/mainmenumusic.mp3' : '/audio/quacknoises.mp3'
       } />
-      <PostGame/>
+      {<PostGame/>}
       {/*currentView()*/}
-
+      {/*<Loading/>*/}
     </div>
   );
 }

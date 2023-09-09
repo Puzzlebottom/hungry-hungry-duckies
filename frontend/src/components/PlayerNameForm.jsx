@@ -11,7 +11,6 @@ export default function PlayerNameForm (props) {
         handleViewChange('loading')
       }
     }>
-      <label htmlFor='name'>Name</label>
       <input type='text' id='name' name='name'
       placeholder='Enter player name' defaultValue={defaultName} />
       <button type='submit'>Submit</button>

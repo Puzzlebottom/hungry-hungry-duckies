@@ -1,10 +1,31 @@
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('/fonts/Mark Simonson - Proxima Nova Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
 body {
+  font-family: 'proxima nova', sans-serif;
+  color: #333;
   margin: 0;
-  background-color: rgba(0, 240, 240, 0.7); /* Cyanish-blue with transparency */
-  //background-image: url('https://media.tenor.com/LpHjGuCCrPwAAAAC/love-spiral.gif');
-  background-size: cover;
-  background-position: center top -300px; /* Move the wallpaper to the center at the top with an additional -100px offset */
-  opacity: 1;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  background-image: url('/videos/sunrise.png');
+  background-size: auto;
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  animation: scrollBackground 10s linear infinite alternate;
+}
+
+@keyframes scrollBackground {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
 }
 
 .table-view {
@@ -15,28 +36,202 @@ body {
 }
 
 .background {
+  position: fixed;
   width: 50vw;
   height: 50vh;
-}
 
-.background__red {
-  right: 0;
-  background-color: rgba(255, 105, 180, 0.7); /* Transparent red */
-}
-
-.background__yellow {
-  right: 0;
-  bottom: 0;
-  background-color: rgba(142, 68, 173, 0.7); /* Transparent purple */
-}
-
-.background__blue {
-  bottom: 0;
-  background-color: rgba(255, 105, 180, 0.7); /* Transparent red */
 }
 
 .background__green {
-  background-color: rgba(0, 240, 240, 0.7); /* Cyanish-green with transparency */
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(142, 68, 173, 0.3);
+  background-size: 200%;
+  overflow: hidden;
+}
+
+.background__red {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: rgb(93, 193, 215, 0.3);
+  background-size: auto 100%;
+  overflow: hidden;
+}
+
+.background__red::before,
+.background__red::after,
+.background__red::before,
+.background__red::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+
+.background__red::before {
+  background-image: url('/videos/topmovingblock.png');
+  animation: parallax-red-1 25s linear infinite;
+  background-size: 150%;
+  background-position: top;
+  z-index: 2;
+  opacity: 0.8;
+}
+
+.background__red::after {
+  background-image: url('/videos/rightmovingblock.png');
+  animation: parallax-red-2 0.3s linear infinite;
+  background-size:80%;
+  background-position: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: auto;
+  z-index: 7;
+  opacity: 0.8;
+}
+
+@keyframes parallax-red-1 {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes parallax-red-2 {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(4%)
+  }
+}
+
+
+.background__blue {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(241, 189, 0, 0.3);
+  background-size: auto 100%;
+  overflow: hidden;
+}
+
+.background__blue::before,
+.background__blue::after,
+.background__blue::before,
+.background__blue::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.background__blue::before {
+  background-image: url('/videos/leftmovingblock.png');
+  animation: parallax-blue-1 0.3s linear infinite;
+  background-size: 9%;
+  opacity: 0.8;
+
+
+}
+
+.background__blue::after {
+  //background-image: url('/videos/bottommovingblock.png');
+  animation: parallax-blue-2 0.5s linear infinite;
+  background-size: cover;
+  background-position: right;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: auto;
+}
+
+@keyframes parallax-blue-1 {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-2%);
+  }
+}
+
+.background__yellow {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: rgb(189, 127, 239, 0.3);
+  background-size: auto 100%;
+  overflow: hidden;
+  opacity: 0.8;
+}
+
+.background__yellow::before,
+.background__yellow::after,
+.background__yellow::before,
+.background__yellow::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+
+.background__yellow::before {
+  background-image: url('/videos/rightmovingblock.png');
+  animation: parallax-yellow-1 0.3s linear infinite;
+  background-size: 150%;
+  background-position: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: auto;
+  z-index: 0;
+  opacity: 0.8;
+}
+
+.background__yellow::after {
+  background-image: url('/videos/bottommovingblock.png');
+  animation: parallax-yellow-2 0.7s linear infinite;
+  background-size: 275%;
+  opacity: 0.8;
+  background-position: bottom;
+
+}
+
+@keyframes parallax-yellow-1 {
+  0% {
+    transform: translateY(-4%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes parallax-yellow-2 {
+  0% {
+    transform: translate(1.5%);
+  }
+  100% {
+    transform: translateX(.5%);
+  }
 }
 
 .arena,
@@ -60,7 +255,7 @@ body {
   transform: translate(-50%, -50%);
   font-size: min(40vh, 40vw);
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  color: rgba(240, 240, 240, 0.7); /* Text color with transparency */
+  color: rgba(240, 240, 240, 0.7);
   text-shadow: 0 0 5px rgba(252, 0, 255, 0.7), 0 0 10px rgba(252, 0, 255, 0.7), 0 0 15px rgba(252, 0, 255, 0.7);
 }
 
@@ -72,13 +267,13 @@ body {
   width: 15vw;
   height: 35vh;
   border-radius: 8px;
-  border: 3px solid rgba(255, 255, 255, 0.7); /* Border with transparency */
+  border: 3px solid rgba(255, 255, 255, 0.7);
   padding: 1em;
   justify-content: space-between;
   align-items: center;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  color: rgba(255, 255, 255, 0.7); /* Text color with transparency */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with transparency */
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .player-name {
@@ -97,44 +292,46 @@ body {
   bottom: 0;
   margin: 0.2em;
   padding: 0.2em;
-  color: rgba(255, 255, 255, 0.7); /* Text color with transparency */
-  background-color: rgba(0, 0, 0, 0.7); /* Background color with transparency */
+  color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(0, 0, 0, 0.7);
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: min(5vh, 5vw);
-  border: 3px solid rgba(255, 255, 255, 0.7); /* Border with transparency */
+  border: 3px solid rgba(255, 255, 255, 0.7);
   border-radius: 8px;
 }
 
 .button__ready {
-  color: rgba(255, 255, 255, 0.7); /* Text color with transparency */
+  font-family: 'proxima nova', sans-serif;
+  color: rgba(255, 255, 255, 0.7);
   background-color: transparent;
   font-size: min(2.5vh, 2.5vw);
   padding: 0.5em 1em 0.5em 1em;
-  border: 3px solid rgba(255, 255, 255, 0.7); /* Border with transparency */
+  border: 3px solid rgba(255, 255, 255, 0.7);
   border-radius: 8px;
 }
 
-/* Player Detail Panel Background Colors with transparency */
 .player-detail-panel__top-left {
   top: 0;
   left: 0;
-  background-color: rgba(255, 105, 180, 0.9); /* Transparent red */
+  background-color: rgb(241, 189, 0, 0.9);
 }
 
 .player-detail-panel__top-right {
   top: 0;
   right: 0;
-  background-color: rgba(0, 240, 240, 0.9); /* Cyanish-blue with transparency */
-}
-
-.player-detail-panel__bottom-right {
-  bottom: 0;
-  right: 0;
-  background-color: rgba(170, 136, 204, 0.9); /* Transparent purple */
+  background-color: rgba(142, 68, 173, 0.9);
 }
 
 .player-detail-panel__bottom-left {
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 128, 128, 0.9); /* Transparent dark cyan */
+  background-color: rgb(189, 127, 239, 0.9);
 }
+
+.player-detail-panel__bottom-right {
+  bottom: 0;
+  right: 0;
+  background-color: rgb(93, 193, 215, 0.9);
+}
+
+

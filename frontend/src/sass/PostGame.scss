@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('/fonts/Mark Simonson - Proxima Nova Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -5,74 +12,119 @@ html, body {
   overflow: hidden;
 }
 
-.Leaderboard-container {
-  /* Your existing styles for .Leaderboard-container */
-}
-
 body {
-  position: relative; /* Make the body a positioning context for pseudo-elements */
+  position: relative;
   overflow: hidden;
-  background-color: rgba(0, 240, 240, 0.7);
 }
 
-body::before {
+.background-container.space {
   content: "";
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/videos/PostGameBackground.png');
-  background-size: 400% 100%; /* Adjust as needed to show 25% of the image */
-  background-position: 100% 0; /* Start at the top right */
-  background-repeat: no-repeat;
-  z-index: -2; /* Place it behind everything else */
-  animation: horizontalParallax 100s linear infinite; /* Adjust the animation duration and timing function as needed */
+  background-image: url('https://img.itch.zone/aW1hZ2UvMTY2ODE2Ni85ODIxOTI3LmdpZg==/347x500/8NkLwE.gif');
+  background-size: 200%;
+  z-index: -4;
+  overflow: hidden;
+  animation: spaceParallax 160s linear infinite;
 }
 
-body::after {
+@keyframes spaceParallax {
+  0% {
+    background-position: 0% -100%;
+  }
+  100% {
+    background-position: -100% 0%;
+  }
+}
+
+.background-container.planets {
+  content: "";
+  position: fixed;
+  top: 400px;
+  left: -1800px;
+  width: 200%;
+  height: 200%;
+  background-image: url('/videos/Planets.png');
+  background-size: 200%;
+  z-index: -2;
+  overflow: hidden;
+  transform: translate(0, 100%);
+  animation: planetsParallax 100s linear infinite;
+}
+
+@keyframes planetsParallax {
+  0% {
+    transform: translate(100%, -100%);
+  }
+  100% {
+    transform: translate(0, 100%);
+  }
+}
+
+.background-container.meteors {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: -800px;
+  width: 100%;
+  height: 100%;
+  background-image: url('/videos/Meteors.png');
+  background-size: cover;
+  z-index: -1;
+  overflow: hidden;
+  transform: translate(0, 100%);
+  animation: planetsParallax 20s linear infinite;
+}
+
+@keyframes planetsParallax {
+  0% {
+    transform: translate(100%, -100%);
+  }
+  100% {
+    transform: translate(0, 100%);
+  }
+}
+
+.background-container.stars {
   content: "";
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 200%;
   height: 100%;
-  background-image: url('/videos/PostGameBackgroundPlanets.png');
-  background-size: 400% 400%; /* Adjust as needed to show 25% of the image */
-  background-position: 100% 0; /* Start at the top right */
-  background-repeat: no-repeat;
-  z-index: -1; /* Place it further behind the background image */
-  animation: diagonalParallaxPlanets 60s linear infinite; /* Adjust the animation duration as needed */
+  background-image: url('/videos/stars.png');
+  background-size: cover;
+  z-index: -3;
+  overflow: hidden;
 }
 
-@keyframes horizontalParallax {
-  0% {
-    background-position: 0 100%; /* Start at the top right */
-  }
-  100% {
-    background-position: 100% 0; /* Move to the bottom left */
-  }
-}
-
-@keyframes diagonalParallaxPlanets {
-  0% {
-    background-position: 100% 0; /* Start at the top right */
-  }
-  100% {
-    background-position: 0 100%; /* Move to the bottom left (reverse direction) */
-  }
-}
-.Leaderboard-container {
+.Leaderboard-container-post {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
 }
 
+.leaderboard-container-menu {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+}
 
-h1.Winner {
-  margin-top: 10px;
-  font-size: 120px;
+h4.Winner {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  height: 40px;
+  border-radius: 80px;
+  margin-top: 40px;
+  font-size: 80px;
   animation: neonGlow 5s infinite alternate;
   color: #f0f0f0;
   text-shadow: 0 0 5px rgba(252, 0, 255, 0.7), 0 0 10px rgba(252, 0, 255, 0.7), 0 0 15px rgba(252, 0, 255, 0.7);
@@ -96,7 +148,7 @@ h1.Winner {
   }
 }
 
-/* Add animation for the table border */
+
 @keyframes borderCycle {
   0% {
     border-image-source: linear-gradient(to right, rgba(0, 219, 222, 0.5), rgba(255, 105, 180, 0.7));
@@ -116,53 +168,83 @@ h1.Winner {
 }
 
 table.true-leaderboard-table {
-  width: 80%;
-  margin: -45px;
-  background-color: rgba(255, 105, 180, 0.7);
+  width: 100%;
+  height: 100%;
   color: #ffffff;
-  box-shadow: 0 0 20px rgba(0, 219, 222, 0.5);
-
-  /* Create a gradient border */
-  border: 32px;
-  border-image: linear-gradient(to right, rgba(0, 219, 222, 0.5), rgba(255, 105, 180, 0.7));
-  border-image-slice: 1; /* Use this property to define the slice size */
-
-  /* Apply the animation */
-  animation: borderCycle 5s infinite alternate;
+  border-radius: 50px;
 }
 
-
-
+.header-container-post {
+  display: contents;
+  text-align: center;
+  font-size: larger;
+  color: rgb(255, 255, 255);
+}
 
 th.player-name-header,
 th.player-score-header,
 th.player-status-header {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   padding: 15px;
+  width: 100%;
+  height: 100%;
   text-align: center;
-  background: linear-gradient(135deg, #00FFFF, #ff6fb7);
+  font-size: larger;
+  background: rgb(118, 60, 181);
   color: #fff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 50px;
+}
+
+th.player-name-header {
+  width: 33%;
+}
+
+th.player-score-header {
+  width: 33%;
+}
+
+th.player-status-header {
+  width: 33%;
 }
 
 td.player-score,
 td.player-name,
 td.player-status {
+  font-family: 'proxima nova', sans-serif;
   padding: 15px;
   text-align: center;
-  border-bottom: 1px solid rgba(0, 219, 222, 0.5);
   color: #ffffff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-
-
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  border-radius: 50px;
+  background: rgb(118, 60, 181, 0.5);
 }
 
+td.player-score {
+  width: 20%;
+  border: 2px solid rgb(189, 127, 239, 0.7);
+  font-family: 'proxima nova', sans-serif;
+  border-color: rgb(189, 127, 239, 0.7);
+}
 
+td.player-status {
+  width: 20%;
+  border: 2px solid rgb(189, 127, 239, 0.7);
+  font-family: 'proxima nova', sans-serif;
+  border-color: rgb(189, 127, 239, 0.7);
+}
+
+td.player-name {
+  width: 20%;
+  border: 2px solid rgb(189, 127, 239, 0.7);
+  font-family: 'proxima nova', sans-serif;
+  border-color: rgb(189, 127, 239, 0.7);
+}
 
 .custom-first-row td {
-  font-size: 72px;
-  font-weight: bold;
+  font-family: 'proxima nova', sans-serif;
+  font-size: 50px;
   animation: neonGlow 5s infinite alternate;
-  color: #f0f0f0; /* Neon color */
+  color: #f0f0f0;
   text-shadow: 0 0 5px rgba(252, 0, 255, 0.7), 0 0 10px rgba(252, 0, 255, 0.7), 0 0 15px rgba(252, 0, 255, 0.7);
 }
 
@@ -184,37 +266,31 @@ td.player-status {
   }
 }
 
-
 .container-for-post-game-buttons {
   display: flex;
-  width: 750px;
-  height: 500px;
+  width: 33%;
   justify-content: space-between;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .main-menu-button1, .play-again-button {
-  height: 60px;
-  padding: 0 40px;
+  font-family: 'proxima nova', sans-serif;
+  height: 40px;
+  padding: 0 33px;
   font-size: 20px;
-  background: linear-gradient(135deg, #ff6fb7, #00FFFF);
+  background: #5dc1d7;
   color: #ffffff;
   border: none;
-  border-radius: 10px;
+  border-radius: 50px;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   margin: 20px;
-  text-transform: uppercase;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  font-weight: bold;
   letter-spacing: 1px;
   outline: none;
   position: relative;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .main-menu-button1::before, .play-again-button::before {
@@ -224,53 +300,11 @@ td.player-status {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #ff6fb7, #00FFFF);
-  border-radius: 10px;
-  opacity: 0.7;
+  background: #f1bd00;
+  border-radius: 50px;
+  opacity: 1;
   z-index: -1;
   transition: opacity 0.3s ease;
-}
-
-.main-menu-button1::after, .play-again-button::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.main-menu-button1:hover::before, .play-again-button:hover::before {
-  opacity: 0.9;
-}
-
-.main-menu-button1:hover {
-  background: linear-gradient(135deg, #00FFFF, #ff6fb7);
-  transform: scale(1.05);
-}
-
-.play-again-button:hover {
-  background: linear-gradient(135deg, #00FFFF, #ff6fb7);
-  transform: scale(1.05);
-}
-
-.background-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 120%;
-  object-fit: cover;
-  opacity: 0.9; /* Reduce opacity for a softer look */
-  z-index: -1;
-}
-
-.footer {
-  margin-top: 100px;
 }
 
 div.audiobutton {
