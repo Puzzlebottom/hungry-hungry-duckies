@@ -1,4 +1,4 @@
-//The contents of this file must match backend/public/constants/bugConstants.js
+//The contents of this file must match frontend/src/constants/bugConstants.js
 
 const constants = {
   SERVER_SIMULATION_SIZE: 360, // the size of the physics world server side. It's gotta match backend/physics.js
