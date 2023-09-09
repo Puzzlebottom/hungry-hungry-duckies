@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useCookies } from 'react-cookie';
+// import { useCookies } from 'react-cookie';
 
 const useConnect = (setView) => {
   const [leaderboard, setLeaderBoard] = useState([]);
   const [player, setPlayer] = useState({ name: '', uuid: '' });
-  const [, setCookie] = useCookies();
+  // const [, setCookie] = useCookies();
+  const localUUID = JSON.parse(localStorage.getItem('UUID'));
+  const [UUID, setUUID] = useState(localUUID);
 
   useEffect(() => {
 
@@ -17,7 +19,8 @@ const useConnect = (setView) => {
         const [player, leaderboard] = res;
 
         setPlayer(player.data);
-        setCookie('player', player.data.uuid, { path: '/' });
+        localStorage.setItem('UUID', JSON.stringify(player.data.uuid));
+        console.log('player.data.uuid', JSON.parse(localStorage.getItem('UUID')));
 
         setLeaderBoard(leaderboard.data.players);
 
