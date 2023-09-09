@@ -33,7 +33,6 @@ function Home({ player, leaderboard, join }) {
         <div className="duck-image-container-real">
           <img className="duck-image" src="https://gifdb.com/images/high/duck-happy-dance-76yta26qy8v77wfr.gif" alt="Duck" />
         </div>
-        {/* End of duck images in home-leaderboard-and-form */}
         <Leaderboard {...{ leaderboard }} />
         <PlayerNameForm {...{ player, join }} />
       </div>

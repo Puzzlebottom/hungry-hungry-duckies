@@ -60,7 +60,6 @@ function Table({ gameState, munch, toggleReady }) {
     return <Quarter key={index} {...{ images, player, color, isActive }} />;
   });
 
-  // const [countdownComplete, setCountdownComplete] = useState(false);
 
   return (
     <main className='table-view'>

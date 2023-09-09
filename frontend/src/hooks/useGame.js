@@ -78,7 +78,6 @@ const useGame = () => {
   };
 
   const { player, setPlayer, leaderboard } = useConnect(setView);
-  console.log('player in useGame', player)
 
   const initialState = ({ bugs: [], player: {}, opponents: [], isActive: false, view: 'loading' });
   const [gameState, dispatch] = useReducer(reducer, initialState);
@@ -86,7 +85,6 @@ const useGame = () => {
 
   useEffect(() => {
     socket.on('gameState', (gameState) => {
-      console.log('gameState', player)
       dispatch({ type: UPDATE, value: { gameState, player } });
     });
 
