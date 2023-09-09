@@ -7,7 +7,7 @@ export default function Leaderboard({ leaderboard }) {
           <tr>
             <th>Rank</th>
             <th>Username</th>
-            <th>Score</th>
+            <th>Bugs munched!</th>
           </tr>
         </thead>
         <tbody className="leaderboard-body">
@@ -15,7 +15,7 @@ export default function Leaderboard({ leaderboard }) {
             <tr key={player.id}>
               <td>{index + 1}</td>
               <td>{player.name}</td>
-              <td>{player.hi_score}</td>
+              <td>{player.total_score}</td>
             </tr>
           ))}
         </tbody>

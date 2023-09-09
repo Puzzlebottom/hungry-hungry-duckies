@@ -11,10 +11,13 @@ const ACTIONS = {
 
 const reducers = {
   UPDATE(state, action) {
-    if (state.isActive && !action.value.isActive) {
-      return { ...action.value, view: 'postgame' };
+    const { gameState, player } = action.value;
+
+    if (state.isActive && !gameState.isActive) {
+      socket.emit('update', {...player, current_score: gameState.player.current_score});
+      return { ...gameState, view: 'postgame' };
     }
-    return { ...state, ...action.value };
+    return { ...state, ...gameState };
   },
 
   MUNCH(state, action) {
@@ -75,6 +78,7 @@ const useGame = () => {
   };
 
   const { player, setPlayer, leaderboard } = useConnect(setView);
+  console.log('player in useGame', player)
 
   const initialState = ({ bugs: [], player: {}, opponents: [], isActive: false, view: 'loading' });
   const [gameState, dispatch] = useReducer(reducer, initialState);
@@ -82,13 +86,14 @@ const useGame = () => {
 
   useEffect(() => {
     socket.on('gameState', (gameState) => {
-      dispatch({ type: UPDATE, value: gameState });
+      console.log('gameState', player)
+      dispatch({ type: UPDATE, value: { gameState, player } });
     });
 
     return () => {
       socket.off('gameState');
     };
-  }, []);
+  }, [player]);
 
   return { gameState, setView, player, leaderboard, join, munch, toggleReady, home, newGame };
 };

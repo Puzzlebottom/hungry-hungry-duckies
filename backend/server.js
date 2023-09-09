@@ -81,6 +81,11 @@ io.on('connection', (socket) => {
     Game.addPlayer(name, socket.id);
   });
 
+  socket.on('update', (player) => {
+    console.log('update', player);
+    playerQueries.updatePlayerScore(player);
+  });
+
   socket.on('disconnect', () => {
     clearInterval(interval);
     Game.removePlayer(socket.id);

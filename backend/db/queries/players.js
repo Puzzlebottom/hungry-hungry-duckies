@@ -9,9 +9,9 @@ const getAllPlayers = () => {
 
 const getTopPlayers = () => {
   const query = `
-    SELECT name, hi_score FROM players
-    ORDER BY hi_score DESC
-    LIMIT 10;
+    SELECT name, total_score FROM players
+    WHERE total_score > 0 AND name != ''
+    ORDER BY total_score DESC;
   `;
   return db.query(query);
 };
@@ -38,5 +38,14 @@ const addOrUpdatePlayer = async (uuid) => {
   return result.rows[0];
 };
 
+const updatePlayerScore = ({ uuid, current_score }) => {
+  const query = `
+    UPDATE players
+    SET total_score = total_score + $1
+    WHERE uuid = $2
+  `;
+  const values = [current_score, uuid];
+  return db.query(query, values);
+};
 
-module.exports = { getAllPlayers, getTopPlayers, updatePlayerName, addOrUpdatePlayer };
+module.exports = { getAllPlayers, getTopPlayers, updatePlayerName, addOrUpdatePlayer, updatePlayerScore };

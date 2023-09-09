@@ -11,7 +11,7 @@ const Game = {
   start() {
     this.state.isActive = true;
     setTimeout(() => {
-      this.physics.addBugs(25);
+      this.physics.addBugs(5);
       this.state.bugs = this.physics.getBugUpdate();
     }, 3000);
   },
