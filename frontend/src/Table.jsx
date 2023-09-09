@@ -18,7 +18,6 @@ import Quarter from './components/Quarter';
 import Bugs from './components/Bugs';
 import GameTimer from './components/Gametimer';
 import Countdown from './components/Countdown';
-import videoBackground from '../public/videos/badass.mp4';
 
 function Table({ gameState, munch, toggleReady }) {
   const duckieImages = [

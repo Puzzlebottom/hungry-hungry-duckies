@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import '../src/sass/Postgame.scss';
-import videoBackground from '../public/videos/Wormhole Animation.mp4';
 
 
 
@@ -48,6 +47,7 @@ function PostGame({ gameState, home, newGame }) {
       </div>
     </div>
   );
+
 }
 
 
