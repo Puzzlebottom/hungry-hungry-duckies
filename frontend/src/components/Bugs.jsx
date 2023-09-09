@@ -8,7 +8,7 @@ import bug2 from '../assets/bug2.png';
 
 Matter.use(MatterAttractors);
 const { Engine, Render, Runner, Body, Bodies, Composite, Events } = Matter;
-const { TOTAL_BOUNDARY_FACES, WALL_SEGMENT_DIMENSIONAL_COEFFICIENT, INSIDE_DIAMETER_ADJUSTMENT, ATTRACTION_COEFFICIENT, BUG_SIZE_COEFFICIENT, BUG_FRICTION_COEFFICIENT, BUG_TEMPO, SPRITE_SIZE_COEFFECIENT, SPRITE_Y_OFFSET, AIR_FRICTION_COEFFICIENT, RESTITUTION } = BugConstants;
+const { SERVER_SIMULATION_SIZE, TOTAL_BOUNDARY_FACES, WALL_SEGMENT_DIMENSIONAL_COEFFICIENT, INSIDE_DIAMETER_ADJUSTMENT, ATTRACTION_COEFFICIENT, BUG_SIZE_COEFFICIENT, BUG_FRICTION_COEFFICIENT, BUG_TEMPO, SPRITE_SIZE_COEFFICIENT, SPRITE_Y_OFFSET, AIR_FRICTION_COEFFICIENT, RESTITUTION } = BugConstants;
 
 export default function Bugs({ bugState }) {
 
@@ -72,7 +72,7 @@ export default function Bugs({ bugState }) {
   const getNewBug = (id, position, velocity, angle) => {
     const x = centerpoint.x + position.x;
     const y = centerpoint.y + position.y;
-    const size = radius * BUG_SIZE_COEFFECIENT;
+    const size = radius * BUG_SIZE_COEFFICIENT;
     const newBug = Bodies.circle(x, y, size, {
       restitution: RESTITUTION,
       friction: radius * BUG_FRICTION_COEFFICIENT,
@@ -81,8 +81,8 @@ export default function Bugs({ bugState }) {
       render: {
         sprite: {
           texture: sprite.current,
-          xScale: radius * SPRITE_SIZE_COEFFECIENT,
-          yScale: radius * SPRITE_SIZE_COEFFECIENT,
+          xScale: radius * SPRITE_SIZE_COEFFICIENT,
+          yScale: radius * SPRITE_SIZE_COEFFICIENT,
           yOffset: SPRITE_Y_OFFSET
         }
       }

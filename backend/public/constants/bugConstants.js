@@ -23,4 +23,4 @@ const BugConstants = {
   SPRITE_Y_OFFSET: -0.05, // shifts the sprite to more accurately match the apparent center of gravity
 };
 
-export default BugConstants;
+module.exports = BugConstants;
