@@ -153,12 +153,12 @@ const useBugs = () => {
         height: viewHeight * serverClientSizeRatio,
         wireframes: false,
         background: 'transparent',
-        // gravity: {
-        //   scale: 0
-        // }
+        gravity: {
+          scale: 0
+        }
       }
     });
-    render.current.engine.gravity.scale = 0; // removes standard y-axis gravity; we're looking down at a table
+    // render.current.engine.gravity.scale = 0; // removes standard y-axis gravity; we're looking down at a table
 
     Render.run(render.current);
     Runner.run(runner.current, engine.current);
