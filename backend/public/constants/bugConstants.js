@@ -1,6 +1,6 @@
 //The contents of this file must match frontend/src/constants/bugConstants.js
 
-const constants = {
+const BugConstants = {
   SERVER_SIMULATION_SIZE: 360, // the size of the physics world server side. It's gotta match backend/physics.js
 
   ATTRACTION_COEFFICIENT: 160e-10, // contols how strongly bugs are pulled toward the center. default 5e-7
@@ -23,4 +23,4 @@ const constants = {
   SPRITE_Y_OFFSET: -0.05, // shifts the sprite to more accurately match the apparent center of gravity
 };
 
-export default constants;
+export default BugConstants;

@@ -1,26 +1,10 @@
 const Matter = require("matter-js");
 const MatterAttractors = require("matter-attractors");
+const BugConstants = require('./public/constants/bugConstants');
 
 Matter.use(MatterAttractors);
 const { Engine, Runner, Body, Bodies, Composite, Vector, Query, Events } = Matter;
-
-const SERVER_SIMULATION_SIZE = 360; // the size of the physics world server side. It's gotta match backend/physics.js
-
-const ATTRACTION_COEFFICIENT = 160e-10; // contols how strongly bugs are pulled toward the center. default 5e-7
-
-const TOTAL_BOUNDARY_FACES = 100; // controls the smoothness of the arena walls; more faces = smoother walls
-const WALL_SEGMENT_DIMENSIONAL_COEFFICIENT = 0.15; // controls the thickness of the arena walls; bigger number = thicker walls
-const INSIDE_DIAMETER_ADJUSTMENT = 0.436; // used to scale boundary radius to match arena.png; bigger number = bigger arena
-
-const SENSOR_OFFSET_COEFFICIENT = 0.125; // positions the sensors under the duckie's munching mouths; bigger number = further from center
-const MUNCH_DETECTOR_SIZE_COEFFICIENT = 44e-3; // controls the size of the munch detection sensor; bigger number = bigger sensor
-const MISS_DETECTOR_SIZE_COEFFICIENT = 0.1364; // controlls the size of the miss detections sensor; bigger number = bigger sensor
-const REPULSOR_SCALAR_COEFFICIENT = 0.05; // controls the knockback on a missed munch; bigger number = more knockback
-
-const BUG_SIZE_COEFFICIENT = 44e-3; // scales the bug physics object; bigger number = bigger bugs
-const BUG_FRICTION_COEFFICIENT = -55e-5; // controls the negative friction of the bugs applying an innate churn without input; default -57e-5
-const AIR_FRICTION_COEFFICIENT = 199e-7; // controls how rapidly the bugs slow down; bigger number = slower bugs
-const RESTITUTION = 1; // controls the bounciness of the bugs; bigger number = more bouncy;
+const { SERVER_SIMULATION_SIZE, ATTRACTION_COEFFICIENT, TOTAL_BOUNDARY_FACES, WALL_SEGMENT_DIMENSIONAL_COEFFICIENT, INSIDE_DIAMETER_ADJUSTMENT, SENSOR_OFFSET_COEFFICIENT, MUNCH_DETECTOR_SIZE_COEFFICIENT, MISS_DETECTOR_SIZE_COEFFICIENT, REPULSOR_SCALAR_COEFFICIENT, BUG_FRICTION_COEFFICIENT, BUG_SIZE_COEFFICIENT, AIR_FRICTION_COEFFICIENT, RESTITUTION } = BugConstants;
 
 const Instance = {
   run: () => {
