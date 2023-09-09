@@ -15,7 +15,7 @@ export default function Leaderboard({ leaderboard }) {
             <tr key={player.id}>
               <td>{index + 1}</td>
               <td>{player.name}</td>
-              <td>{player.hi_score}</td>
+              <td>{player.total_score}</td>
             </tr>
           ))}
         </tbody>

@@ -9,8 +9,8 @@ const getAllPlayers = () => {
 
 const getTopPlayers = () => {
   const query = `
-    SELECT name, hi_score FROM players
-    ORDER BY hi_score DESC
+    SELECT name, total_score FROM players
+    ORDER BY total_score DESC
     LIMIT 10;
   `;
   return db.query(query);
