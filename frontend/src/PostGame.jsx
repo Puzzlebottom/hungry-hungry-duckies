@@ -25,7 +25,7 @@ function PostGame({ gameState, home, newGame }) {
             <thead className="header-container-post">
               <tr>
                 <th className="player-name-header">Player Name</th>
-                <th className="player-score-header">Score</th>
+                <th className="player-score-header">Bugs Munched!</th>
                 <th className="player-status-header">Status</th>
               </tr>
             </thead>

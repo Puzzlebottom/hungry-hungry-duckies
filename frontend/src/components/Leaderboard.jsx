@@ -7,7 +7,7 @@ export default function Leaderboard({ leaderboard }) {
           <tr>
             <th>Rank</th>
             <th>Username</th>
-            <th>Bugs munched!</th>
+            <th>Bugs Munched!</th>
           </tr>
         </thead>
         <tbody className="leaderboard-body">

@@ -9,7 +9,7 @@ function Countdown({ bugs, isActive }) {
       setTimeout(() => {
         message.current = 1;
         setTimeout(() => {
-          message.current = 'MUNCH';
+          message.current = 'MUNCH!';
           setTimeout(() => {
             message.current = null;
           }, 750);
@@ -21,7 +21,8 @@ function Countdown({ bugs, isActive }) {
 
   useEffect(() => {
     if (!bugs.length && !message.current) {
-      message.current = 'NICE JOB';
+      const messages = ['QUACK-TASTIC!', 'QUACK ON!', 'QUACK-A-LACKIN!', 'QUACK-A-DOODLE-DOO!', 'QUACK-A-DOODLE-DONE!', 'QUACK-TACULAR!', 'QUACK-A-ROO!'];
+      message.current = messages[Math.floor(Math.random() * messages.length)];
     }
   }, [bugs]);
 
