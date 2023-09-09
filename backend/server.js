@@ -59,11 +59,9 @@ io.on('connection', (socket) => {
   };
 
   socket.on('join', (player) => {
-    updatePlayerName({ ...player })
-      .then(() => {
-        Game.addPlayer(player.name, socket.id);
-        interval = runUpdater();
-      });
+    Game.addPlayer(player.name, socket.id);
+    interval = runUpdater();
+    updatePlayerName({ ...player });
   });
 
   socket.on('ready', () => {
@@ -72,6 +70,15 @@ io.on('connection', (socket) => {
 
   socket.on('munch', () => {
     Game.doMunch(socket.id);
+  });
+
+  socket.on('home', () => {
+    Game.reset();
+  });
+
+  socket.on('newgame', (name) => {
+    Game.reset();
+    Game.addPlayer(name, socket.id);
   });
 
   socket.on('disconnect', () => {

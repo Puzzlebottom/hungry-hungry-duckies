@@ -6,7 +6,9 @@ import PlaySound from './components/PlaySound.jsx';
 import useGame from './hooks/useGame';
 
 function App() {
-  const { gameState, view, setView, player, leaderboard, join, munch, toggleReady, home } = useGame();
+  const { gameState, setView, player, leaderboard, join, munch, toggleReady, home, newGame } = useGame();
+
+  const { view } = gameState;
 
   let track = '/audio/quacknoises.mp3';
   if (view === 'loading') track = '/audio/Loadingmusic.mp3';
@@ -18,7 +20,7 @@ function App() {
       {view === 'loading' && <Loading {...{ setView }} />}
       {view === 'home' && <Home {...{ player, leaderboard, join }} />}
       {view === 'table' && <Table {...{ gameState, munch, toggleReady }} />}
-      {view === 'postgame' && <PostGame {...{ gameState, join, home }} />}
+      {view === 'postgame' && <PostGame {...{ gameState, home, newGame }} />}
     </div>
   );
 }

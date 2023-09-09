@@ -1,7 +1,7 @@
 const Instance = require('./physics');
 
 const Game = {
-  state: { bugs: [], players: [], isActive: false },
+  state: { bugs: [], players: {}, isActive: false },
   physics: {},
 
   initialize() {
@@ -10,54 +10,57 @@ const Game = {
 
   start() {
     this.state.isActive = true;
-    this.physics.addBugs(10);
-    this.state.bugs = this.physics.getBugUpdate();
+    setTimeout(() => {
+      this.physics.addBugs(25);
+      this.state.bugs = this.physics.getBugUpdate();
+    }, 3000);
   },
 
   end() {
+    for (player of Object.values(this.state.players)) {
+      player.inGame = false;
+    }
     setTimeout(() => {
       this.state.isActive = false;
     }, 3000);
   },
 
   reset() {
-    this.state = { bugs: [], players: [], isActive: false };
+    for (player of Object.values(this.state.players)) {
+      if (!player.inGame) delete this.state.players[player.current_seat];
+    }
+  },
+
+  findPlayerBySocketId(socketId) {
+    const seat = [0, 1, 2, 3].find(seat => this.state.players[seat]?.socketId === socketId);
+    return seat !== undefined ? this.state.players[seat] : {};
+  },
+
+  findFirstAvailableSeat() {
+    const seat = [0, 1, 2, 3].find(seat => !this.state.players[seat]);
+    return seat;
   },
 
   addPlayer(name, socketId) {
-    const existingPlayer = this.state.players.find(player => player.socketId === socketId);
-
-    if (existingPlayer) {
-      existingPlayer.name = name;
-      return;
-    }
-
-    const filledSeats = this.state.players.reduce((seats, player) => { return [...seats, player.current_seat]; }, []);
-    const availableSeats = [];
-    for (let i = 0; i < 4; i++) {
-      if (!filledSeats.includes(i)) availableSeats.push(i);
-    }
-    if (availableSeats.length === 0) return;
-    const firstAvailableSeat = availableSeats[0];
-
-    const newPlayer = { name, current_score: 0, current_seat: firstAvailableSeat, isMunching: false, isReady: false, socketId };
-    this.state.players = [...this.state.players, newPlayer];
+    const seat = this.findFirstAvailableSeat();
+    const newPlayer = { name, current_score: 0, current_seat: seat, isMunching: false, isReady: false, inGame: true, socketId };
+    this.state.players[seat] = newPlayer;
   },
 
   removePlayer(socketId) {
-    this.state.players = this.state.players.filter(player => player.socketId !== socketId);
+    const player = this.findPlayerBySocketId(socketId);
+    if (Object.keys(player).length) delete this.state.players[player.current_seat];
   },
 
   togglePlayerReady(socketId) {
-    const [player] = this.state.players.filter(player => player.socketId === socketId);
-    player.isReady = !player.isReady;
-
+    const player = this.findPlayerBySocketId(socketId);
+    if (Object.keys(player).length) player.isReady = !player.isReady;
     if (this.allReady()) this.start();
   },
 
   doMunch(socketId) {
-    const [player] = this.state.players.filter(player => player.socketId === socketId);
-    if (!this.state.isActive || player.isMunching) return;
+    const player = this.findPlayerBySocketId(socketId);
+    if (!this.state.bugs.length) return;
 
     player.isMunching = true;
     const munched = this.physics.processMunch(player.current_seat);
@@ -75,30 +78,15 @@ const Game = {
     return this.state.bugs.length === 0;
   },
 
-  allReady() {
-    const allPlayers = this.state.players;
-    const readyPlayers = allPlayers.filter(player => player.isReady);
+  allReady() { return !Object.values(this.state.players).some(player => !player.isReady); },
 
-    return allPlayers.length === readyPlayers.length;
-  },
-
-  isFull() { return this.state.players.length >= 4; },
+  isFull() { return Object.keys(this.state.players).length >= 4; },
 
   getGameStateForSocketId(socketId) {
     const { bugs, players, isActive } = this.state;
 
-    // if (Object.keys(players).length === 0) return { bugs: [], player: {}, opponents: [], isActive: false };
-
-    const player = players.find(player => player.socketId === socketId) || {};
-    const playerSeat = player['current_seat'];
-
-    // console.log('PLAYER: ', player);
-    // console.log('PLAYERSEAT: ', playerSeat);
-
-    const opponents = [0, 1, 2, 3]
-      .filter(i => i !== playerSeat)
-      .map(i => players[i])
-      .filter(p => p);
+    const player = this.findPlayerBySocketId(socketId);
+    const opponents = Object.values(players).filter(player => player.socketId !== socketId);
 
     const sanitizePlayer = (player) => {
       const sanitizedPlayer = { ...player };
@@ -107,8 +95,6 @@ const Game = {
     };
 
     const bugData = bugs.map(bug => { return { id: bug.id, position: bug.position, velocity: bug.velocity, angle: bug.angle }; });
-
-    // console.log({ bugs: bugData, player: sanitizePlayer(player), opponents: opponents.map(sanitizePlayer), isActive });
     return { bugs: bugData, player: sanitizePlayer(player), opponents: opponents.map(sanitizePlayer), isActive };
   }
 };

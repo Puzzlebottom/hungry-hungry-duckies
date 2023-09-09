@@ -1,31 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 
-function Countdown({ onComplete }) {
-  const [timer, setTimer] = useState(3);
+function Countdown({ bugs, isActive }) {
+  const message = useRef(3);
 
   useEffect(() => {
-    const countdownInterval = setInterval(() => {
-      if (timer > 1) {
-        setTimer(timer - 1);
-      } else if (timer === 1) {
-        setTimer('MUNCH!');
+    setTimeout(() => {
+      message.current = 2;
+      setTimeout(() => {
+        message.current = 1;
         setTimeout(() => {
-          setTimer('');
-          clearInterval(countdownInterval);
-          onComplete();
+          message.current = 'MUNCH';
+          setTimeout(() => {
+            message.current = null;
+          }, 750);
         }, 750);
-      } else {
-        clearInterval(countdownInterval);
-        onComplete();
-      }
+      }, 750);
     }, 750);
 
-    return () => clearInterval(countdownInterval);
-  }, [timer, onComplete]);
+  }, [isActive]);
+
+  useEffect(() => {
+    if (!bugs.length && !message.current) {
+      message.current = 'NICE JOB';
+    }
+  }, [bugs]);
+
+  const numeric = [3, 2, 1].includes(message.current);
 
   return (
     <div className="countdown">
-      <p style={{ fontSize: timer === 'MUNCH!' ? '33%' : '100%' }}>{timer}</p>
+      {message.current && <p style={{ fontSize: numeric ? '1em' : '0.5em' }}>{message.current}</p>}
     </div>
   );
 }
