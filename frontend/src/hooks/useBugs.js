@@ -158,7 +158,6 @@ const useBugs = () => {
         }
       }
     });
-    // render.current.engine.gravity.scale = 0; // removes standard y-axis gravity; we're looking down at a table
 
     Render.run(render.current);
     Runner.run(runner.current, engine.current);
