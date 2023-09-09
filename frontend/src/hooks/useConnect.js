@@ -19,6 +19,8 @@ const useConnect = (setView) => {
       .then((res) => {
         const [player, leaderboard] = res;
 
+        console.log('player data', player.data)
+
         setPlayer(player.data);
         localStorage.setItem('uuid', player.data.uuid);
         console.log('player.data', player.data);
@@ -31,6 +33,7 @@ const useConnect = (setView) => {
       .catch(err => console.log(err));
 
   }, []);
+  console.log('player after useEffect', player)
 
   return { leaderboard, setLeaderBoard, player, setPlayer };
 };

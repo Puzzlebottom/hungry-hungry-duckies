@@ -10,8 +10,8 @@ const getAllPlayers = () => {
 const getTopPlayers = () => {
   const query = `
     SELECT name, total_score FROM players
-    ORDER BY total_score DESC
-    LIMIT 10;
+    WHERE total_score > 0 AND name != ''
+    ORDER BY total_score DESC;
   `;
   return db.query(query);
 };
@@ -38,13 +38,13 @@ const addOrUpdatePlayer = async (uuid) => {
   return result.rows[0];
 };
 
-const updatePlayerScore = ({ uuid, score }) => {
+const updatePlayerScore = ({ uuid, current_score }) => {
   const query = `
     UPDATE players
     SET total_score = total_score + $1
     WHERE uuid = $2
   `;
-  const values = [score, uuid];
+  const values = [current_score, uuid];
   return db.query(query, values);
 };
 

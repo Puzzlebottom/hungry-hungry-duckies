@@ -5,7 +5,7 @@ export default function PlayerNameForm({ player, join }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    join({ name, uuid: player.uuid });
+    join({ name: name.trim(), uuid: player.uuid });
   };
 
   const handleChange = (e) => {
