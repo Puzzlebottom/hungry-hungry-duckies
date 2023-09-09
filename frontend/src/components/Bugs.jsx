@@ -1,29 +1,14 @@
 import Matter from "matter-js";
 import MatterAttractors from "matter-attractors";
 import { useEffect, useRef, useState } from 'react';
+import BugConstants from "../constants/bugConstants";
 
 import bug1 from '../assets/bug1.png';
 import bug2 from '../assets/bug2.png';
 
 Matter.use(MatterAttractors);
 const { Engine, Render, Runner, Body, Bodies, Composite, Events } = Matter;
-
-const SERVER_SIMULATION_SIZE = 360; // the size of the physics world server side. It's gotta match backend/physics.js
-
-const ATTRACTION_COEFFICIENT = 160e-10; // contols how strongly bugs are pulled toward the center. default 5e-7
-
-const TOTAL_BOUNDARY_FACES = 100; // controls the smoothness of the arena walls; more faces = smoother walls
-const WALL_SEGMENT_DIMENSIONAL_COEFFICIENT = 0.15; // controls the thickness of the arena walls; bigger number = thicker walls
-const INSIDE_DIAMETER_ADJUSTMENT = 0.436; // used to scale boundary radius to match arena.png; bigger number = bigger arena
-
-const BUG_SIZE_COEFFECIENT = 44e-3; // scales the bug physics object; bigger number = bigger bugs
-const BUG_TEMPO = 8; // controls the speed of the bug leg animation; bigger number = slower steps; must be > 1
-const SPRITE_SIZE_COEFFECIENT = 71e-5; // scales the bug sprite; bigger number = bigger sprite
-const SPRITE_Y_OFFSET = -0.05; // shifts the sprite to more accurately match the apparent center of gravity
-
-const BUG_FRICTION_COEFFICIENT = -55e-5; // controls the negative friction of the bugs applying an innate churn without input; default -57e-5
-const AIR_FRICTION_COEFFICIENT = 199e-7; // controls how rapidly the bugs slow down; bigger number = slower bugs
-const RESTITUTION = 1; // controls the bounciness of the bugs; bigger number = more bouncy;
+const { SERVER_SIMULATION_SIZE, TOTAL_BOUNDARY_FACES, WALL_SEGMENT_DIMENSIONAL_COEFFICIENT, INSIDE_DIAMETER_ADJUSTMENT, ATTRACTION_COEFFICIENT, BUG_SIZE_COEFFICIENT, BUG_FRICTION_COEFFICIENT, BUG_TEMPO, SPRITE_SIZE_COEFFICIENT, SPRITE_Y_OFFSET, AIR_FRICTION_COEFFICIENT, RESTITUTION } = BugConstants;
 
 export default function Bugs({ bugState }) {
 
@@ -87,7 +72,7 @@ export default function Bugs({ bugState }) {
   const getNewBug = (id, position, velocity, angle) => {
     const x = centerpoint.x + position.x;
     const y = centerpoint.y + position.y;
-    const size = radius * BUG_SIZE_COEFFECIENT;
+    const size = radius * BUG_SIZE_COEFFICIENT;
     const newBug = Bodies.circle(x, y, size, {
       restitution: RESTITUTION,
       friction: radius * BUG_FRICTION_COEFFICIENT,
@@ -96,8 +81,8 @@ export default function Bugs({ bugState }) {
       render: {
         sprite: {
           texture: sprite.current,
-          xScale: radius * SPRITE_SIZE_COEFFECIENT,
-          yScale: radius * SPRITE_SIZE_COEFFECIENT,
+          xScale: radius * SPRITE_SIZE_COEFFICIENT,
+          yScale: radius * SPRITE_SIZE_COEFFICIENT,
           yOffset: SPRITE_Y_OFFSET
         }
       }

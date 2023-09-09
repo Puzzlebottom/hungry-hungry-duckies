@@ -1,4 +1,4 @@
-//The contents of this file must match backend/public/constants/bugConstants.js
+//The contents of this file must match frontend/src/constants/bugConstants.js
 
 const BugConstants = {
   SERVER_SIMULATION_SIZE: 360, // the size of the physics world server side. It's gotta match backend/physics.js
@@ -19,8 +19,8 @@ const BugConstants = {
   AIR_FRICTION_COEFFICIENT: 199e-7, // controls how rapidly the bugs slow down; bigger number: slower bugs
   RESTITUTION: 1, // controls the bounciness of the bugs; bigger number: more bouncy;
   BUG_TEMPO: 8, // controls the speed of the bug leg animation; bigger number = slower steps; must be >= 0
-  SPRITE_SIZE_COEFFICIENT: 71e-5, // scales the bug sprite; bigger number = bigger sprite
+  SPRITE_SIZE_COEFFECIENT: 71e-5, // scales the bug sprite; bigger number = bigger sprite
   SPRITE_Y_OFFSET: -0.05, // shifts the sprite to more accurately match the apparent center of gravity
 };
 
-export default BugConstants;
+module.exports = BugConstants;
