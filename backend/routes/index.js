@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
   });
 })
 
-router.get('/:uuid', (req, res) => {
+router.get('/players/:uuid', (req, res) => {
   const uuid = req.params.uuid;
   console.log('BACKEND: ', uuid)
 

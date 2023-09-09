@@ -64,9 +64,7 @@ function Table({ gameState, munch, toggleReady }) {
 
   return (
     <main className='table-view'>
-      <video className="background-video" autoPlay loop muted>
-        <source src={videoBackground} type="video/mp4" />
-      </video>
+
       <img src={arena} className='arena' />
       <Bugs bugState={bugs} />
       {quarters}

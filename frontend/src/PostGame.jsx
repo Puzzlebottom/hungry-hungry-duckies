@@ -14,9 +14,7 @@ function PostGame({ gameState, home, newGame }) {
 
   return (
     <div className="Leaderboard-container">
-      <video className="background-video" autoPlay loop muted>
-        <source src={videoBackground} type="video/mp4" />
-      </video>
+
       <h1 className="Winner">Leaderboard</h1>
       <table className="true-leaderboard-table">
         <thead>

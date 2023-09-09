@@ -10,7 +10,7 @@ const useConnect = (setView) => {
     console.log(localStorage.getItem('uuid'))
     const baseUrl = 'http://localhost:8080/';
     const uuid = localStorage.getItem('uuid')
-    const url = uuid ? baseUrl + uuid : baseUrl
+    const url = uuid ? `${baseUrl}players/${uuid}` : baseUrl
 
     const playerPromise = axios.get(url);
     const leaderboardPromise = axios.get('http://localhost:8080/api/players');
