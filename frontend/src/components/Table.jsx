@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import Images from '../assets/images';
+import '../sass/Table.scss'
 
 import Quarter from './Quarter';
 import Bugs from './Bugs';

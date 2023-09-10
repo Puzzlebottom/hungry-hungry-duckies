@@ -1,3 +1,4 @@
+import '../sass/PlayerDetailPanel.scss';
 export default function PlayerDetailPanel({ name, current_seat, current_score, isReady, toggleReady, isActive }) {
 
   const seats = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
