@@ -2,21 +2,21 @@ import Home from './Home';
 import Table from './Table';
 import PostGame from './PostGame';
 import Loading from './Loading';
-import PlaySound from './components/PlaySound.jsx';
 import useGame from './hooks/useGame';
+import useAudioControl from './hooks/useAudioControl';
 
 function App() {
   const { gameState, setView, player, leaderboard, join, munch, toggleReady, home, newGame } = useGame();
 
   const { view } = gameState;
 
-  let track = '/audio/quacknoises.mp3';
-  if (view === 'loading') track = '/audio/Loadingmusic.mp3';
-  if (view === 'home') track = '/audio/mainmenumusic.mp3';
+  const audioControl = useAudioControl(view, {
+
+  });
 
   return (
     <div className="App">
-      {/* <PlaySound audioSource={track} /> */}
+      {audioControl.audioElement}
       {view === 'loading' && <Loading {...{ setView }} />}
       {view === 'home' && <Home {...{ player, leaderboard, join }} />}
       {view === 'table' && <Table {...{ gameState, munch, toggleReady }} />}
