@@ -21,7 +21,7 @@ function Countdown({ bugs, isActive }) {
 
   useEffect(() => {
     if (!bugs.length && !message.current) {
-      const messages = ['QUACK-TASTIC!', 'QUACK ON!', 'QUACK-A-LACKIN!', 'QUACK-A-DOODLE-DOO!', 'QUACK-A-DOODLE-DONE!', 'QUACK-TACULAR!', 'QUACK-A-ROO!'];
+      const messages = ['QUACK-TASTIC!', 'QUACK ON!', 'QUACK-A-LACKIN!', 'QUACK-TACULAR!', 'QUACK-A-ROO!'];
       message.current = messages[Math.floor(Math.random() * messages.length)];
     }
   }, [bugs]);
@@ -30,7 +30,7 @@ function Countdown({ bugs, isActive }) {
 
   return (
     <div className="countdown">
-      {message.current && <p style={{ fontSize: numeric ? '1em' : '0.5em' }}>{message.current}</p>}
+      {message.current && <p style={{ fontSize: numeric ? '1em' : '0.4em' }}>{message.current}</p>}
     </div>
   );
 }
