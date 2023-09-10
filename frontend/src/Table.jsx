@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import Images from './assets/images';
-
+import backgrounds from './assets/wallpaper';
 import Quarter from './components/Quarter';
 import Bugs from './components/Bugs';
 import GameTimer from './components/Gametimer';
@@ -43,7 +43,7 @@ function Table({ gameState, munch, toggleReady }) {
 
 
   return (
-    <main className='table-view'>
+    <main className='table-view' style={{ backgroundImage: `url(${backgrounds.Table[0]})` }}>
       <img src={Images.arena} className='arena' />
       <Bugs bugState={bugs} />
       {quarters}
