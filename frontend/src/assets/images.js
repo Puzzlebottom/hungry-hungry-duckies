@@ -5,7 +5,11 @@ const Images = {
     ['/images/duckie-top-right-1.png', '/images/duckie-top-right-2.png', '/images/duckie-top-right-3.png',],
     ['/images/duckie-bottom-left-1.png', '/images/duckie-bottom-left-2.png', '/images/duckie-bottom-left-3.png',],
     ['/images/duckie-bottom-right-1.png', '/images/duckie-bottom-right-2.png', '/images/duckie-bottom-right-3.png',]
-  ]
+  ],
+  bugs: {
+    bug1: '/images/bug1.png',
+    bug2: '/images/bug2.png'
+  }
 };
 
 export default Images;

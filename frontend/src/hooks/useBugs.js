@@ -2,9 +2,7 @@ import Matter from "matter-js";
 import MatterAttractors from "matter-attractors";
 import BugConstants from "../constants/bugConstants.js";
 import { useEffect, useRef, useState } from 'react';
-
-import bug1 from '../assets/bug1.png';
-import bug2 from '../assets/bug2.png';
+import Images from "../assets/images.js";
 
 const { SERVER_SIMULATION_SIZE, TOTAL_BOUNDARY_FACES, WALL_SEGMENT_DIMENSIONAL_COEFFICIENT, INSIDE_DIAMETER_ADJUSTMENT, ATTRACTION_COEFFICIENT, BUG_SIZE_COEFFICIENT, BUG_FRICTION_COEFFICIENT, BUG_TEMPO, SPRITE_SIZE_COEFFICIENT, SPRITE_Y_OFFSET, AIR_FRICTION_COEFFICIENT, RESTITUTION } = BugConstants;
 
@@ -20,7 +18,7 @@ const useBugs = () => {
   const composite = useRef();
 
   const tickCounter = useRef(0); // counts engine render updates
-  const sprite = useRef(bug1);
+  const sprite = useRef(Images.bugs.bug1);
 
   const [viewWidth, setViewWidth] = useState(document.body.clientWidth);
   const [viewHeight, setViewHeight] = useState(document.body.clientHeight);
@@ -163,7 +161,7 @@ const useBugs = () => {
     Runner.run(runner.current, engine.current);
     Events.on(runner.current, 'tick', () => {
       tickCounter.current++;
-
+      const { bug1, bug2 } = Images.bugs;
       const newSprite = sprite.current === bug1 ? bug2 : bug1;
 
       if (tickCounter.current === BUG_TEMPO) {
