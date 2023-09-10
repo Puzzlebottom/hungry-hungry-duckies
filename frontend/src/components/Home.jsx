@@ -1,4 +1,5 @@
 import '../sass/Home.scss';
+import '../sass/HomeBackground.scss';
 import Leaderboard from './Leaderboard';
 import PlayerNameForm from './PlayerNameForm';
 
