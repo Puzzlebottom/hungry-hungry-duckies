@@ -44,13 +44,23 @@ function Table({ gameState, munch, toggleReady }) {
 
 
   return (
-    <main className='table-view' style={{ backgroundImage: `url(${backgrounds.Table[0]})` }}>
-      <img src={Images.arena} className='arena' />
-      <Bugs bugState={bugs} />
-      {quarters}
-      {isActive && <Countdown {...{ bugs, isActive }} />}
-      {isActive && (<GameTimer initialMinutes={12} initialSeconds={59} />)};
-    </main>
+    <div>
+      <div className="Table-Topblocks" style={{ backgroundImage: `url(${backgrounds.Table[1]})` }}>
+      </div>
+      <div className="Table-Rightblocks" style={{ backgroundImage: `url(${backgrounds.Table[2]})` }}>
+      </div>
+      <div className="Table-Bottomblocks" style={{ backgroundImage: `url(${backgrounds.Table[4]})` }}>
+      </div>
+      <div className="Table-Leftblocks" style={{ backgroundImage: `url(${backgrounds.Table[3]})` }}>
+      </div>
+      <main className="table-view" style={{ backgroundImage: `url(${backgrounds.Table[0]})` }}>
+        <img src={Images.arena} className="arena" />
+        <Bugs bugState={bugs} />
+        {quarters}
+        {isActive && <Countdown {...{ bugs, isActive }} />}
+        {isActive && <GameTimer initialMinutes={12} initialSeconds={59} />}
+      </main>
+    </div>
   );
 }
 
