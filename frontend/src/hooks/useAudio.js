@@ -15,22 +15,16 @@ const useAudio = () => {
     audioPlayer.current.play();
   };
 
-  const playMusic = (view) => {
-    audioPlayer.current.src = getTrack(view);
+  const playMusic = (music) => {
+    const tracks = { loading, menu, theme };
+    console.log(tracks[music]);
+    audioPlayer.current.src = tracks[music];
     audioPlayer.current.play();
   };
 
   const toggleMute = () => {
     audioPlayer.current.muted = !audioPlayer.current.muted;
     setIsMuted(audioPlayer.current.muted);
-  };
-
-  const getTrack = (view) => {
-    let track;
-    if (view === 'home' || view === 'postgame') track = menu;
-    if (view === 'loading') track = loading;
-    if (view === 'table') track = theme;
-    return track;
   };
 
   return { getAudioPlayerRef, quack, playMusic, isMuted, toggleMute };

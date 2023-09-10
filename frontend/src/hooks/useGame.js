@@ -15,7 +15,7 @@ const reducers = {
 
     if (state.isActive && !gameState.isActive) {
       socket.emit('update', { ...player, current_score: gameState.player.current_score });
-      return { ...gameState, view: 'postgame' };
+      return { ...gameState, view: 'postgame', music: 'theme' };
     }
     return { ...state, ...gameState };
   },
@@ -26,7 +26,11 @@ const reducers = {
   },
 
   SET_VIEW(state, action) {
-    return { ...state, view: action.value };
+    let music = 'theme';
+    if (action.value === 'loading') music = 'loading';
+    if (action.value === 'home') music = 'menu';
+
+    return { ...state, view: action.value, music };
   }
 };
 
@@ -79,7 +83,7 @@ const useGame = () => {
 
   const { player, setPlayer, leaderboard } = useConnect(setView);
 
-  const initialState = ({ bugs: [], player: {}, opponents: [], isActive: false, view: 'home' });
+  const initialState = ({ bugs: [], player: {}, opponents: [], isActive: false, view: 'home', music: 'menu' });
   const [gameState, dispatch] = useReducer(reducer, initialState);
   const { UPDATE, MUNCH, SET_VIEW } = ACTIONS;
 

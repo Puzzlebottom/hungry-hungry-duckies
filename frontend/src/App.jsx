@@ -10,12 +10,12 @@ import '../public/stylesheets/AudioControls.css';
 function App() {
   const { gameState, setView, player, leaderboard, join, munch, toggleReady, home, newGame } = useGame();
   const { getAudioPlayerRef, playMusic, isMuted, toggleMute } = useAudio();
-  const { view } = gameState;
+  const { view, music } = gameState;
   const audioPlayer = getAudioPlayerRef();
 
   const handleClick = () => {
     toggleMute();
-    playMusic(view);
+    playMusic(music);
     window.removeEventListener('mousedown', handleClick);
   };
 
@@ -25,8 +25,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    playMusic(view);
-  }, [view]);
+    playMusic(music);
+  }, [music]);
 
   return (
     <div className="App">
