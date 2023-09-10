@@ -2,15 +2,20 @@ import { useState } from "react";
 import quacks from "../assets/quacks";
 
 const useAudio = () => {
-  const [track, setTrack] = useState(quacks[0]);
+  const [trackIndex, setTrackIndex] = useState(0);
 
   const quack = () => {
-    if (track) track.currentTime = 0;
-    track.play();
+    const newTrackIndex = (trackIndex + 1) % quacks.length;
+    const newTrack = quacks[newTrackIndex];
+
+    if (newTrack) {
+      newTrack.currentTime = 0;
+      newTrack.play();
+      setTrackIndex(newTrackIndex);
+    }
   };
 
   return { quack };
 };
 
-export default useAudio
-
+export default useAudio;
