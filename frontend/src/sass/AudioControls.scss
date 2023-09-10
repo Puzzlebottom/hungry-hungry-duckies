@@ -1,0 +1,11 @@
+.mute-button {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  z-index: 1000; // remove this when rest of styling is fixed
+
+  img {
+    height: 2em;
+    width: 2em;
+  }
+}

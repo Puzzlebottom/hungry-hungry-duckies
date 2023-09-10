@@ -2,7 +2,7 @@ import '../../public/stylesheets/Table.css';
 import { useEffect, useRef } from 'react';
 import useAudio from '../hooks/useAudio';
 
-export default function Duckie({ images, isMunching }) {
+export default function Duckie({ images, isMunching, seat }) {
 
   const image0 = useRef();
   const image1 = useRef();
@@ -15,7 +15,8 @@ export default function Duckie({ images, isMunching }) {
     }, 10);
   };
 
-  const { quack } = useAudio();
+  const { getAudioPlayerRef, quack } = useAudio();
+  const audioPlayer = getAudioPlayerRef();
 
   useEffect(() => {
 
@@ -23,7 +24,7 @@ export default function Duckie({ images, isMunching }) {
     image2.current.classList.add('hidden');
 
     if (isMunching) {
-      quack();
+      quack(seat);
 
       switchImage(image0.current, image1.current);
       setTimeout(() => {
@@ -40,6 +41,7 @@ export default function Duckie({ images, isMunching }) {
 
   return (
     <div>
+      <audio ref={audioPlayer} />
       <img ref={image0} src={images[0]} className='duckie'></img>
       <img ref={image1} src={images[1]} className='duckie'></img>
       <img ref={image2} src={images[2]} className='duckie'></img>

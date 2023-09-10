@@ -1,8 +1,6 @@
 import { useEffect, useRef } from 'react';
 import '../src/sass/Postgame.scss';
 
-
-
 function PostGame({ gameState, home, newGame }) {
   const players = useRef([]);
   const name = useRef('');
