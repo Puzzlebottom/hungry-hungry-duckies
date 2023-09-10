@@ -1,0 +1,110 @@
+table.true-leaderboard-table {
+  width: 100%;
+  height: 100%;
+  color: #ffffff;
+  border-radius: 50px;
+}
+
+.Leaderboard-container-post {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.leaderboard-container-menu {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+}
+
+h4.Winner {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  height: 40px;
+  border-radius: 80px;
+  margin-top: 40px;
+  font-size: 80px;
+  animation: neonGlow 5s infinite alternate;
+  color: #f0f0f0;
+  text-shadow: 0 0 5px rgba(252, 0, 255, 0.7), 0 0 10px rgba(252, 0, 255, 0.7), 0 0 15px rgba(252, 0, 255, 0.7);
+}
+
+.header-container-post {
+  display: contents;
+  text-align: center;
+  font-size: larger;
+  color: rgb(255, 255, 255);
+}
+
+th.player-name-header,
+th.player-score-header,
+th.player-status-header {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding: 15px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: larger;
+  background: rgb(118, 60, 181);
+  color: #fff;
+  border-radius: 50px;
+}
+
+th.player-name-header {
+  width: 33%;
+}
+
+th.player-score-header {
+  width: 33%;
+}
+
+th.player-status-header {
+  width: 33%;
+}
+
+td.player-score,
+td.player-name,
+td.player-status {
+  font-family: 'proxima nova', sans-serif;
+  font-size: 4vh;
+  padding: 15px;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  border-radius: 50px;
+  background: rgb(118, 60, 181, 0.5);
+}
+
+td.player-score {
+  width: 20%;
+  border: 2px solid rgb(189, 127, 239, 0.7);
+  font-family: 'proxima nova', sans-serif;
+  border-color: rgb(189, 127, 239, 0.7);
+}
+
+td.player-status {
+  width: 20%;
+  border: 2px solid rgb(189, 127, 239, 0.7);
+  font-family: 'proxima nova', sans-serif;
+  border-color: rgb(189, 127, 239, 0.7);
+}
+
+td.player-name {
+  width: 20%;
+  border: 2px solid rgb(189, 127, 239, 0.7);
+  font-family: 'proxima nova', sans-serif;
+  border-color: rgb(189, 127, 239, 0.7);
+}
+
+.custom-first-row td {
+  font-family: 'proxima nova', sans-serif;
+  font-size: 6vh;
+  animation: neonGlow 5s infinite alternate;
+  color: #f0f0f0;
+  text-shadow: 0 0 5px rgba(252, 0, 255, 0.7), 0 0 10px rgba(252, 0, 255, 0.7), 0 0 15px rgba(252, 0, 255, 0.7);
+}

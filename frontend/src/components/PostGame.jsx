@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
 import '../sass/PostGame.scss';
+import '../sass/PostGameLeaderboard.scss'
+import '../sass/PostGameBackground.scss'
 
 
 
