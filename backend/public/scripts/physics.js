@@ -1,6 +1,6 @@
 const Matter = require("matter-js");
 const MatterAttractors = require("matter-attractors");
-const BugConstants = require('./public/constants/bugConstants');
+const BugConstants = require('../constants/bugConstants');
 
 Matter.use(MatterAttractors);
 const { Engine, Runner, Body, Bodies, Composite, Vector, Query, Events } = Matter;
