@@ -1,3 +1,4 @@
+import '../sass/Leaderboard.scss';
 export default function Leaderboard({ leaderboard }) {
   return (
     <div className="leaderboard">

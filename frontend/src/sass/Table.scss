@@ -290,6 +290,7 @@ body {
 }
 
 .button__ready {
+  z-index: 1;
   font-family: 'proxima nova', sans-serif;
   color: rgba(255, 255, 255, 0.7);
   background-color: transparent;
@@ -322,5 +323,4 @@ body {
   right: 0;
   background-color: rgb(93, 193, 215, 0.9);
 }
-
 

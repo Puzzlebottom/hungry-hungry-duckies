@@ -1,4 +1,5 @@
-import '../public/stylesheets/Home.css';
+import '../sass/Home.scss';
+import '../sass/HomeBackground.scss';
 import Leaderboard from './components/Leaderboard';
 import PlayerNameForm from './components/PlayerNameForm';
 import backgrounds from './assets/wallpaper';

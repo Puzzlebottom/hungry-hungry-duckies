@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '../sass/PlayerNameForm.scss';
 
 export default function PlayerNameForm({ player, join }) {
   const [name, setName] = useState(player.name);

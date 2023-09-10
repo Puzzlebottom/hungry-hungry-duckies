@@ -1,7 +1,7 @@
-import Home from './Home';
-import Table from './Table';
-import PostGame from './PostGame';
-import Loading from './Loading';
+import Home from './components/Home';
+import Table from './components/Table';
+import PostGame from './components/PostGame';
+import Loading from './components/Loading';
 import useGame from './hooks/useGame';
 import useAudio from './hooks/useAudio';
 import { useEffect } from 'react';

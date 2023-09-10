@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 import backgrounds from './assets/wallpaper';
 
-import '../public/stylesheets/Loading.css';
-import getRandomMessage from './assets/loading_messages';
+import '../sass/Loading.scss';
+import getRandomMessage from '../assets/loading_messages';
 
 function Loading() {
   const message = useRef(getRandomMessage());

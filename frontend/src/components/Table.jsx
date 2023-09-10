@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import '../sass/Table.scss'
 import Images from './assets/images';
 import backgrounds from './assets/wallpaper';
 import Quarter from './components/Quarter';

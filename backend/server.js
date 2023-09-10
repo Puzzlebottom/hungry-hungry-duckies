@@ -7,7 +7,7 @@ const morgan = require('morgan');
 const express = require('express');
 const playerQueries = require('./db/queries/players');
 const { socketHelpers } = require('./helpers/socketHelpers');
-const Game = require('./game');
+const Game = require('./public/scripts/game');
 
 const app = express();
 const httpServer = require('http').createServer(app); // Create an HTTP server
