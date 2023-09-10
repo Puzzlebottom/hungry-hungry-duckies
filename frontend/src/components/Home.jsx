@@ -1,6 +1,6 @@
-import '../public/stylesheets/Home.css';
-import Leaderboard from './components/Leaderboard';
-import PlayerNameForm from './components/PlayerNameForm';
+import '../sass/Home.scss';
+import Leaderboard from './Leaderboard';
+import PlayerNameForm from './PlayerNameForm';
 
 function Home({ player, leaderboard, join }) {
 
