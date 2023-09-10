@@ -38,8 +38,10 @@ function Table({ gameState, munch, toggleReady }) {
   const quarters = getPlayers().map((player) => {
     const index = player.current_seat;
     const images = Images.duckies[index];
-    const color = ['green', 'red', 'blue', 'yellow'][index];
-    return <Quarter key={index} {...{ images, player, color, isActive }} />;
+    return <Quarter key={index} {...{ images, player, isActive }} />;
+  });
+  const quarterPanels = ['green', 'red', 'blue', 'yellow'].map((color, index) => {
+    return <div key={index} className={'background background__' + color}></div>
   });
 
 
@@ -53,6 +55,7 @@ function Table({ gameState, munch, toggleReady }) {
       </div>
       <div className="Table-Leftblocks" style={{ backgroundImage: `url(${backgrounds.Table[3]})` }}>
       </div>
+      {quarterPanels}
       <main className="table-view" style={{ backgroundImage: `url(${backgrounds.Table[0]})` }}>
         <img src={Images.arena} className="arena" />
         <Bugs bugState={bugs} />
