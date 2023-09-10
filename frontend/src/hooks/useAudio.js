@@ -17,7 +17,6 @@ const useAudio = () => {
 
   const playMusic = (music) => {
     const tracks = { loading, menu, theme };
-    console.log(tracks[music]);
     audioPlayer.current.src = tracks[music];
     audioPlayer.current.play();
   };

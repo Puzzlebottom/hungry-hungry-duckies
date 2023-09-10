@@ -1,6 +1,7 @@
 import '../public/stylesheets/Home.css';
 import Leaderboard from './components/Leaderboard';
 import PlayerNameForm from './components/PlayerNameForm';
+import Credits from './components/Credits';
 
 function Home({ player, leaderboard, join }) {
 
@@ -15,6 +16,7 @@ function Home({ player, leaderboard, join }) {
           <span className="second-word">Hungry</span>
           <span className="third-word">Duckies!™</span>
         </h1>
+        <Credits />
         <div className='home-logo'>
           <img src="https://i.gifer.com/XOsX.gif" alt="Duck Logo" />
         </div>
