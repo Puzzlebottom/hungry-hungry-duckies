@@ -6,10 +6,10 @@ const useAudioControl = (initialView = 'home') => {
   const [isMuted, setIsMuted] = useState(true);
 
   const audioSources = {
-    loading: '/audio/Loadingmusic.mp3',
-    home: '/audio/mainmenumusic.mp3',
-    table: '/audio/quacknoises.mp3',
-    postgame:'/audio/quacknoises.mp3',
+    loading: '/audio/song-loading.mp3',
+    home: '/audio/song-menu.mp3',
+    table: '/audio/song-theme.mp3',
+    postgame:'/audio/song-theme.mp3',
   };
 
   const toggleMute = () => {
