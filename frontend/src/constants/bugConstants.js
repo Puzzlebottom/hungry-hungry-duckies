@@ -11,7 +11,7 @@ const BugConstants = {
 
   SENSOR_OFFSET_COEFFICIENT: 0.125, // positions the sensors under the duckie's munching mouths; bigger number: further from center
   MUNCH_DETECTOR_SIZE_COEFFICIENT: 44e-3, // controls the size of the munch detection sensor; bigger number: bigger sensor
-  MISS_DETECTOR_SIZE_COEFFICIENT: 0.1364, // controlls the size of the miss detections sensor; bigger number: bigger sensor
+  MISS_DETECTOR_SIZE_COEFFICIENT: 0.17, // controlls the size of the miss detections sensor; bigger number: bigger sensor
   REPULSOR_SCALAR_COEFFICIENT: 0.05, // controls the knockback on a missed munch; bigger number: more knockback
 
   BUG_SIZE_COEFFICIENT: 44e-3, // scales the bug physics object; bigger number: bigger bugs
