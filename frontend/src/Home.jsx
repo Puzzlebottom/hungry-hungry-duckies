@@ -1,14 +1,15 @@
 import '../public/stylesheets/Home.css';
 import Leaderboard from './components/Leaderboard';
 import PlayerNameForm from './components/PlayerNameForm';
+import backgrounds from './assets/wallpaper';
 
 function Home({ player, leaderboard, join }) {
 
   return (
     <main className='home-main-screen'>
-      <div className='background-container sky'></div>
-      <div className='background-container mountain'></div>
-      <div className='background-container clouds'></div>
+      <div className='background-container sky' style={{ backgroundImage: `url(${backgrounds.Home[0]})` }}></div>
+      <div className='background-container mountain' style={{ backgroundImage: `url(${backgrounds.Home[1]})` }}></div>
+      <div className='background-container clouds' style={{ backgroundImage: `url(${backgrounds.Home[2]})` }}></div>
       <div className='home-hero'>
         <h1>
           <span className="first-word">Hungry </span>

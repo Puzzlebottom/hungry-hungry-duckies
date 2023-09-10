@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import '../src/sass/Postgame.scss';
+import backgrounds from './assets/wallpaper';
 
 function PostGame({ gameState, home, newGame }) {
   const players = useRef([]);
@@ -12,10 +13,10 @@ function PostGame({ gameState, home, newGame }) {
 
   return (
     <div>
-      <div className="background-container space" />
-      <div className="background-container planets" />
-      <div className="background-container meteors" />
-      <div className="background-container stars" />
+      <div className="background-container space" style={{ backgroundImage: `url(${backgrounds.PostGame[0]})` }}></div>
+      <div className="background-container planets" style={{ backgroundImage: `url(${backgrounds.PostGame[1]})` }}></div>
+      <div className="background-container meteors" style={{ backgroundImage: `url(${backgrounds.PostGame[2]})` }}></div>
+      <div className="background-container stars" style={{ backgroundImage: `url(${backgrounds.PostGame[3]})` }}></div>
       <div className="Leaderboard-container-post">
         <h4 className="Winner">Leaderboard</h4>
         <div className="leaderboard-container-menu">

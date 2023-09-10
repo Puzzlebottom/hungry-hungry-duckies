@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import backgrounds from './assets/wallpaper';
 
 import '../public/stylesheets/Loading.css';
 import getRandomMessage from './assets/loading_messages';
@@ -8,14 +9,14 @@ function Loading() {
 
   return (
     <main className='loading-view'>
-      <div className="background-container sky-loading"></div>
-      <div className="background-container mountain-loading"></div>
-      <div className="background-container clouds-loading"></div>
+      <div className="background-container sky-loading" style={{ backgroundImage: `url(${backgrounds.Loading[0]})` }}></div>
+      <div className="background-container mountain-loading" style={{ backgroundImage: `url(${backgrounds.Loading[1]})` }}></div>
+      <div className="background-container clouds-loading"s tyle={{ backgroundImage: `url(${backgrounds.Loading[2]})` }}></div>
       <div className="sprite-container">
         <div className='sprite-animation'></div>
       </div>
       <span className='loading-message'>
-        <h3>LOADING...</h3>
+        <h5>LOADING...</h5>
       </span>
       <div className='instructions'>
         <span>{message.current}</span>

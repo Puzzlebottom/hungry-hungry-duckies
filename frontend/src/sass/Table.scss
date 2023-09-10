@@ -12,8 +12,16 @@ body {
   height: 100%;
   overflow: hidden;
   white-space: nowrap;
-  background-image: url('/videos/sunrise.png');
   background-size: auto;
+}
+
+.table-view {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100vw;
+  height: 100vh;
+  //background-image: url('${backgrounds.Table[0]}');
+  background-size: cover;
   background-repeat: repeat-x;
   background-position: 0 0;
   animation: scrollBackground 10s linear infinite alternate;
@@ -26,13 +34,6 @@ body {
   100% {
     background-position: 100% 0;
   }
-}
-
-.table-view {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100vw;
-  height: 100vh;
 }
 
 .background {
@@ -51,6 +52,7 @@ body {
   overflow: hidden;
 }
 
+/* Red background layers */
 .background__red {
   position: fixed;
   top: 0;
@@ -60,8 +62,6 @@ body {
   overflow: hidden;
 }
 
-.background__red::before,
-.background__red::after,
 .background__red::before,
 .background__red::after {
   content: "";
@@ -74,8 +74,8 @@ body {
   background-repeat: no-repeat;
 }
 
-.background__red::before {
-  background-image: url('/videos/topmovingblock.png');
+.background__red-layer1 {
+  background-image: url('${backgrounds.Table[1]}');
   animation: parallax-red-1 25s linear infinite;
   background-size: 150%;
   background-position: top;
@@ -83,10 +83,10 @@ body {
   opacity: 0.8;
 }
 
-.background__red::after {
-  background-image: url('/videos/rightmovingblock.png');
+.background__red-layer2 {
+  background-image: url('${backgrounds.Table[2]}');
   animation: parallax-red-2 0.3s linear infinite;
-  background-size:80%;
+  background-size: 80%;
   background-position: right;
   position: absolute;
   top: 0;
@@ -111,9 +111,10 @@ body {
     transform: translateY(0%);
   }
   100% {
-    transform: translateY(4%)
+    transform: translateY(4%);
   }
 }
+
 
 
 .background__blue {
@@ -140,24 +141,12 @@ body {
 }
 
 .background__blue::before {
-  background-image: url('/videos/leftmovingblock.png');
+  background-image: url('${backgrounds.Table[3]}');
   animation: parallax-blue-1 0.3s linear infinite;
   background-size: 9%;
   opacity: 0.8;
 
 
-}
-
-.background__blue::after {
-  //background-image: url('/videos/bottommovingblock.png');
-  animation: parallax-blue-2 0.5s linear infinite;
-  background-size: cover;
-  background-position: right;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: auto;
 }
 
 @keyframes parallax-blue-1 {
@@ -194,7 +183,7 @@ body {
 }
 
 .background__yellow::before {
-  background-image: url('/videos/rightmovingblock.png');
+  background-image: url('${backgrounds.Table[2]}');
   animation: parallax-yellow-1 0.3s linear infinite;
   background-size: 150%;
   background-position: right;
@@ -208,7 +197,7 @@ body {
 }
 
 .background__yellow::after {
-  background-image: url('/videos/bottommovingblock.png');
+  background-image: url('${backgrounds.Table[4]}');
   animation: parallax-yellow-2 0.7s linear infinite;
   background-size: 275%;
   opacity: 0.8;

@@ -35,7 +35,7 @@ body {
 .sprite-animation {
   width: 100%;
   height: 100%;
-  background-image: url('/videos/duck_2_sprite.png');
+  background-image: url('/wallpaper/duck_2_sprite.png');
   background-size: auto 100%;
   animation-name: animateSprite;
   animation-duration: 4s;
@@ -108,17 +108,17 @@ body {
 }
 
 .background-container.sky-loading {
-  background-image: url('/videos/homebackground.png');
+  background-image: url('${backgrounds.Loading[0]}');
 }
 
 .background-container.mountain-loading {
-  background-image: url('/videos/loadingmidground.png');
+  background-image: url('${backgrounds.Loading[1]}');
   z-index: -3;
   animation-duration: 40s;
 }
 
 .background-container.clouds-loading {
-  background-image: url('/videos/homefrontground.png');
+  background-image: url('${backgrounds.Loading[2]}');
   z-index: 0;
   animation-duration: 10s;
 }
