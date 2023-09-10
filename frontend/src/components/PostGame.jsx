@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import '../sass/PostGame.scss';
 import '../sass/PostGameLeaderboard.scss'
 import '../sass/PostGameBackground.scss'
-import backgrounds from './assets/wallpaper';
+import backgrounds from '../assets/wallpaper';
 
 function PostGame({ gameState, home, newGame }) {
   const players = useRef([]);

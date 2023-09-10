@@ -24,6 +24,17 @@
   font-size: min(20vh, 20vw);
 }
 
+.button__ready {
+  z-index: 1;
+  font-family: 'proxima nova', sans-serif;
+  color: rgba(255, 255, 255, 0.7);
+  background-color: transparent;
+  font-size: min(2.5vh, 2.5vw);
+  padding: 0.5em 1em 0.5em 1em;
+  border: 3px solid rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+}
+
 .player-detail-panel__top-left {
   top: 0;
   left: 0;
@@ -46,16 +57,5 @@
   bottom: 0;
   right: 0;
   background-color: rgb(93, 193, 215, 0.9);
-}
-
-.button__ready {
-  z-index: 1;
-  font-family: 'proxima nova', sans-serif;
-  color: rgba(255, 255, 255, 0.7);
-  background-color: transparent;
-  font-size: min(2.5vh, 2.5vw);
-  padding: 0.5em 1em 0.5em 1em;
-  border: 3px solid rgba(255, 255, 255, 0.7);
-  border-radius: 8px;
 }
 

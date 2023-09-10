@@ -1,5 +1,5 @@
 import LINKS from "../constants/links";
-import '../../public/stylesheets/Credits.css';
+import '../sass/Credits.scss';
 
 
 const Credits = () => {

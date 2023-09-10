@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import backgrounds from './assets/wallpaper';
+import backgrounds from '../assets/wallpaper';
 
 import '../sass/Loading.scss';
 import getRandomMessage from '../assets/loading_messages';

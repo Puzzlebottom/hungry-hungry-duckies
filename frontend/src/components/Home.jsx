@@ -1,9 +1,9 @@
 import '../sass/Home.scss';
 import '../sass/HomeBackground.scss';
-import Leaderboard from './components/Leaderboard';
-import PlayerNameForm from './components/PlayerNameForm';
-import backgrounds from './assets/wallpaper';
-import Credits from './components/Credits';
+import Leaderboard from './Leaderboard';
+import PlayerNameForm from './PlayerNameForm';
+import backgrounds from '../assets/wallpaper';
+import Credits from './Credits';
 
 function Home({ player, leaderboard, join }) {
 

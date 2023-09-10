@@ -3,6 +3,7 @@ export default function Leaderboard({ leaderboard }) {
   return (
     <div className="leaderboard">
       <h1>Leaderboard</h1>
+      <div className="leaderboard-div">
       <table className="leaderboard-table">
         <thead>
           <tr>
@@ -21,6 +22,7 @@ export default function Leaderboard({ leaderboard }) {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

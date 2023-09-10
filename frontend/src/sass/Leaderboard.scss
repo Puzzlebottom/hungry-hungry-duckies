@@ -1,6 +1,6 @@
 .home-leaderboard-and-form {
-  width: 35%;
-  max-width: 500px;
+  width: 45%;
+  max-width: 100vh;
   background-color: rgba(118, 60, 181, 0.7);
   border-radius: 10px;
   padding: 1%;
@@ -11,12 +11,13 @@
   border: 2px solid rgb(189, 127, 239, 0.7);
   height: 85%;
   position: relative;
-  margin-right: 120px;
+  margin-right: 5vw;
+  margin-left: 4vw;
 }
 
 .leaderboard {
-  width: 85%;
-  max-width: 500px;
+  width: 100%;
+  max-width: 90vh;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -25,20 +26,16 @@
   margin: 0 auto;
   padding-bottom: 20px;
   padding-top: 20px;
+  overflow: scroll;
 }
-
-.first-word, .second-word {
-  display: inline;
-}
-
-.third-word {
-  display: block;
-  margin-top: 5%;
-  max-height: 300px;
+.leaderboard-div {
+  overflow: scroll;
+  object-fit: contain;
+  border-radius: 20px
 }
 
 .leaderboard-table {
-  width: 100%;
+  width: min(25vh, 50vw);
   height: min(50vh, 50vw);
   background-color: rgb(249, 244, 255);
   margin: 0 auto;

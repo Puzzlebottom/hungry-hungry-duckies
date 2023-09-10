@@ -14,6 +14,7 @@
   overflow: hidden;
 }
 
+/* Red background layers */
 .background__red {
   position: fixed;
   top: 0;
@@ -23,8 +24,6 @@
   overflow: hidden;
 }
 
-.background__red::before,
-.background__red::after,
 .background__red::before,
 .background__red::after {
   content: "";
@@ -37,8 +36,8 @@
   background-repeat: no-repeat;
 }
 
-.background__red::before {
-  background-image: url('/videos/topmovingblock.png');
+.background__red-layer1 {
+  background-image: url('${backgrounds.Table[1]}');
   animation: parallax-red-1 25s linear infinite;
   background-size: 150%;
   background-position: top;
@@ -46,10 +45,10 @@
   opacity: 0.8;
 }
 
-.background__red::after {
-  background-image: url('/videos/rightmovingblock.png');
+.background__red-layer2 {
+  background-image: url('${backgrounds.Table[2]}');
   animation: parallax-red-2 0.3s linear infinite;
-  background-size:80%;
+  background-size: 80%;
   background-position: right;
   position: absolute;
   top: 0;
@@ -74,9 +73,11 @@
     transform: translateY(0%);
   }
   100% {
-    transform: translateY(4%)
+    transform: translateY(4%);
   }
 }
+
+
 
 .background__blue {
   position: fixed;
@@ -102,23 +103,12 @@
 }
 
 .background__blue::before {
-  background-image: url('/videos/leftmovingblock.png');
+  background-image: url('${backgrounds.Table[3]}');
   animation: parallax-blue-1 0.3s linear infinite;
   background-size: 9%;
   opacity: 0.8;
 
 
-}
-
-.background__blue::after {
-  animation: parallax-blue-2 0.5s linear infinite;
-  background-size: cover;
-  background-position: right;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: auto;
 }
 
 @keyframes parallax-blue-1 {
@@ -155,7 +145,7 @@
 }
 
 .background__yellow::before {
-  background-image: url('/videos/rightmovingblock.png');
+  background-image: url('${backgrounds.Table[2]}');
   animation: parallax-yellow-1 0.3s linear infinite;
   background-size: 150%;
   background-position: right;
@@ -169,7 +159,7 @@
 }
 
 .background__yellow::after {
-  background-image: url('/videos/bottommovingblock.png');
+  background-image: url('${backgrounds.Table[4]}');
   animation: parallax-yellow-2 0.7s linear infinite;
   background-size: 275%;
   opacity: 0.8;
