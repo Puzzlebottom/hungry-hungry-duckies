@@ -11,7 +11,7 @@ function Loading() {
     <main className='loading-view'>
       <div className="background-container sky-loading" style={{ backgroundImage: `url(${backgrounds.Loading[0]})` }}></div>
       <div className="background-container mountain-loading" style={{ backgroundImage: `url(${backgrounds.Loading[1]})` }}></div>
-      <div className="background-container clouds-loading"s tyle={{ backgroundImage: `url(${backgrounds.Loading[2]})` }}></div>
+      <div className="background-container clouds-loading" style={{ backgroundImage: `url(${backgrounds.Loading[2]})` }}></div>
       <div className="sprite-container">
         <div className='sprite-animation'></div>
       </div>
@@ -23,6 +23,6 @@ function Loading() {
       </div>
     </main>
   );
-};
+}
 
 export default Loading;
