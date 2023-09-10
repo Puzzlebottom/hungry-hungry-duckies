@@ -38,7 +38,6 @@ body {
 }
 
 .Table-Topblocks {
-  background-image: url('${backgrounds.Table[1]}');
   background-repeat: repeat;
   position: fixed;
   top: 0;
@@ -59,7 +58,6 @@ body {
 }
 
 .Table-Rightblocks {
-  background-image: url('${backgrounds.Table[2]}');
   position: fixed;
   top: -100%;
   right: 0;
@@ -81,7 +79,6 @@ body {
 }
 
 .Table-Bottomblocks {
-  background-image: url('${backgrounds.Table[4]}');
   background-repeat: repeat;
   position: fixed;
   bottom: 0;
@@ -104,7 +101,6 @@ body {
 
 
 .Table-Leftblocks {
-  background-image: url('${backgrounds.Table[3]}');
   background-repeat: no-repeat;
   position: fixed;
   bottom: 0;

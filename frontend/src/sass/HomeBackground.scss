@@ -22,17 +22,17 @@
 }
 
 .background-container.sky {
-  background-image: url('${backgrounds.Home[0]}');
+
 }
 
 .background-container.mountain {
-  background-image: url('${backgrounds.Home[1]}');
+
   z-index: -1;
   animation-duration: 40s;
 }
 
 .background-container.clouds {
-  background-image: url('${backgrounds.Home[2]}');
+
   z-index: -1;
   animation-duration: 10s;
 }
