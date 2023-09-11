@@ -22,8 +22,8 @@ body {
   width: 100vw;
   height: 100vh;
   z-index: -5;
-  background-size: cover;
-  background-repeat: repeat-x;
+  background-size: cover; /* Ensure the background image covers the entire viewport */
+  background-repeat: no-repeat; /* Disable background image repeating */
   background-position: 0 0;
   animation: scrollBackground 10s linear infinite alternate;
 }
@@ -38,7 +38,7 @@ body {
 }
 
 .Table-Topblocks {
-  background-repeat: repeat;
+  background-repeat: no-repeat;
   position: fixed;
   top: 0;
   left: 0;
@@ -46,7 +46,7 @@ body {
   height: 50%;
   z-index: 1;
   animation: parallax-top 10s linear infinite alternate;
-
+  background-position: top;
 }
 
 @keyframes parallax-top {
@@ -80,7 +80,7 @@ body {
 }
 
 .Table-Bottomblocks {
-  background-repeat: repeat;
+  background-repeat: no-repeat;
   position: fixed;
   bottom: 0;
   width: 200%;
@@ -196,6 +196,7 @@ body {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   color: rgba(240, 240, 240, 0.7);
   text-shadow: 0 0 5px rgba(252, 0, 255, 0.7), 0 0 10px rgba(252, 0, 255, 0.7), 0 0 15px rgba(252, 0, 255, 0.7);
+  z-index: 6;
 }
 
 
@@ -213,4 +214,5 @@ body {
   font-size: min(5vh, 5vw);
   border: 3px solid rgba(255, 255, 255, 0.7);
   border-radius: 8px;
+  z-index: 6;
 }
