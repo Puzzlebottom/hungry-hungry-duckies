@@ -1,7 +1,6 @@
 // Load .env data into process.env
 require('dotenv').config();
 
-const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
@@ -20,7 +19,6 @@ const io = new Server(httpServer, {
 
 const PORT = process.env.PORT || 8080;
 
-app.use(cookieParser());
 app.use(cors({ credentials: true, origin: 'http://localhost:5173', methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
