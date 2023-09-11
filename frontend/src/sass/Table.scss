@@ -172,8 +172,7 @@ body {
   z-index: 5;
 }
 
-.arena,
-.duckie {
+.arena {
   position: absolute;
   left: 50vw;
   top: 50vh;
@@ -182,6 +181,17 @@ body {
   width: min(100vh, 100vw);
   z-index: 2;
 }
+
+.duckie {
+  position: absolute;
+  left: 50vw;
+  top: 50vh;
+  transform: translate(-50%, -50%);
+  height: min(100vh, 100vw);
+  width: min(100vh, 100vw);
+  z-index: 5;
+}
+
 
 .hidden {
   display: none;
