@@ -75,6 +75,7 @@ const useGame = () => {
   const message = () => {
     if (!gameState.bugs.length) return;
     if (!gameState.isActive) return;
+    if (gameState.player.showMessage) return;
     const messages = ['Duck harder!', 'Quack yeah!', 'Get wrekt', 'Super Quack 9001 of Destiny!'];
     const message = messages[Math.floor(Math.random() * messages.length)];
     socket.emit('message', message);

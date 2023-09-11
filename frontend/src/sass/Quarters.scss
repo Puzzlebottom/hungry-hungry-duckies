@@ -1,0 +1,44 @@
+.message__1,
+.message__2,
+.message__3,
+.message__4 {
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 80%;
+}
+
+.message__1 {
+  background-color: #e6f7ff;
+  color: #1890ff;
+  left: 25%;
+  bottom: 90%;
+}
+
+.message__2 {
+  background-color: #f6ffed;
+  color: #52c41a;
+  right: 25%;
+  bottom: 90%;
+}
+
+.message__3 {
+  background-color: #fffbe6;
+  color: #faad14;
+  left: 25%;
+  bottom: 5%;
+}
+
+.message__4 {
+  background-color: #ffe6e6;
+  color: #f5222d;
+  right: 25%;
+  bottom: 5%;
+}

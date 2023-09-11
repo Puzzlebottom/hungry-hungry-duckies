@@ -78,6 +78,7 @@ const Game = {
     const player = this.findPlayerBySocketId(socketId);
     if (!this.state.bugs.length) return;
     if (!this.state.isActive) return;
+    if (player.showMessage) return;
     player.showMessage = message;
     setTimeout(() => {
       player.showMessage = false;
