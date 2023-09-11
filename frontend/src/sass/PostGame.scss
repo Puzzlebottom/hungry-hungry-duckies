@@ -19,9 +19,10 @@ body {
 
 .container-for-post-game-buttons {
   display: flex;
-  width: 33%;
-  justify-content: space-between;
-  margin-top: 20px;
+  justify-content: center;
+  align-items: flex-start; /* Align items to the top */
+  min-height: 100vh; /* Set a minimum height to take up the full viewport height */
+  padding-top: 20px; /* Add top padding to create space between the top edge and the container */
 }
 
 .main-menu-button1, .play-again-button {

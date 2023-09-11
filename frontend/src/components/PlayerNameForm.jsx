@@ -15,7 +15,7 @@ export default function PlayerNameForm({ player, join }) {
 
   return (
     <form className='playername-form' onSubmit={handleSubmit}>
-      <label htmlFor='name'>Name</label>
+      <label htmlFor='name' className='screen-reader-only'>Name</label>
       <input type='text' id='name' name='name' placeholder='Enter player name' defaultValue={name} onChange={handleChange} />
       <button type='submit'>Join Game</button>
     </form>

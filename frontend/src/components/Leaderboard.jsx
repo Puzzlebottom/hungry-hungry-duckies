@@ -2,7 +2,7 @@ import '../sass/Leaderboard.scss';
 export default function Leaderboard({ leaderboard }) {
   return (
     <div className="leaderboard">
-      <h1>Leaderboard</h1>
+      <h5>Leaderboard</h5>
       <div className="leaderboard-div">
       <table className="leaderboard-table">
         <thead>
