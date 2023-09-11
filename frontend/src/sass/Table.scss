@@ -22,8 +22,8 @@ body {
   width: 100vw;
   height: 100vh;
   z-index: -5;
-  background-size: cover; /* Ensure the background image covers the entire viewport */
-  background-repeat: no-repeat; /* Disable background image repeating */
+  background-size: cover;
+  background-repeat: no-repeat;
   background-position: 0 0;
   animation: scrollBackground 10s linear infinite alternate;
 }
