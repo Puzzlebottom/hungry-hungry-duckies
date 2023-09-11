@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from "react";
 import { socket } from '../socket';
 import useConnect from './useConnect';
+import messages from "../assets/player_messages.js";
 
 
 const ACTIONS = {
@@ -64,7 +65,8 @@ const useGame = () => {
     if (!gameState.bugs.length) return;
 
     if (gameState.isActive && !gameState.player.isMunching) {
-      socket.emit('munch');
+      const timeOut = 285;
+      socket.emit('munch', timeOut);
       dispatch({ type: MUNCH, value: true });
       setTimeout(() => {
         dispatch({ type: MUNCH, value: false });
@@ -76,7 +78,6 @@ const useGame = () => {
     if (!gameState.bugs.length) return;
     if (!gameState.isActive) return;
     if (gameState.player.showMessage) return;
-    const messages = ['Duck harder!', 'Quack yeah!', 'Get wrekt!', 'Super Quack 9001 of Destiny!', 'MONSTER MUNCH!', 'FEEL THE MUNCH!', 'MUNCH MUNCH MUNCH!', 'MUNCH HARDER!', 'MUNCH LIKE YOU MEAN IT!', "Can't stop the MUNCH!", 'Quack-a-doodle-doo!'];
     const timeOut = 3000;
     const message = messages[Math.floor(Math.random() * messages.length)];
     socket.emit('message', {message, timeOut});

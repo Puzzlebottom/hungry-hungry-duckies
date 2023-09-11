@@ -58,7 +58,7 @@ const Game = {
     if (this.allReady()) this.start();
   },
 
-  doMunch(socketId) {
+  doMunch(socketId, timeOut) {
     const player = this.findPlayerBySocketId(socketId);
     if (!this.state.bugs.length) return;
 
@@ -71,7 +71,7 @@ const Game = {
 
     setTimeout(() => {
       player.isMunching = false;
-    }, 285);
+    }, timeOut);
   },
 
   doMessage(socketId, messageObj) {
