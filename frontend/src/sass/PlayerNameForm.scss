@@ -24,12 +24,30 @@
     letter-spacing: 1px;
     outline: none;
     position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
 
-    &:hover,
-    input[type="button"]:hover {
-      background-color: #5dc1d7;
-      transform: scale(1.05);
-    }
+  button:hover {
+    background: #f1bd00;
+  }
+
+  button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: rgb(93, 193, 215, 1);
+    border-radius: 50px;
+    opacity: 1;
+    transition: width 0.3s ease;
+    z-index: -1;
+  }
+
+  button:hover::before {
+    width: 100%;
   }
 }
 
