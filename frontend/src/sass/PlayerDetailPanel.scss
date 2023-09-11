@@ -34,7 +34,9 @@ section.player-detail-panel {
     margin: auto;
     font-size: min(16vh, 16vw);
   }
-
+  .top-right.button {
+    background-color: rgb(241, 189, 0, 0.8);
+  }
   button {
     grid-row: 3;
     display: flex;
@@ -47,14 +49,28 @@ section.player-detail-panel {
     font-size: min(3vh, 3vw);
     font-weight: 900;
     color: rgba(255, 255, 255, 0.8);
-    background-color: rgba(255, 100, 0, 0.5);
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    background-color: rgb(189, 127, 239, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 4px;
     padding: 0.2em;
 
     &.ready {
-      background-color: rgba(3, 255, 3, 0.3);
+      background-color: rgb(93, 193, 215, 0.8);
     }
+  }
+
+  @keyframes shake {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-5px, 0); }
+    40% { transform: translate(5px, 0); }
+    60% { transform: translate(-5px, 0); }
+    80% { transform: translate(5px, 0); }
+    100% { transform: translate(0, 0); }
+  }
+
+  button:hover {
+    background-color: rgb(93, 193, 215, 0.8);
+    animation: shake 0.5s ease-in-out;
   }
 
   &.top-left {
@@ -89,3 +105,5 @@ section.player-detail-panel {
     background-color: rgb(93, 193, 215, 0.8);
   }
 }
+
+
