@@ -6,7 +6,8 @@ import useConnect from './useConnect';
 const ACTIONS = {
   UPDATE: 'UPDATE',
   MUNCH: 'MUNCH',
-  SET_VIEW: 'SET_VIEW'
+  SET_VIEW: 'SET_VIEW',
+  TOGGLE_MESSAGE: 'TOGGLE_MESSAGE'
 };
 
 const reducers = {
@@ -31,8 +32,12 @@ const reducers = {
     if (action.value === 'home') music = 'menu';
 
     return { ...state, view: action.value, music };
-  }
-};
+  },
+
+  TOGGLE_MESSAGE(state, action) {
+    return { ...state, player: { ...state.player, showMessage: action.value } };
+}
+}
 
 const reducer = (state, action) => {
   if (reducers[action.type]) {
@@ -67,6 +72,18 @@ const useGame = () => {
     }
   };
 
+  const message = () => {
+    if (!gameState.bugs.length) return;
+    if (!gameState.isActive) return;
+    const messages = ['Duck harder!', 'Quack yeah!', 'Get wrekt', 'Super Quack 9001 of Destiny!'];
+    const message = messages[Math.floor(Math.random() * messages.length)];
+    socket.emit('message', message);
+    dispatch({ type: TOGGLE_MESSAGE, value: message });
+    setTimeout(() => {
+      dispatch({ type: TOGGLE_MESSAGE, value: false });
+    }, 15000);
+  };
+
   const toggleReady = () => {
     socket.emit('ready');
   };
@@ -83,21 +100,22 @@ const useGame = () => {
 
   const { player, setPlayer, leaderboard } = useConnect(setView);
 
-  const initialState = ({ bugs: [], player: {}, opponents: [], isActive: false, view: '', music: 'menu' });
+  const initialState = ({ bugs: [], player: {}, opponents: [], isActive: false, view: '', music: 'menu', showMessage: false });
   const [gameState, dispatch] = useReducer(reducer, initialState);
-  const { UPDATE, MUNCH, SET_VIEW } = ACTIONS;
+  const { UPDATE, MUNCH, SET_VIEW, TOGGLE_MESSAGE } = ACTIONS;
 
   useEffect(() => {
     socket.on('gameState', (gameState) => {
       dispatch({ type: UPDATE, value: { gameState, player } });
     });
+    console.log('useEffect running', player)
 
     return () => {
       socket.off('gameState');
     };
-  }, [player]);
+  }, [player, gameState]);
 
-  return { gameState, setView, player, leaderboard, join, munch, toggleReady, home, newGame };
+  return { gameState, setView, player, leaderboard, join, munch, toggleReady, home, newGame, message };
 };
 
 export default useGame;

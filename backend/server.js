@@ -72,6 +72,10 @@ io.on('connection', (socket) => {
     Game.doMunch(socket.id);
   });
 
+  socket.on('message', (message) => {
+    Game.doMessage(socket.id, message);
+  });
+
   socket.on('home', () => {
     Game.reset();
   });

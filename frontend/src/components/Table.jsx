@@ -7,7 +7,7 @@ import Bugs from './Bugs';
 import GameTimer from './Gametimer';
 import Countdown from './Countdown';
 
-function Table({ gameState, munch, toggleReady }) {
+function Table({ gameState, munch, toggleReady, message }) {
 
   const { bugs, player, opponents, isActive } = gameState;
 
@@ -21,7 +21,12 @@ function Table({ gameState, munch, toggleReady }) {
       e.preventDefault();
       munch();
     }
+    if (e.key === 'q') {
+      e.preventDefault();
+      message();
+    }
   };
+
 
   const getPlayers = () => {
     const players = [{ ...player }, ...opponents]
