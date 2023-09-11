@@ -6,6 +6,31 @@
   justify-content: space-evenly;
   padding: 1%;
   align-items: center;
+
+  button {
+    opacity: 1 !important;
+    height: 40px;
+    padding: 0 33px;
+    font-size: 19px;
+    background: #f1bd00;
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 1px;
+    outline: none;
+    position: relative;
+
+    &:hover,
+    input[type="button"]:hover {
+      background-color: #5dc1d7;
+      transform: scale(1.05);
+    }
+  }
 }
 
 label {
@@ -26,31 +51,7 @@ input {
   background-color: #ffffff;
 }
 
-button,
-input[type="button"] {
-  opacity: 1 !important;
-  height: 40px;
-  padding: 0 33px;
-  font-size: 19px;
-  background: #f1bd00;
-  color: #ffffff;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  margin: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  letter-spacing: 1px;
-  outline: none;
-  position: relative;
-}
 
-button:hover,
-input[type="button"]:hover {
-  background-color: #5dc1d7;
-  transform: scale(1.05);
-}
 
 .player-name-form {
   border: thin solid black;
