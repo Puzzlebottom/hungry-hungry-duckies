@@ -5,12 +5,12 @@
   z-index: 1;
   position: absolute;
   bottom: 0;
-  margin-bottom: 20px;
-  padding: 10px 20px;
-  border-radius: 20px;
+  margin-bottom: 1.25em;
+  padding: 0.625em 1.25em;
+  border-radius: 1.25em;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  font-size: 16px;
+  box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.2);
+  font-size: 1.3em; /* Double the font size */
   line-height: 1.5;
   max-width: 80%;
 }
@@ -18,27 +18,27 @@
 .message__1 {
   background-color: #e6f7ff;
   color: #1890ff;
-  left: 25%;
-  bottom: 90%;
+  left: 20%;
+  bottom: 87.5%;
 }
 
 .message__2 {
   background-color: #f6ffed;
   color: #52c41a;
-  right: 25%;
-  bottom: 90%;
+  right: 20%;
+  bottom: 87.5%;
 }
 
 .message__3 {
   background-color: #fffbe6;
   color: #faad14;
-  left: 25%;
-  bottom: 5%;
+  left: 20%;
+  bottom: 2%;
 }
 
 .message__4 {
   background-color: #ffe6e6;
   color: #f5222d;
-  right: 25%;
-  bottom: 5%;
+  right: 20%;
+  bottom: 2%;
 }

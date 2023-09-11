@@ -74,15 +74,16 @@ const Game = {
     }, 285);
   },
 
-  doMessage(socketId, message) {
+  doMessage(socketId, messageObj) {
     const player = this.findPlayerBySocketId(socketId);
+    const { timeOut, message } = messageObj;
     if (!this.state.bugs.length) return;
     if (!this.state.isActive) return;
     if (player.showMessage) return;
     player.showMessage = message;
     setTimeout(() => {
       player.showMessage = false;
-    }, 15000);
+    }, timeOut);
   },
 
   outOfBugs() {

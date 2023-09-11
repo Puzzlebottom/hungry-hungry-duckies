@@ -76,13 +76,14 @@ const useGame = () => {
     if (!gameState.bugs.length) return;
     if (!gameState.isActive) return;
     if (gameState.player.showMessage) return;
-    const messages = ['Duck harder!', 'Quack yeah!', 'Get wrekt', 'Super Quack 9001 of Destiny!'];
+    const messages = ['Duck harder!', 'Quack yeah!', 'Get wrekt!', 'Super Quack 9001 of Destiny!', 'MONSTER MUNCH!', 'FEEL THE MUNCH!', 'MUNCH MUNCH MUNCH!', 'MUNCH HARDER!', 'MUNCH LIKE YOU MEAN IT!', "Can't stop the MUNCH!", 'Quack-a-doodle-doo!'];
+    const timeOut = 3000;
     const message = messages[Math.floor(Math.random() * messages.length)];
-    socket.emit('message', message);
+    socket.emit('message', {message, timeOut});
     dispatch({ type: TOGGLE_MESSAGE, value: message });
     setTimeout(() => {
       dispatch({ type: TOGGLE_MESSAGE, value: false });
-    }, 15000);
+    }, timeOut);
   };
 
   const toggleReady = () => {
