@@ -51,10 +51,10 @@ body {
 
 @keyframes parallax-top {
   0% {
-    transform: translateX(-50%);
+    transform: translateX(-50%) scaleX(1.2);
   }
   100% {
-    transform: translateX(0);
+    transform: translateX(0) scaleX(1);
   }
 }
 
@@ -72,10 +72,10 @@ body {
 
 @keyframes parallax-right {
   0% {
-    transform: translateY(0);
+    transform: translateY(0) scaleY(1.2);
   }
   100% {
-    transform: translateY(50%);
+    transform: translateY(50%) scaleY(1);
   }
 }
 
@@ -87,16 +87,15 @@ body {
   height: 50%;
   z-index: 1;
   background-position: bottom;
-
   animation: parallax-bottom 10s linear infinite alternate;
 }
 
 @keyframes parallax-bottom {
   0% {
-    transform: translateX(0);
+    transform: translateX(0) scaleX(1);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-50%) scaleX(1.2);
   }
 }
 
@@ -109,16 +108,15 @@ body {
   height: 200%;
   z-index: 0;
   background-position: bottom left;
-
   animation: parallax-left 10s linear infinite alternate;
 }
 
 @keyframes parallax-left {
   0% {
-    transform: translateY(50%);
+    transform: translateY(50%) scaleY(1.2);
   }
   100% {
-    transform: translateY(0);
+    transform: translateY(0) scaleY(1);
   }
 }
 
