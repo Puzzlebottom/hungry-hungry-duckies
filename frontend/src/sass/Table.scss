@@ -45,15 +45,16 @@ body {
   width: 200%;
   height: 50%;
   z-index: 1;
-  animation: parallax-top 10s linear infinite;
+  animation: parallax-top 10s linear infinite alternate;
+
 }
 
 @keyframes parallax-top {
   0% {
-    transform: translateX(0);
+    transform: translateX(-50%);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(0);
   }
 }
 
@@ -63,10 +64,10 @@ body {
   right: 0;
   width: 100%;
   height: 200%;
-  z-index: 1;
+  z-index: 0;
   background-repeat: no-repeat;
   background-position: top right;
-  animation: parallax-right 10s linear infinite;
+  animation: parallax-right 10s linear infinite alternate;
 }
 
 @keyframes parallax-right {
@@ -87,7 +88,7 @@ body {
   z-index: 1;
   background-position: bottom;
 
-  animation: parallax-bottom 10s linear infinite;
+  animation: parallax-bottom 10s linear infinite alternate;
 }
 
 @keyframes parallax-bottom {
@@ -99,7 +100,6 @@ body {
   }
 }
 
-
 .Table-Leftblocks {
   background-repeat: no-repeat;
   position: fixed;
@@ -107,10 +107,10 @@ body {
   left: 0;
   width: 100%;
   height: 200%;
-  z-index: 1;
+  z-index: 0;
   background-position: bottom left;
 
-  animation: parallax-left 10s linear infinite;
+  animation: parallax-left 10s linear infinite alternate;
 }
 
 @keyframes parallax-left {
@@ -136,6 +136,7 @@ body {
   background-color: rgba(142, 68, 173, 0.3);
   background-size: 200%;
   overflow: hidden;
+  z-index: 5;
 }
 
 
@@ -146,6 +147,7 @@ body {
   background-color: rgb(93, 193, 215, 0.3);
   background-size: auto 100%;
   overflow: hidden;
+  z-index: 5;
 }
 
 
@@ -156,6 +158,7 @@ body {
   background-color: rgb(241, 189, 0, 0.3);
   background-size: auto 100%;
   overflow: hidden;
+  z-index: 5;
 }
 
 .background__yellow {
@@ -166,6 +169,7 @@ body {
   background-size: auto 100%;
   overflow: hidden;
   opacity: 0.8;
+  z-index: 5;
 }
 
 .arena,
@@ -176,6 +180,7 @@ body {
   transform: translate(-50%, -50%);
   height: min(100vh, 100vw);
   width: min(100vh, 100vw);
+  z-index: 5;
 }
 
 .hidden {
