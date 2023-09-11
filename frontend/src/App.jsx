@@ -7,6 +7,7 @@ import useAudio from './hooks/useAudio';
 import { useEffect } from 'react';
 import '../public/stylesheets/AudioControls.css';
 
+
 function App() {
   const { gameState, setView, player, leaderboard, join, munch, toggleReady, home, newGame } = useGame();
   const { getAudioPlayerRef, playMusic, isMuted, toggleMute } = useAudio();
