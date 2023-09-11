@@ -43,7 +43,7 @@ const Game = {
 
   addPlayer(name, socketId) {
     const seat = this.findFirstAvailableSeat();
-    const newPlayer = { name, current_score: 0, current_seat: seat, isMunching: false, isReady: false, inGame: true, socketId };
+    const newPlayer = { name, current_score: 0, current_seat: seat, isMunching: false, isReady: false, inGame: true, socketId, showMessage: false };
     this.state.players[seat] = newPlayer;
   },
 
@@ -58,7 +58,7 @@ const Game = {
     if (this.allReady()) this.start();
   },
 
-  doMunch(socketId) {
+  doMunch(socketId, timeOut) {
     const player = this.findPlayerBySocketId(socketId);
     if (!this.state.bugs.length) return;
 
@@ -71,7 +71,19 @@ const Game = {
 
     setTimeout(() => {
       player.isMunching = false;
-    }, 285);
+    }, timeOut);
+  },
+
+  doMessage(socketId, messageObj) {
+    const player = this.findPlayerBySocketId(socketId);
+    const { timeOut, message } = messageObj;
+    if (!this.state.bugs.length) return;
+    if (!this.state.isActive) return;
+    if (player.showMessage) return;
+    player.showMessage = message;
+    setTimeout(() => {
+      player.showMessage = false;
+    }, timeOut);
   },
 
   outOfBugs() {

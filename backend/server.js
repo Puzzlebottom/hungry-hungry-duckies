@@ -11,6 +11,7 @@ const Game = require('./public/scripts/game');
 const app = express();
 const httpServer = require('http').createServer(app); // Create an HTTP server
 const { Server } = require('socket.io');
+const { time } = require('console');
 const io = new Server(httpServer, {
   cors: {
     origin: 'http://localhost:5173', // Allow requests from this origin
@@ -66,8 +67,12 @@ io.on('connection', (socket) => {
     Game.togglePlayerReady(socket.id);
   });
 
-  socket.on('munch', () => {
-    Game.doMunch(socket.id);
+  socket.on('munch', (timeOut) => {
+    Game.doMunch(socket.id, timeOut);
+  });
+
+  socket.on('message', (message) => {
+    Game.doMessage(socket.id, message);
   });
 
   socket.on('home', () => {

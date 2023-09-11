@@ -1,12 +1,14 @@
 import { useEffect, useReducer } from "react";
 import { socket } from '../socket';
 import useConnect from './useConnect';
+import messages from "../assets/player_messages.js";
 
 
 const ACTIONS = {
   UPDATE: 'UPDATE',
   MUNCH: 'MUNCH',
-  SET_VIEW: 'SET_VIEW'
+  SET_VIEW: 'SET_VIEW',
+  TOGGLE_MESSAGE: 'TOGGLE_MESSAGE'
 };
 
 const reducers = {
@@ -31,8 +33,12 @@ const reducers = {
     if (action.value === 'home') music = 'menu';
 
     return { ...state, view: action.value, music };
-  }
-};
+  },
+
+  TOGGLE_MESSAGE(state, action) {
+    return { ...state, player: { ...state.player, showMessage: action.value } };
+}
+}
 
 const reducer = (state, action) => {
   if (reducers[action.type]) {
@@ -59,12 +65,26 @@ const useGame = () => {
     if (!gameState.bugs.length) return;
 
     if (gameState.isActive && !gameState.player.isMunching) {
-      socket.emit('munch');
+      const timeOut = 285;
+      socket.emit('munch', timeOut);
       dispatch({ type: MUNCH, value: true });
       setTimeout(() => {
         dispatch({ type: MUNCH, value: false });
       }, 285);
     }
+  };
+
+  const message = () => {
+    if (!gameState.bugs.length) return;
+    if (!gameState.isActive) return;
+    if (gameState.player.showMessage) return;
+    const timeOut = 3000;
+    const message = messages[Math.floor(Math.random() * messages.length)];
+    socket.emit('message', {message, timeOut});
+    dispatch({ type: TOGGLE_MESSAGE, value: message });
+    setTimeout(() => {
+      dispatch({ type: TOGGLE_MESSAGE, value: false });
+    }, timeOut);
   };
 
   const toggleReady = () => {
@@ -83,21 +103,22 @@ const useGame = () => {
 
   const { player, setPlayer, leaderboard } = useConnect(setView);
 
-  const initialState = ({ bugs: [], player: {}, opponents: [], isActive: false, view: '', music: 'menu' });
+  const initialState = ({ bugs: [], player: {}, opponents: [], isActive: false, view: '', music: 'menu', showMessage: false });
   const [gameState, dispatch] = useReducer(reducer, initialState);
-  const { UPDATE, MUNCH, SET_VIEW } = ACTIONS;
+  const { UPDATE, MUNCH, SET_VIEW, TOGGLE_MESSAGE } = ACTIONS;
 
   useEffect(() => {
     socket.on('gameState', (gameState) => {
       dispatch({ type: UPDATE, value: { gameState, player } });
     });
+    console.log('useEffect running', player)
 
     return () => {
       socket.off('gameState');
     };
-  }, [player]);
+  }, [player, gameState]);
 
-  return { gameState, setView, player, leaderboard, join, munch, toggleReady, home, newGame };
+  return { gameState, setView, player, leaderboard, join, munch, toggleReady, home, newGame, message };
 };
 
 export default useGame;

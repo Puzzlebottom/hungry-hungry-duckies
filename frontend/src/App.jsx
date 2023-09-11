@@ -9,7 +9,7 @@ import '../public/stylesheets/AudioControls.css';
 
 
 function App() {
-  const { gameState, setView, player, leaderboard, join, munch, toggleReady, home, newGame } = useGame();
+  const { gameState, setView, player, leaderboard, join, munch, toggleReady, home, newGame, message } = useGame();
   const { getAudioPlayerRef, playMusic, isMuted, toggleMute } = useAudio();
   const { view, music } = gameState;
   const audioPlayer = getAudioPlayerRef();
@@ -38,7 +38,7 @@ function App() {
       <audio ref={audioPlayer} loop={true} muted={true} />
       {view === 'loading' && <Loading {...{ setView }} />}
       {view === 'home' && <Home {...{ player, leaderboard, join }} />}
-      {view === 'table' && <Table {...{ gameState, munch, toggleReady }} />}
+      {view === 'table' && <Table {...{ gameState, munch, toggleReady, message }} />}
       {view === 'postgame' && <PostGame {...{ gameState, home, newGame }} />}
     </div>
   );
