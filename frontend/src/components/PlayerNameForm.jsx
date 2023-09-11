@@ -13,12 +13,10 @@ export default function PlayerNameForm({ player, join }) {
     setName(e.target.value);
   };
 
-  console.log(player.name);
-
   return (
     <form className='playername-form' onSubmit={handleSubmit}>
       <label htmlFor='name'>Name</label>
-      <input type='text' id='name' name='name' placeholder='Enter player name' defaultValue={player.name} onChange={handleChange} />
+      <input type='text' id='name' name='name' placeholder='Enter player name' defaultValue={name} onChange={handleChange} />
       <button type='submit'>Join Game</button>
     </form>
   );

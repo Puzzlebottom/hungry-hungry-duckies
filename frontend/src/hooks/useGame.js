@@ -83,7 +83,7 @@ const useGame = () => {
 
   const { player, setPlayer, leaderboard } = useConnect(setView);
 
-  const initialState = ({ bugs: [], player: {}, opponents: [], isActive: false, view: 'home', music: 'menu' });
+  const initialState = ({ bugs: [], player: {}, opponents: [], isActive: false, view: '', music: 'menu' });
   const [gameState, dispatch] = useReducer(reducer, initialState);
   const { UPDATE, MUNCH, SET_VIEW } = ACTIONS;
 

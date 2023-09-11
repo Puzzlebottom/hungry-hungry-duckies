@@ -82,7 +82,6 @@ io.on('connection', (socket) => {
   });
 
   socket.on('update', (player) => {
-    console.log('update', player);
     playerQueries.updatePlayerScore(player);
   });
 
