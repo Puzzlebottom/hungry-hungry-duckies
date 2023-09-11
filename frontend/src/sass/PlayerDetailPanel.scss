@@ -46,9 +46,7 @@ section.player-detail-panel {
     font-size: min(3vh, 3vw);
     color: rgba(255, 255, 255, 0.8);
     background-color: rgb(189, 127, 239, 0.8);
-    border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
-    padding: 0.2em;
   }
 
 @keyframes shake {
@@ -97,11 +95,14 @@ section.player-detail-panel {
   border: 0.2em solid rgb(93, 193, 215, 0.8);
 
   button {
+    border: 0.1em solid rgba(142, 68, 173, 0.8);
+
     &:last-child.ready {
       background-color: rgb(93, 193, 215, 0.8);
+      border: 0.1em solid rgb(189, 127, 239, 0.8);
     }
     &:hover {
-      background-color: rgba(246, 213, 95, 0.8);
+      background-color: rgb(93, 193, 215, 0.8);
       animation: shake 0.5s ease-in-out;
     }
   }
@@ -116,11 +117,15 @@ section.player-detail-panel {
   border: 0.2em solid rgb(189, 127, 239, 0.8);
 
   button {
+    border: 0.1em solid rgba(246, 213, 95, 0.8);
+    background-color: rgb(93, 193, 215, 0.8);
+
     &:last-child.ready {
-      background-color: rgb(93, 193, 215, 0.8);
+      background-color: rgba(246, 213, 95, 0.8);
+      border: 0.1em solid rgb(93, 193, 215, 0.8);
     }
     &:hover {
-      background-color: rgba(246, 213, 95, 0.8);
+      background-color: rgb(189, 127, 239, 0.8);
       animation: shake 0.5s ease-in-out;
     }
   }
@@ -135,14 +140,15 @@ section.player-detail-panel {
   border: 0.2em solid rgba(142, 68, 173, 0.8);
 
   button {
-    background-color: rgba(142, 68, 173, 0.9);
+    border: 0.1em solid rgb(93, 193, 215, 0.8);
+    background-color: rgba(246, 213, 95, 0.8);
 
     &:last-child.ready {
       background-color: rgb(93, 193, 215, 0.8);
-
+      border: 0.1em solid rgba(142, 68, 173, 0.8);
     }
     &:hover {
-      background-color: rgba(246, 213, 95, 0.8);
+      background-color: rgba(142, 68, 173, 0.8);
       animation: shake 0.5s ease-in-out;
     }
   }
@@ -157,13 +163,16 @@ section.player-detail-panel {
   border: 0.2em solid rgba(246, 213, 95, 0.8);
 
   button {
-    background-color: rgb(189, 127, 239, 0.8);
+    border: 0.1em solidrgb(189, 127, 239, 0.8);
+    background-color: rgba(142, 68, 173, 0.8);
 
     &:last-child.ready {
       background-color: rgba(246, 213, 95, 0.8);
+      border: 0.1em solid rgba(142, 68, 173, 0.8);
     }
     &:hover {
-      background-color: rgb(93, 193, 215, 0.8);
+      background-color: rgb(189, 127, 239, 0.8);
+      border: 0.1em solid rgba(142, 68, 173, 0.8);
       animation: shake 0.5s ease-in-out;
     }
   }
