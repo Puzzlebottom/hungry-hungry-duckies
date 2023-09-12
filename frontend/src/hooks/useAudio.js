@@ -18,6 +18,7 @@ const useAudio = () => {
   const playMusic = (music) => {
     const tracks = { loading, menu, theme };
     audioPlayer.current.src = tracks[music];
+    audioPlayer.volume = 0.1;
     audioPlayer.current.play();
   };
 
