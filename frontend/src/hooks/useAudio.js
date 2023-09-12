@@ -12,13 +12,14 @@ const useAudio = () => {
   const quack = (seatIndex) => {
     audioPlayer.current.src = quacks.current[seatIndex];
     audioPlayer.current.currentTime = 0;
+    audioPlayer.current.volume = 0.5;
     audioPlayer.current.play();
   };
 
   const playMusic = (music) => {
     const tracks = { loading, menu, theme };
     audioPlayer.current.src = tracks[music];
-    audioPlayer.volume = 0.1;
+    audioPlayer.current.volume = 0.08;
     audioPlayer.current.play();
   };
 
