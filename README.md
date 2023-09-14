@@ -80,3 +80,24 @@ This project was build over an intensive 10 day sprint by Hassan Issak, Jackson 
   We were able to centralize our audio function in a custom hook. On invocation a reference is returned that is attached to an `<audio>` tag, along with controls for playing music or quacking, as the use-case demands. A frustation was working around the limitations modern browsers place on auto-play music.  The compromise we arrive at was a click listener that starts the music as soon as it registers a user interaction. 
   #### Mute button
   The mute function applies only to the music, and the html element it's assigned to is rendered from the `App` component. We felt that the quacking noises were integral to the game experience, although this choice could be revisted in the future.
+
+## Glamour Shots
+
+<img src="https://github.com/Puzzlebottom/hungry-hungry-duckies/blob/docs/docs/homescreen.png?raw=true" alt="a screenshot of the homepage hero" height="50%" width="50%"><br>
+The home page hero.  The credits link to our CVs and this repo. Hire us!
+-----
+<img src="https://github.com/Puzzlebottom/hungry-hungry-duckies/blob/docs/docs/leaderboard.png?raw=true" alt="a screenshot of the leaderboard" height="50%" width="50%"><br>
+The leaderboard! It'll keep track of your score even if you change your name.
+-----
+<img src="https://github.com/Puzzlebottom/hungry-hungry-duckies/blob/docs/docs/bugs.png?raw=true" alt="a screenshot of creepy bugs" height="50%" width="50%"><br>
+It's tough to see, but the bugs legs move when they skitter around.
+-----
+<img src="https://github.com/Puzzlebottom/hungry-hungry-duckies/blob/docs/docs/duckie.png?raw=true" alt="a screenshot of a cute duckie" height="50%" width="50%"><br>
+3D realism, with shadows!
+-----
+<img src="https://github.com/Puzzlebottom/hungry-hungry-duckies/blob/docs/docs/player-detail-panel.png?raw=true" alt="a screenshot of the player panel" height="50%" width="50%"><br>
+Scores and mores
+_____
+<img src="https://github.com/Puzzlebottom/hungry-hungry-duckies/blob/docs/docs/results.png?raw=true" alt="a screenshot of the game results page" height="50%" width="50%"><br>
+This is where you make fun of your friends.
+-----
