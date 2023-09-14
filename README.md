@@ -97,7 +97,7 @@ It's tough to see, but the bugs legs move when they skitter around.
 -----
 <img src="https://github.com/Puzzlebottom/hungry-hungry-duckies/blob/docs/docs/player-detail-panel.png?raw=true" alt="a screenshot of the player panel" height="50%" width="50%"><br>
 Scores and mores
-_____
+-----
 <img src="https://github.com/Puzzlebottom/hungry-hungry-duckies/blob/docs/docs/results.png?raw=true" alt="a screenshot of the game results page" height="50%" width="50%"><br>
 This is where you make fun of your friends.
 -----
