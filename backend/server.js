@@ -1,5 +1,5 @@
 // Load .env data into process.env
-require('dotenv').config();
+require('dotenv').config({ silent: true });
 
 const cors = require('cors');
 const morgan = require('morgan');
