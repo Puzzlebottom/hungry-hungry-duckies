@@ -13,3 +13,8 @@
 
 [build.environment]
 VITE_APP_BACKEND_SERVER_BASE_URL = "http://hungry-hungry-duckies.up.railway.app/"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
