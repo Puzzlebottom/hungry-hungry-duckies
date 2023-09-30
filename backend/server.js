@@ -1,34 +1,39 @@
 // Load .env data into process.env
-require('dotenv').config({ silent: true });
+const ENV = require("./environment");
+const PORT = process.env.PORT || 8080;
 
 const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
-const playerQueries = require('./db/queries/players');
 const { socketHelpers } = require('./helpers/socketHelpers');
 const Game = require('./public/scripts/game');
 
 const app = express();
-const httpServer = require('http').createServer(app); // Create an HTTP server
-const { Server } = require('socket.io');
-const io = new Server(httpServer, {
-  cors: {
-    origin: 'http://127.0.0.1:5173', // Allow requests from this origin
-  },
-});
 
-const PORT = process.env.PORT || 8080;
-
-app.use(cors({ credentials: true, origin: 'http://127.0.0.1:5173', methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
+app.use(cors({ credentials: true, origin: 'http://localhost:5173', methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 //Routes
-app.use('/', require('./routes'));
-app.use('/api/players', require('./routes/players-api'));
+const db = require('./db/connection');
+const index = require('./routes/index');
+const players = require('./routes/players');
+const api = require('./routes/players-api');
 
-const { updatePlayerName } = playerQueries;
+app.use('/', index(db));
+app.use('/players', players(db));
+app.use('/api/players', api(db));
+
+const httpServer = require('http').createServer(app); // Create an HTTP server
+const { Server } = require('socket.io');
+const io = new Server(httpServer, {
+  cors: {
+    origin: 'http://localhost:5173', // Allow requests from this origin
+  },
+});
+
+const { updatePlayerName, updatePlayerScore } = require('./db/queries/players');
 const { sendUpdate } = socketHelpers;
 
 Game.initialize();
@@ -59,7 +64,7 @@ io.on('connection', (socket) => {
   socket.on('join', (player) => {
     Game.addPlayer(player.name, socket.id);
     interval = runUpdater();
-    updatePlayerName({ ...player });
+    updatePlayerName(db, { ...player });
   });
 
   socket.on('ready', () => {
@@ -84,7 +89,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('update', (player) => {
-    playerQueries.updatePlayerScore(player);
+    updatePlayerScore(db, player);
   });
 
   socket.on('disconnect', () => {

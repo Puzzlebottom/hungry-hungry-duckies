@@ -1,10 +1,9 @@
 const router = require('express').Router();
 const { addOrUpdatePlayer } = require('../db/queries/players');
-const { v4: uuidv4 } = require('uuid');
 
 module.exports = (db) => {
-  router.get('/', (req, res) => {
-    const uuid = uuidv4();
+  router.get('/:uuid', (req, res) => {
+    const uuid = req.params.uuid;
 
     addOrUpdatePlayer(db, uuid)
       .then(result => {
@@ -13,5 +12,4 @@ module.exports = (db) => {
   });
 
   return router;
-}
-
+};

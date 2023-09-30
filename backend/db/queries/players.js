@@ -1,13 +1,11 @@
-const db = require('../connection');
-
-const getAllPlayers = () => {
+const getAllPlayers = (db) => {
   const query = `
     SELECT * FROM players;
   `;
   return db.query(query);
 };
 
-const getTopPlayers = () => {
+const getTopPlayers = (db) => {
   const query = `
     SELECT id, name, total_score FROM players
     WHERE total_score > 0 AND name != ''
@@ -16,7 +14,7 @@ const getTopPlayers = () => {
   return db.query(query);
 };
 
-const updatePlayerName = ({ name, uuid }) => {
+const updatePlayerName = (db, { name, uuid }) => {
   const query = `
     UPDATE players
     SET name = $1
@@ -26,7 +24,7 @@ const updatePlayerName = ({ name, uuid }) => {
   return db.query(query, values);
 };
 
-const addOrUpdatePlayer = async (uuid) => {
+const addOrUpdatePlayer = async (db, uuid) => {
   let result = await db.query('SELECT * FROM players WHERE uuid = $1', [uuid]);
   let player = result.rows[0];
 
@@ -38,7 +36,7 @@ const addOrUpdatePlayer = async (uuid) => {
   return result.rows[0];
 };
 
-const updatePlayerScore = ({ uuid, current_score }) => {
+const updatePlayerScore = (db, { uuid, current_score }) => {
   const query = `
     UPDATE players
     SET total_score = total_score + $1
