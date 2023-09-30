@@ -71,7 +71,7 @@ const Game = {
 
     setTimeout(() => {
       player.isMunching = false;
-    }, timeOut);
+    }, 285);
   },
 
   doMessage(socketId, messageObj) {
