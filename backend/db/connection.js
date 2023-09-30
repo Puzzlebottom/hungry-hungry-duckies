@@ -1,7 +1,7 @@
 // PG database client/connection setup
 const pg = require('pg');
 
-const dbParams = {
+let dbParams = {
   host: process.env.DBHOST,
   port: process.env.DBPORT,
   user: process.env.DBUSER,
