@@ -23,7 +23,6 @@ const reducers = {
   },
 
   MUNCH(state, action) {
-    console.log('MUNCH');
     const updatedGameState = { ...state, player: { ...state.player, isMunching: action.value } };
     return updatedGameState;
   },
@@ -67,10 +66,10 @@ const useGame = () => {
 
     if (gameState.isActive && !gameState.player.isMunching) {
       socket.emit('munch');
-      dispatch({ type: MUNCH, value: true });
-      setTimeout(() => {
-        dispatch({ type: MUNCH, value: false });
-      }, 285);
+      // dispatch({ type: MUNCH, value: true });
+      // setTimeout(() => {
+      //   dispatch({ type: MUNCH, value: false });
+      // }, 285);
     }
   };
 
