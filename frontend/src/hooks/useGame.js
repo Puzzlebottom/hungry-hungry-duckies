@@ -19,7 +19,9 @@ const reducers = {
       socket.emit('update', { ...player, current_score: gameState.player.current_score });
       return { ...gameState, view: 'postgame', music: 'theme' };
     }
-    return { ...state, ...gameState };
+
+    const updatedGameState = { ...gameState, player: { ...gameState.player, isMunching: state.player.isMunching } };
+    return { ...state, ...updatedGameState };
   },
 
   MUNCH(state, action) {
@@ -66,10 +68,10 @@ const useGame = () => {
 
     if (gameState.isActive && !gameState.player.isMunching) {
       socket.emit('munch');
-      // dispatch({ type: MUNCH, value: true });
-      // setTimeout(() => {
-      //   dispatch({ type: MUNCH, value: false });
-      // }, 285);
+      dispatch({ type: MUNCH, value: true });
+      setTimeout(() => {
+        dispatch({ type: MUNCH, value: false });
+      }, 285);
     }
   };
 
