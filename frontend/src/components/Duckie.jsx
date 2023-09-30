@@ -1,4 +1,4 @@
-import '/stylesheets/Table.css';
+import '../sass/Table.scss';
 import { useEffect, useRef } from 'react';
 import useAudio from '../hooks/useAudio';
 
