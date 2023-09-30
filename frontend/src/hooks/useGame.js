@@ -23,6 +23,7 @@ const reducers = {
   },
 
   MUNCH(state, action) {
+    console.log('MUNCH');
     const updatedGameState = { ...state, player: { ...state.player, isMunching: action.value } };
     return updatedGameState;
   },
