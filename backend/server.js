@@ -14,13 +14,13 @@ const { Server } = require('socket.io');
 const { time } = require('console');
 const io = new Server(httpServer, {
   cors: {
-    origin: 'http://localhost:5173', // Allow requests from this origin
+    origin: 'http://127.0.0.1:5173', // Allow requests from this origin
   },
 });
 
 const PORT = process.env.PORT || 8080;
 
-app.use(cors({ credentials: true, origin: 'http://localhost:5173', methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
+app.use(cors({ credentials: true, origin: 'http://127.0.0.1:5173', methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));

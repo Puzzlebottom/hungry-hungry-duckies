@@ -12,7 +12,7 @@
   command = "npm run build"
 
 [build.environment]
-VITE_APP_BACKEND_SERVER_BASE_URL = "http://hungry-hungry-duckies.up.railway.app/"
+VITE_APP_BACKEND_SERVER_BASE_URL = "https://hungry-hungry-duckies.up.railway.app/"
 
 [[redirects]]
   from = "/*"
