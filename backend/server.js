@@ -11,7 +11,6 @@ const Game = require('./public/scripts/game');
 const app = express();
 const httpServer = require('http').createServer(app); // Create an HTTP server
 const { Server } = require('socket.io');
-const { time } = require('console');
 const io = new Server(httpServer, {
   cors: {
     origin: 'http://127.0.0.1:5173', // Allow requests from this origin
