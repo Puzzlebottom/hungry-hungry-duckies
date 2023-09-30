@@ -5,7 +5,7 @@ import Loading from './components/Loading';
 import useGame from './hooks/useGame';
 import useAudio from './hooks/useAudio';
 import { useEffect } from 'react';
-import '../public/stylesheets/AudioControls.css';
+import 'stylesheets/AudioControls.css';
 
 
 function App() {
