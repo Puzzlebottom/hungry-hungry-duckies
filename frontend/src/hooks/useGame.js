@@ -37,8 +37,8 @@ const reducers = {
 
   TOGGLE_MESSAGE(state, action) {
     return { ...state, player: { ...state.player, showMessage: action.value } };
-}
-}
+  }
+};
 
 const reducer = (state, action) => {
   if (reducers[action.type]) {
@@ -80,7 +80,7 @@ const useGame = () => {
     if (gameState.player.showMessage) return;
     const timeOut = 3000;
     const message = messages[Math.floor(Math.random() * messages.length)];
-    socket.emit('message', {message, timeOut});
+    socket.emit('message', { message, timeOut });
     dispatch({ type: TOGGLE_MESSAGE, value: message });
     setTimeout(() => {
       dispatch({ type: TOGGLE_MESSAGE, value: false });
@@ -111,7 +111,6 @@ const useGame = () => {
     socket.on('gameState', (gameState) => {
       dispatch({ type: UPDATE, value: { gameState, player } });
     });
-    console.log('useEffect running', player)
 
     return () => {
       socket.off('gameState');

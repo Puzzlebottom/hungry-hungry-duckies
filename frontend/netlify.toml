@@ -12,5 +12,4 @@
   command = "npm run build"
 
 [build.environment]
-  REACT_APP_API_BASE_URL = "https://hungry-hungry-duckies.up.railway.app/"
-  REACT_APP_WEBSOCKET_URL = "wss://hungry-hungry-duckies.up.railway.app/"
+VITE_APP_BACKEND_SERVER_BASE_URL = "http://hungry-hungry-duckies.up.railway.app/"
