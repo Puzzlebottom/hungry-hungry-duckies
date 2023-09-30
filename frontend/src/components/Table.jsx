@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import '../sass/Table.scss'
+import '../sass/Table.scss';
 import Images from '../assets/images';
 import backgrounds from '../assets/wallpaper';
 import Quarter from './Quarter';
 import Bugs from './Bugs';
-import GameTimer from './Gametimer';
+import GameTimer from './GameTimer';
 import Countdown from './Countdown';
 
 function Table({ gameState, munch, toggleReady, message }) {
@@ -46,7 +46,7 @@ function Table({ gameState, munch, toggleReady, message }) {
     return <Quarter key={index} {...{ images, player, isActive }} />;
   });
   const quarterPanels = ['green', 'red', 'blue', 'yellow'].map((color, index) => {
-    return <div key={index} className={'background background__' + color}></div>
+    return <div key={index} className={'background background__' + color}></div>;
   });
 
 
