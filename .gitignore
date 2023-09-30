@@ -3,3 +3,6 @@ frontend/public/stylesheets
 .env
 *.log
 *.sqlite3
+
+# Local Netlify folder
+.netlify
