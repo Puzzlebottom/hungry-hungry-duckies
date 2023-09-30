@@ -65,8 +65,7 @@ const useGame = () => {
     if (!gameState.bugs.length) return;
 
     if (gameState.isActive && !gameState.player.isMunching) {
-      const timeOut = 285;
-      socket.emit('munch', timeOut);
+      socket.emit('munch');
       dispatch({ type: MUNCH, value: true });
       setTimeout(() => {
         dispatch({ type: MUNCH, value: false });

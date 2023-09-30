@@ -58,9 +58,9 @@ const Game = {
     if (this.allReady()) this.start();
   },
 
-  doMunch(socketId, timeOut) {
+  doMunch(socketId) {
     const player = this.findPlayerBySocketId(socketId);
-    if (!this.state.bugs.length) return;
+    if (!this.state.bugs.length || player.isMunching) return;
 
     player.isMunching = true;
     const munched = this.physics.processMunch(player.current_seat);
