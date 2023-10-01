@@ -11,20 +11,29 @@ function Table({ gameState, munch, toggleReady, message }) {
 
   const { bugs, player, opponents, isActive } = gameState;
 
+  // useEffect(() => {
+  //   window.addEventListener('keydown', handleKeyDown);
+  //   return () => window.removeEventListener('keydown', handleKeyDown);
+  // });
+
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('mousedown', handleClick);
+    return () => window.removeEventListener('mousedown', handleClick);
   });
 
-  const handleKeyDown = (e) => {
-    if (e.key === ' ') {
-      e.preventDefault();
-      munch();
-    }
-    if (e.key === 'q') {
-      e.preventDefault();
-      message();
-    }
+  // const handleKeyDown = (e) => {
+  //   if (e.key === ' ') {
+  //     e.preventDefault();
+  //     munch();
+  //   }
+  //   if (e.key === 'q') {
+  //     e.preventDefault();
+  //     message();
+  //   }
+  // };
+
+  const handleClick = () => {
+    munch();
   };
 
 
