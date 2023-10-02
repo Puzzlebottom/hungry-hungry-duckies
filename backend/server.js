@@ -10,7 +10,7 @@ const Game = require('./public/scripts/game');
 
 const app = express();
 
-app.use(cors({ credentials: true, origin: 'https://hungry-hungry-duckies.netlify.app', methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
+app.use(cors({ credentials: true, origin: ENV === 'development' ? 'http://localhost:5173' : 'https://hungry-hungry-duckies.netlify.app', methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -29,7 +29,7 @@ const httpServer = require('http').createServer(app); // Create an HTTP server
 const { Server } = require('socket.io');
 const io = new Server(httpServer, {
   cors: {
-    origin: 'https://hungry-hungry-duckies.netlify.app', // Allow requests from this origin
+    origin: ENV === 'development' ? 'http://localhost:5173' : 'https://hungry-hungry-duckies.netlify.app', // Allow requests from this origin
   },
 });
 

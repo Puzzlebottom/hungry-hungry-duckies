@@ -3,6 +3,7 @@ import '../sass/HomeBackground.scss';
 import Leaderboard from './Leaderboard';
 import PlayerNameForm from './PlayerNameForm';
 import backgrounds from '../assets/wallpaper';
+import Images from '../assets/images';
 import Credits from './Credits';
 
 function Home({ player, leaderboard, join }) {
@@ -19,7 +20,7 @@ function Home({ player, leaderboard, join }) {
           <span className="third-word">Duckies!™</span>
         </h1>
         <div className='home-logo'>
-          <img src="https://i.gifer.com/XOsX.gif" alt="Duck Logo" />
+          <img src={Images.happyDuckie} alt="Duck Logo" />
         </div>
         <section className='home-instructions'>
           <h2 className="instructions-header">How to play:</h2>
