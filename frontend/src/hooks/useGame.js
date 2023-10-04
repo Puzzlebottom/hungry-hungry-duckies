@@ -113,6 +113,11 @@ const useGame = () => {
       dispatch({ type: UPDATE, value: { gameState, player } });
     });
 
+    socket.on('disconnect', () => {
+      dispatch({ type: SET_VIEW, value: 'loading' });
+      location.reload();
+    });
+
     return () => {
       socket.off('gameState');
     };
