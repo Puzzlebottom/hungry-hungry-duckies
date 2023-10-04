@@ -61,12 +61,14 @@ class GameController {
 
     socket.on('disconnect', () => {
       clearInterval(interval);
-      game.removePlayer(socket.id);
-      sendUpdate(game.getGameStateForSocketId(socket.id));
-      socket.removeAllListeners();
 
-      if (game.isEmpty()) delete this.games[game.id];
-      console.log('GAMES: ', Object.values(this.games).length);
+      if (game) {
+        game.removePlayer(socket.id);
+        sendUpdate(game.getGameStateForSocketId(socket.id));
+        if (game.isEmpty()) delete this.games[game.id];
+      }
+
+      socket.removeAllListeners();
       console.log('user disconnected');
     });
   }
