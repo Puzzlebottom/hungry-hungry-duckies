@@ -27,7 +27,7 @@ class GameController {
       }, 25);
     };
 
-    socket.on('join', (player) => {
+    socket.on('join', (player, gameId) => {
       game = this.getGame();
       interval = createUpdateInterval();
       game.addPlayer(player.name, socket.id);
@@ -57,6 +57,12 @@ class GameController {
 
     socket.on('update', (player) => {
       updatePlayerScore(db, player);
+    });
+
+    socket.onAny(() => {
+      clearTimeout(socket?.inactivityTimeout);
+
+      socket.inactivityTimeout = setTimeout(() => socket.disconnect(true), 1000 * 10);
     });
 
     socket.on('disconnect', () => {
