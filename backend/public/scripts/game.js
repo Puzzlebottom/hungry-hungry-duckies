@@ -1,9 +1,15 @@
 const Instance = require('./physics');
+const { v4: uuidv4 } = require('uuid');
 
 class Game {
   constructor() {
     this.state = { bugs: [], players: {}, isActive: false };
     this.physics = Instance.run();
+    this._id = uuidv4();
+  }
+
+  get id() {
+    return this._id;
   }
 
   start() {
@@ -43,7 +49,6 @@ class Game {
     const seat = this.findFirstAvailableSeat();
     const newPlayer = { name, current_score: 0, current_seat: seat, isMunching: false, isReady: false, inGame: true, socketId, showMessage: false };
     this.state.players[seat] = newPlayer;
-    console.log(this.state.players);
   }
 
   removePlayer(socketId) {
