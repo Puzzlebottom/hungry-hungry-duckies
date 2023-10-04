@@ -98,6 +98,8 @@ class Game {
 
   isFull() { return Object.keys(this.state.players).length >= 4; }
 
+  isEmpty() { return Object.keys(this.state.players).length === 0; }
+
   getGameStateForSocketId(socketId) {
     const { bugs, players, isActive } = this.state;
 

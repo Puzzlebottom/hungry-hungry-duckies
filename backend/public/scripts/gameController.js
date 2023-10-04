@@ -64,6 +64,9 @@ class GameController {
       game.removePlayer(socket.id);
       sendUpdate(game.getGameStateForSocketId(socket.id));
       socket.removeAllListeners();
+
+      if (game.isEmpty()) delete this.games[game.id];
+      console.log('GAMES: ', Object.values(this.games).length);
       console.log('user disconnected');
     });
   }

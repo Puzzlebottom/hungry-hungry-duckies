@@ -1,17 +1,17 @@
 // Load .env data into process.env
 const ENV = require("./environment");
-const PORT = process.env.PORT || 8080;
 const ORIGIN = ENV === 'development' ? 'http://localhost:5173' : 'https://hungry-hungry-duckies.netlify.app';
+const PORT = process.env.PORT || 8080;
 
 const cors = require('cors');
-const morgan = require('morgan');
 const express = require('express');
+const morgan = require('morgan');
+const api = require('./routes/players-api');
 const db = require('./db/connection');
 const index = require('./routes/index');
 const players = require('./routes/players');
-const api = require('./routes/players-api');
-const { Server } = require('socket.io');
 const GameController = require('./public/scripts/gameController');
+const { Server } = require('socket.io');
 
 const app = express();
 app.use(cors({ credentials: true, origin: ORIGIN, methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
