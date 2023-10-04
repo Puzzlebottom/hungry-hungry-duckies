@@ -115,7 +115,9 @@ const useGame = () => {
 
     socket.on('disconnect', () => {
       dispatch({ type: SET_VIEW, value: 'loading' });
-      location.reload();
+      setTimeout(() => {
+        location.reload();
+      }, 100);
     });
 
     return () => {
