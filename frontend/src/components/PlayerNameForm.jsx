@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import '../sass/PlayerNameForm.scss';
 
 export default function PlayerNameForm({ player, join }) {
   const [name, setName] = useState(player.name);
@@ -14,10 +13,9 @@ export default function PlayerNameForm({ player, join }) {
   };
 
   return (
-    <form className='playername-form' onSubmit={handleSubmit}>
-      <label htmlFor='name' className='screen-reader-only'>Name</label>
-      <input type='text' id='name' name='name' placeholder='Enter player name' defaultValue={name} onChange={handleChange} />
-      <button type='submit'>Join Game</button>
+    <form onSubmit={handleSubmit}>
+      <input type='text' name='name' placeholder='Enter player name' defaultValue={name} onChange={handleChange} />
+      <button onClick={handleSubmit}>Join Game</button>
     </form>
   );
 }

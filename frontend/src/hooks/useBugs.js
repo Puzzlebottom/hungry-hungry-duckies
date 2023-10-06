@@ -1,7 +1,7 @@
 import Matter from "matter-js";
 import MatterAttractors from "matter-attractors";
 import BugConstants from "../constants/bugConstants.js";
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Images from "../assets/images.js";
 
 const { SERVER_SIMULATION_SIZE, TOTAL_BOUNDARY_FACES, WALL_SEGMENT_DIMENSIONAL_COEFFICIENT, INSIDE_DIAMETER_ADJUSTMENT, ATTRACTION_COEFFICIENT, BUG_SIZE_COEFFICIENT, BUG_FRICTION_COEFFICIENT, BUG_TEMPO, SPRITE_SIZE_COEFFICIENT, SPRITE_Y_OFFSET, AIR_FRICTION_COEFFICIENT, RESTITUTION } = BugConstants;

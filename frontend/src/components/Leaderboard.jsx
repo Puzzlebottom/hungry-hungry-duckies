@@ -1,28 +1,30 @@
 import '../sass/Leaderboard.scss';
 export default function Leaderboard({ leaderboard }) {
+
+  const players = leaderboard.map((player, index) => {
+    const { id, name, total_score } = player;
+    return (
+      <div key={id}>
+        <span>{index + 1}</span>
+        <span>{name}</span>
+        <span>{total_score}</span>
+      </div>
+    );
+  });
+
   return (
     <div className="leaderboard">
-      <h5>Leaderboard</h5>
-      <div className="leaderboard-div">
-      <table className="leaderboard-table">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Username</th>
-            <th>Bugs Munched!</th>
-          </tr>
-        </thead>
-        <tbody className="leaderboard-body">
-          {leaderboard.map((player, index) => (
-            <tr key={player.id}>
-              <td>{index + 1}</td>
-              <td>{player.name}</td>
-              <td>{player.total_score}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      </div>
-    </div>
+      <header>Leaderboard</header>
+      <section>
+        <div className='player-list-header'>
+          <span>Rank</span>
+          <span>Username</span>
+          <span>Bugs</span>
+        </div>
+        <div className='player-list'>
+          {players}
+        </div>
+      </section>
+    </div >
   );
 }

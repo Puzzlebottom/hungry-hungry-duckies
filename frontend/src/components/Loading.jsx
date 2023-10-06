@@ -5,9 +5,8 @@ import getRandomMessage from '../assets/loading_messages';
 
 function Loading() {
   const message = useRef(getRandomMessage());
-  const sky = backgrounds.Loading[0];
-  const mountains = backgrounds.Loading[1];
-  const clouds = backgrounds.Loading[2];
+  const [sky, mountains, clouds] = backgrounds.Loading;
+
 
   return (
     <main className='loading-view'>

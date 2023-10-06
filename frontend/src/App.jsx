@@ -5,7 +5,7 @@ import Loading from './components/Loading';
 import useGame from './hooks/useGame';
 import useAudio from './hooks/useAudio';
 import { useEffect } from 'react';
-import './sass/AudioControls.scss';
+import './sass/App.scss';
 
 
 function App() {
@@ -32,8 +32,8 @@ function App() {
   return (
     <div className="App">
       <div className='mute-button' onClick={toggleMute}>
-        {isMuted && <img src={"https://freesvg.org/img/pink_button_sound_off_morgaine1976.png"} alt="mute button" />}
-        {!isMuted && <img src="https://freesvg.org/img/pink_button_sound_on_morgaine1976.png" alt="mute button" />}
+        {isMuted && <img src="/images/mute-button-off.png" alt="mute button" />}
+        {!isMuted && <img src="/images/mute-button-on.png" alt="mute button" />}
       </div>
       <audio ref={audioPlayer} loop={true} muted={true} />
       {view === 'loading' && <Loading {...{ setView }} />}

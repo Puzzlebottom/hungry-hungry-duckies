@@ -1,47 +1,67 @@
 import '../sass/Home.scss';
-import '../sass/HomeBackground.scss';
 import Leaderboard from './Leaderboard';
 import PlayerNameForm from './PlayerNameForm';
 import backgrounds from '../assets/wallpaper';
 import Images from '../assets/images';
-import Credits from './Credits';
+import LINKS from "../constants/links";
+import { useEffect } from 'react';
 
 function Home({ player, leaderboard, join }) {
+  const [back, middle, fore] = backgrounds.Home;
+  const { HASSAN, JACKSON, CONOR } = LINKS.CVs;
+
+  useEffect(() => {
+    const handleResize = () => {
+      const ratio = document.body.clientHeight / 324;
+      const background = document.querySelector('.background-container');
+      background.style.transform = `scale(${ratio})`;
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
+
 
   return (
-    <main className='home-main-screen'>
-      <div className='background-container sky' style={{ backgroundImage: `url(${backgrounds.Home[0]})` }}></div>
-      <div className='background-container mountain' style={{ backgroundImage: `url(${backgrounds.Home[1]})` }}></div>
-      <div className='background-container clouds' style={{ backgroundImage: `url(${backgrounds.Home[2]})` }}></div>
-      <div className='home-hero'>
-        <h1>
-          <span className="first-word">Hungry </span>
-          <span className="second-word">Hungry</span>
-          <span className="third-word">Duckies!™</span>
-        </h1>
-        <div className='home-logo'>
-          <img src={Images.happyDuckie} alt="Duck Logo" />
-        </div>
-        <section className='home-instructions'>
-          <h2 className="instructions-header">How to play:</h2>
-          <h3>Press Spacebar to MUNCH!</h3>
-        </section>
-        <Credits />
+    <main className='home'>
+      <div className='background-container home' style={{ transform: `scale(${document.body.clientHeight / 324})` }}>
+        <div className="layer back" style={{ backgroundImage: `url(${back})` }}></div>
+        <div className="layer middle" style={{ backgroundImage: `url(${middle})` }}></div>
+        <div className="layer fore" style={{ backgroundImage: `url(${fore})` }}></div>
       </div>
-      <div className='home-leaderboard-and-form'>
-        <div className="duck-image-container-1">
-          <img className="duck-image" src="https://gifdb.com/images/high/duck-happy-dance-76yta26qy8v77wfr.gif" alt="Duck" />
+      <section className='panel'>
+        <header>
+          <span>Hungry Hungry Duckies!</span>
+        </header>
+        <img className='duckie-hero' src={Images.happyDuckie} alt="Duck logo" />
+        <div className='instructions'>
+          <span>How to play:</span>
+          <span>Press Spacebar to MUNCH!</span>
+          <span>Press Q to send messages</span>
         </div>
-        <div className='image-container top-right'>
-          <div className='image-container bottom-right'></div>
+        <div className="credits">
+          <span>
+            <a className="link" href={HASSAN}>Hassan Issak</a>
+            <a className="link" href={JACKSON}>Jackson Lionheart</a>
+            <a className="link" href={CONOR}>Conor Meldrum</a>
+          </span>
+          <span>
+            <a className="link" href={LINKS.REPO}>Check out the project on Github!</a>
+          </span>
         </div>
-        <div className="duck-image-container-real">
-          <img className="duck-image" src="https://gifdb.com/images/high/duck-happy-dance-76yta26qy8v77wfr.gif" alt="Duck" />
-        </div>
+      </section>
+      <section className='panel'>
         <Leaderboard {...{ leaderboard }} />
-        <PlayerNameForm {...{ player, join }} />
-      </div>
-    </main>
+        <div className='form-wrapper'>
+          <img className='duck-image' src={Images.dancingDuckie} alt='Dancing duck' />
+          < PlayerNameForm {...{ player, join }} />
+          <img className='duck-image' src={Images.dancingDuckie} alt='Dancing duck' />
+        </div>
+      </section>
+    </main >
   );
 }
 export default Home;

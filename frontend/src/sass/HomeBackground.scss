@@ -1,25 +1,25 @@
-.background-container {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 400%;
-  height: 100%;
-  background-size: cover;
-  z-index: -4;
-  animation: parallax 120s linear infinite;
-  transform: translateX(0);
-}
+// .background-container {
+//   content: "";
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 400%;
+//   height: 100%;
+//   background-size: cover;
+//   z-index: -4;
+//   animation: parallax 120s linear infinite;
+//   transform: translateX(0);
+// }
 
 
-@keyframes parallax {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-100% + 100vw));
-  }
-}
+// @keyframes parallax {
+//   0% {
+//     transform: translateX(0);
+//   }
+//   100% {
+//     transform: translateX(calc(-100% + 100vw));
+//   }
+// }
 
 .background-container.sky {
 

@@ -65,19 +65,19 @@ body {
   z-index: 2;
 }
 
-.instructions {
-  position: absolute;
-  bottom: 3vh;
-  left: 50%;
-  transform: translateX(-50%);
+// .instructions {
+//   position: absolute;
+//   bottom: 3vh;
+//   left: 50%;
+//   transform: translateX(-50%);
 
-  font-size: 2vw;
-  white-space: nowrap;
-  z-index: 2;
-  color: #A8B0FA;
+//   font-size: 2vw;
+//   white-space: nowrap;
+//   z-index: 2;
+//   color: #A8B0FA;
 
-  border-radius: 20px;
-}
+//   border-radius: 20px;
+// }
 
 .loading-view {
   display: flex;
@@ -86,27 +86,27 @@ body {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.background-container {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 200%;
-  height: 100%;
-  background-size: cover;
-  z-index: -4;
-  animation: parallax 120s linear infinite;
-  transform: translateX(0);
-}
+// .background-container {
+//   content: "";
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 200%;
+//   height: 100%;
+//   background-size: cover;
+//   z-index: -4;
+//   animation: parallax 120s linear infinite;
+//   transform: translateX(0);
+// }
 
-@keyframes parallax {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-100% + 100vw));
-  }
-}
+// @keyframes parallax {
+//   0% {
+//     transform: translateX(0);
+//   }
+//   100% {
+//     transform: translateX(calc(-100% + 100vw));
+//   }
+// }
 
 .background-container.sky-loading {
 
