@@ -3,8 +3,9 @@ div.leaderboard {
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  height: 65%;
+  height: 75%;
 
   header {
       font-size: max(3vh, 3vw);
@@ -15,7 +16,6 @@ div.leaderboard {
   section {
     display: flex;
     flex-direction: column;
-    max-height: 90%;
     width: 80%;
     font-size: max(1.5vh, 1.5vw);
     border-radius: 1em;
