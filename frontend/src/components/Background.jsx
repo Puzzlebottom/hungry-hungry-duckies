@@ -3,15 +3,31 @@ import backgrounds from '../assets/wallpaper';
 import '../sass/Background.scss';
 
 const Background = ({ view }) => {
-  const [back, middle, fore] = backgrounds[view];
+  const PIXEL_HEIGHT = 324;
+  const classNames = { '0': 'one', '1': 'two', '2': 'three', '3': 'four', '4': 'five' };
+
+  const getRatio = (rotationInRadians) => {
+    const viewHeightPixels = document.body.clientHeight;
+    const viewWidthPixels = document.body.clientWidth;
+    const rightAngle = Math.PI / 180;
+    const theta1 = rotationInRadians;
+    const theta2 = Math.PI - rightAngle - theta1;
+    const a = Math.sin(theta1) * viewHeightPixels / Math.sin(theta2);
+    const b = viewWidthPixels - a;
+    const c = Math.sin(rightAngle) * viewHeightPixels / Math.sin(theta2);
+    const d = Math.sin(theta1) * b / Math.sin(rightAngle);
+    return (c + d) / PIXEL_HEIGHT;
+  };
+
+  const handleResize = () => {
+    const containers = document.getElementsByClassName('background-container');
+    for (const container of containers) {
+      const ratio = getRatio(container.dataset.rotation);
+      container.style.transform = `scale(${ratio})`;
+    }
+  };
 
   useEffect(() => {
-    const handleResize = () => {
-      const ratio = document.body.clientHeight / 324;
-      const background = document.querySelector('.background-container');
-      background.style.transform = `scale(${ratio})`;
-    };
-
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -19,13 +35,15 @@ const Background = ({ view }) => {
     };
   });
 
-  return (
-    <div className={`background-container ${view}`} style={{ transform: `scale(${document.body.clientHeight / 324})` }}>
-      <div className="layer back" style={{ backgroundImage: `url(${back})` }}></div>
-      <div className="layer middle" style={{ backgroundImage: `url(${middle})` }}></div>
-      <div className="layer fore" style={{ backgroundImage: `url(${fore})` }}></div>
-    </div>
-  );
+  const layers = backgrounds[view].map(({ layer, rotation }, index) => {
+    return (
+      <div className={`background-container ${view}`} key={layer} data-rotation={rotation} style={{ transform: `scale(${getRatio(rotation)})` }}>
+        <div className={`layer ${classNames[index]}`} style={{ backgroundImage: `url(${layer})` }} />
+      </div>
+    );
+  });
+
+  return (layers);
 };
 
 export default Background;

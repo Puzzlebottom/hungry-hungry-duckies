@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
+import Background from './Background';
 import '../sass/PostGame.scss';
-import '../sass/PostGameLeaderboard.scss'
-import '../sass/PostGameBackground.scss'
+import '../sass/PostGameLeaderboard.scss';
+import '../sass/PostGameBackground.scss';
 import backgrounds from '../assets/wallpaper';
 
 function PostGame({ gameState, home, newGame }) {

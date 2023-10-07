@@ -1,14 +1,14 @@
 const backgrounds = {
   home: [
-    '/wallpaper/home-background.png',
-    '/wallpaper/home-midground.png',
-    '/wallpaper/home-foreground.png'
+    { layer: '/wallpaper/home-background.png', rotation: 0 },
+    { layer: '/wallpaper/home-midground.png', rotation: 0 },
+    { layer: '/wallpaper/home-foreground.png', rotation: 0 }
   ],
 
   loading: [
-    '/wallpaper/loading-background.png',
-    '/wallpaper/loading-midground.png',
-    '/wallpaper/loading-foreground.png'
+    { layer: '/wallpaper/loading-background.png', rotation: 0 },
+    { layer: '/wallpaper/loading-midground.png', rotation: 0 },
+    { layer: '/wallpaper/loading-foreground.png', rotation: 0 }
   ],
 
   Table: [
@@ -19,11 +19,11 @@ const backgrounds = {
     '/wallpaper/Table-Bottomblocks.png'
   ],
 
-  PostGame: [
-    '/wallpaper/PostGame-Background.gif',
-    '/wallpaper/PostGame-Planets.png',
-    '/wallpaper/PostGame-Meteors.png',
-    '/wallpaper/PostGame-stars.png'
+  postgame: [
+    '/wallpaper/postgame-background.png',
+    '/wallpaper/postgame-twinkle.gif',
+    '/wallpaper/postgame-midground.png',
+    '/wallpaper/postgame-foreground.png',
   ]
 };
 
