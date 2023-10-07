@@ -1,37 +1,17 @@
 import '../sass/Home.scss';
 import Leaderboard from './Leaderboard';
 import PlayerNameForm from './PlayerNameForm';
-import backgrounds from '../assets/wallpaper';
 import Images from '../assets/images';
 import LINKS from "../constants/links";
 import { useEffect } from 'react';
+import Background from './Background';
 
 function Home({ player, leaderboard, join }) {
-  const [back, middle, fore] = backgrounds.Home;
   const { HASSAN, JACKSON, CONOR } = LINKS.CVs;
-
-  useEffect(() => {
-    const handleResize = () => {
-      const ratio = document.body.clientHeight / 324;
-      const background = document.querySelector('.background-container');
-      background.style.transform = `scale(${ratio})`;
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  });
-
 
   return (
     <main className='home'>
-      <div className='background-container home' style={{ transform: `scale(${document.body.clientHeight / 324})` }}>
-        <div className="layer back" style={{ backgroundImage: `url(${back})` }}></div>
-        <div className="layer middle" style={{ backgroundImage: `url(${middle})` }}></div>
-        <div className="layer fore" style={{ backgroundImage: `url(${fore})` }}></div>
-      </div>
+      <Background view={'home'} />
       <section className='panel'>
         <header>
           <span>Hungry Hungry Duckies!</span>

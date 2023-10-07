@@ -1,0 +1,42 @@
+.background-container {
+  position: fixed;
+  height: 324px;
+  width: 6400px;
+  transform-origin: left top;
+  z-index: -1000;
+  overflow: hidden;
+
+  > .layer {
+    position: fixed;
+    background-repeat: repeat;
+    height: 100%;
+
+    &.fore {
+      width: 1200%;
+    }
+    &.middle {
+      width: 300%;
+    }
+    &.back {
+      width: 100%;
+    }
+  }
+
+  &.home .layer {
+    animation: parallax 600s linear infinite;
+  }
+
+  &.loading .layer{
+    animation: parallax 200s linear infinite;
+  }
+}
+
+@keyframes parallax {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX( -50% );
+  }
+}
+

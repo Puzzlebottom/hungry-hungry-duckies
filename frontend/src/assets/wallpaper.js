@@ -1,14 +1,14 @@
 const backgrounds = {
-  Home: [
-    '/wallpaper/Home-Background.png',
-    '/wallpaper/Home-Midground.png',
-    '/wallpaper/Home-Frontground.png'
+  home: [
+    '/wallpaper/home-background.png',
+    '/wallpaper/home-midground.png',
+    '/wallpaper/home-foreground.png'
   ],
 
-  Loading: [
-    '/wallpaper/Loading-Background.png',
-    '/wallpaper/Loading-Midground.png',
-    '/wallpaper/Loading-Frontground.png'
+  loading: [
+    '/wallpaper/loading-background.png',
+    '/wallpaper/loading-midground.png',
+    '/wallpaper/loading-foreground.png'
   ],
 
   Table: [

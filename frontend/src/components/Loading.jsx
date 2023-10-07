@@ -1,18 +1,14 @@
 import { useRef } from 'react';
-import backgrounds from '../assets/wallpaper';
 import '../sass/Loading.scss';
+import Background from './Background';
 import getRandomMessage from '../assets/loading_messages';
 
 function Loading() {
   const message = useRef(getRandomMessage());
-  const [sky, mountains, clouds] = backgrounds.Loading;
-
 
   return (
-    <main className='loading-view'>
-      <img className="background-container sky-loading" src={sky}></img>
-      <img className="background-container mountain-loading" src={mountains}></img>
-      <img className="background-container clouds-loading" src={clouds}></img>
+    <main className='loading'>
+      <Background view={'loading'} />
       <div className="sprite-container">
         <div className='sprite-animation'></div>
       </div>
