@@ -1,123 +1,50 @@
-// @font-face {
-//   font-family: 'Proxima Nova';
-//   src: url('/fonts/Mark Simonson - Proxima Nova Regular.otf') format('opentype');
-//   font-weight: normal;
-//   font-style: normal;
-// }
+main.loading {
+  display: grid;
+  height: 100vh;
 
-// body, html {
-//   margin: 0;
-//   padding: 0;
-// }
+  span {
+    display: flex;
+    justify-content: center;
+    align-self: end;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-shadow: 2px 2px 5px rgb(0, 0, 0);
+    z-index: 1;
+  }
 
-// body {
-//   background-size: cover;
-//   background-repeat: no-repeat;
-//   background-attachment: fixed;
-//   background-position: center;
-//   overflow: hidden;
-//   font-size: 16px;
-//   background-color: rgba(183, 105, 247, 0.5);
-// }
+  span:nth-of-type(1) {
+    color: white;
+    font-size: max(4vh, 4vw);
+  }
 
-// .sprite-container {
-//   position: absolute;
-//   top: 85%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   width: 100%;
-//   height: 60px;
-//   overflow: hidden;
-// }
+  span:nth-of-type(2) {
+    margin-bottom: 2vh;
+    color: #A8B0FA;
+    font-size: max(2vh, 2vw);
+  }
 
-// .sprite-animation {
-//   width: 100%;
-//   height: 100%;
-//   background-image: url('/wallpaper/duck_2_sprite.png');
-//   background-size: auto 100%;
-//   animation-name: animateSprite;
-//   animation-duration: 4s;
-//   animation-timing-function: steps(6);
-//   animation-iteration-count: infinite;
-//   white-space: nowrap;
-// }
 
-// @keyframes animateSprite {
-//   0% {
-//     background-position: -600px 0;
-//   }
-//   100% {
-//     background-position: 0 0;
-//   }
-// }
+  div.sprite-container {
+    position: fixed;
+    bottom: 12vh;
+    height: 29px;
+    width: 6400px;
+    transform-origin: left bottom;
+    overflow: hidden;
+    transform: scale(2.5);
 
-// .loading-message {
-//   position: absolute;
-//   top: 30vh;
-//   left: 50%;
-//   transform: translateX(-50%);
-//   font-size: 3vw;
-//   color: white;
-//   text-shadow: 2px 2px 4px #000000;
-//   z-index: 2;
-// }
+    div.duckie-sprites {
+      height: 100%;
+      width: 139%;
+      animation: march 0.9s steps(10) infinite;
+    }
+  }
+}
 
-// // .instructions {
-// //   position: absolute;
-// //   bottom: 3vh;
-// //   left: 50%;
-// //   transform: translateX(-50%);
-
-// //   font-size: 2vw;
-// //   white-space: nowrap;
-// //   z-index: 2;
-// //   color: #A8B0FA;
-
-// //   border-radius: 20px;
-// // }
-
-// .loading-view {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-// }
-
-// // .background-container {
-// //   content: "";
-// //   position: fixed;
-// //   top: 0;
-// //   left: 0;
-// //   width: 200%;
-// //   height: 100%;
-// //   background-size: cover;
-// //   z-index: -4;
-// //   animation: parallax 120s linear infinite;
-// //   transform: translateX(0);
-// // }
-
-// // @keyframes parallax {
-// //   0% {
-// //     transform: translateX(0);
-// //   }
-// //   100% {
-// //     transform: translateX(calc(-100% + 100vw));
-// //   }
-// // }
-
-// .background-container.sky-loading {
-
-// }
-
-// .background-container.mountain-loading {
-//   z-index: -3;
-//   animation-duration: 40s;
-// }
-
-// .background-container.clouds-loading {
-//   z-index: 0;
-//   animation-duration: 10s;
-// }
+@keyframes march {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX( -50% );
+  }
+}

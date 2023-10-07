@@ -3,7 +3,6 @@ import Leaderboard from './Leaderboard';
 import PlayerNameForm from './PlayerNameForm';
 import Images from '../assets/images';
 import LINKS from "../constants/links";
-import { useEffect } from 'react';
 import Background from './Background';
 
 function Home({ player, leaderboard, join }) {

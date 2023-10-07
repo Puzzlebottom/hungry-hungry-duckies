@@ -1,23 +1,21 @@
 import { useRef } from 'react';
 import '../sass/Loading.scss';
 import Background from './Background';
+import Images from '../assets/images';
 import getRandomMessage from '../assets/loading_messages';
 
 function Loading() {
   const message = useRef(getRandomMessage());
+  const duckies = Images.marchingDuckies;
 
   return (
     <main className='loading'>
       <Background view={'loading'} />
-      <div className="sprite-container">
-        <div className='sprite-animation'></div>
+      <span>LOADING...</span>
+      <div className='sprite-container'>
+        <div className='duckie-sprites' style={{ backgroundImage: `url(${duckies})` }}></div>
       </div>
-      <span className='loading-message'>
-        <h5>LOADING...</h5>
-      </span>
-      <div className='instructions'>
-        <span>{message.current}</span>
-      </div>
+      <span className='message'>{message.current}</span>
     </main>
   );
 }
