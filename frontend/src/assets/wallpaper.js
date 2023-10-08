@@ -20,10 +20,10 @@ const backgrounds = {
   ],
 
   postgame: [
-    '/wallpaper/postgame-background.png',
-    '/wallpaper/postgame-twinkle.gif',
-    '/wallpaper/postgame-midground.png',
-    '/wallpaper/postgame-foreground.png',
+    { layer: '/wallpaper/postgame-twinkle.gif', rotation: 0 },
+    { layer: '/wallpaper/postgame-stars.png', rotation: 0 },
+    { layer: '/wallpaper/postgame-planets.png', rotation: 0 },
+    { layer: '/wallpaper/postgame-meteors.png', rotation: 0 },
   ]
 };
 

@@ -15,8 +15,9 @@ function PostGame({ gameState, home, newGame }) {
   }, []);
 
   return (
-    <div>
-      <div className="background-container space" style={{ backgroundImage: `url(${backgrounds.PostGame[0]})` }}></div>
+    <main className='postgame'>
+      <Background view={'postgame'} />
+      {/* <div className="background-container space" style={{ backgroundImage: `url(${backgrounds.PostGame[0]})` }}></div>
       <div className="background-container planets" style={{ backgroundImage: `url(${backgrounds.PostGame[1]})` }}></div>
       <div className="background-container meteors" style={{ backgroundImage: `url(${backgrounds.PostGame[2]})` }}></div>
       <div className="background-container stars" style={{ backgroundImage: `url(${backgrounds.PostGame[3]})` }}></div>
@@ -49,8 +50,8 @@ function PostGame({ gameState, home, newGame }) {
           </div>
           <div className="audiobutton" />
         </div>
-      </div>
-    </div>
+      </div> */}
+    </main>
   );
 }
 
