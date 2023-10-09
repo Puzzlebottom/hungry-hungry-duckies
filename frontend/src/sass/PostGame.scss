@@ -9,12 +9,13 @@ main.postgame {
     align-items: center;
     justify-content: center;
     height: 100%;
+    color: white;
 
     header {
       font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
       font-size: max(5vh, 5vw);
+      font-weight: 700;
       animation: glow 2s infinite;
-      color: white;
       margin-bottom: 5vh;
       text-shadow: 0 0 5px rgba(252, 0, 255), 0 0 10px rgba(252, 0, 255), 0 0 15px rgba(252, 0, 255);
     }
@@ -24,7 +25,6 @@ main.postgame {
       grid-template-columns: 33% 33% 33%;
       font-family: 'proxima nova', sans-serif;
       font-size: max(1.5vh, 1.5vw);
-      color: #ffffff;
       text-shadow: 0.5em 0.5em 4em rgb(0, 0, 0);
       width: 80%;
 
@@ -93,71 +93,3 @@ main.postgame {
     text-shadow: 0 0 5px rgba(0, 219, 222), 0 0 10px rgba(0, 219, 222), 0 0 15px rgba(0, 219, 222)
   }
 }
-
-
-
-// body {
-//   position: relative;
-//   overflow: hidden;
-// }
-
-// .main-menu-button1,
-// .play-again-button {
-//   position: relative;
-//   font-family: 'proxima nova', sans-serif;
-//   height: 40px;
-//   padding: 0 33px;
-//   font-size: 20px;
-//   background: #5dc1d7;
-//   color: #ffffff;
-//   border: none;
-//   border-radius: 50px;
-//   cursor: pointer;
-//   margin: 20px;
-//   display: inline-flex;
-//   align-items: center;
-//   justify-content: center;
-//   text-decoration: none;
-//   letter-spacing: 1px;
-//   outline: none;
-//   overflow: hidden;
-//   z-index: 1;
-// }
-
-// .main-menu-button1::before,
-// .play-again-button::before {
-//   content: "";
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 0;
-//   height: 100%;
-//   background: #f1bd00;
-//   border-radius: 50px;
-//   opacity: 1;
-//   transition: width 0.3s ease;
-//   z-index: -1;
-// }
-
-// .main-menu-button1:hover::before,
-// .play-again-button:hover::before {
-//   width: 100%;
-// }
-
-// div.audiobutton {
-//   width: 0;
-//   height: 0;
-//   position: absolute;
-//   top: -50px;
-//   right: -50px;
-//   z-index: 1;
-// }
-
-// .audio-player-container * {
-//   width: 0px;
-//   height: 0px;
-//   position: absolute;
-//   top: 25px;
-//   right: 40;
-//   z-index: 1;
-// }
