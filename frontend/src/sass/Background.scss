@@ -8,6 +8,7 @@
 
   > .layer {
     position: fixed;
+    transform-origin: left top;
     background-repeat: repeat;
     height: 100%;
 
@@ -21,7 +22,7 @@
       width: 1200%;
     }
     &.four {
-      width: 100%;
+      width: 600%;
     }
     &.five {
       width: 100%;
@@ -38,13 +39,19 @@
 
   &.postgame .layer {
     &.one {
-      animation: parallax 600s linear reverse infinite;
+      width: 100%;
+      animation: space-parallax-one 2600s linear infinite reverse;
     }
     &.two {
-      animation: parallax 400s linear infinite;
+      width: 100%;
+      animation: parallax 600s linear infinite;
     }
-    &.three, &.four{
-      animation: parallax 400s linear infinite;
+    &.three {
+      width: 200%;
+      animation: space-parallax-two 1800s linear infinite;
+    }
+    &.four {
+      animation: space-parallax-two 400s linear infinite;
     }
   }
 }
@@ -60,19 +67,19 @@
 
 @keyframes space-parallax-one {
   0% {
-    transform: translate(100%, -100%);
+    transform: rotate(-22.5deg) translate(0);
   }
   100% {
-    transform: translate(0, 100%);
+    transform: rotate(-22.5deg) translate(-50%);
   }
 }
 
 @keyframes space-parallax-two {
   0% {
-    transform: translate(0, 0);
+    transform: rotate(-45deg) translate(0);
   }
   100% {
-    transform: translate(-100%, -100%)
+    transform: rotate(-45deg) translate(-50%);
   }
 }
 
