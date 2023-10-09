@@ -22,10 +22,9 @@ main.postgame {
 
     div {
       display: grid;
-      grid-template-columns: 33% 33% 33%;
+      grid-template-columns: 1fr 1fr 1fr;
       font-family: 'proxima nova', sans-serif;
       font-size: max(1.5vh, 1.5vw);
-      text-shadow: 0.5em 0.5em 4em rgb(0, 0, 0);
       width: 80%;
 
       span {
