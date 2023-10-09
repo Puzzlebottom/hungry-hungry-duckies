@@ -17,7 +17,6 @@ const Background = ({ view }) => {
     const c = Math.sin(rightAngle) * viewHeightPixels / Math.sin(theta2);
     const d = Math.sin(theta1) * b / Math.sin(rightAngle);
     const ratio = (c + d) / PIXEL_HEIGHT || 0;
-    // console.log('RATIO: ', ratio);
     return ratio;
   };
 
@@ -38,7 +37,6 @@ const Background = ({ view }) => {
   });
 
   const layers = backgrounds[view].map(({ layer, rotation }, index) => {
-    // console.log('ROTATION: ', rotation);
     return (
       <div className={`background-container ${view}`} key={layer} data-rotation={rotation} style={{ transform: `scale(${getRatio(rotation)})` }}>
         <div className={`layer ${classNames[index]}`} style={{ backgroundImage: `url(${layer})` }} />

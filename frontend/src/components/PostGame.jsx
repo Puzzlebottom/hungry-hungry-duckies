@@ -3,7 +3,6 @@ import Background from './Background';
 import '../sass/PostGame.scss';
 import '../sass/PostGameLeaderboard.scss';
 import '../sass/PostGameBackground.scss';
-import backgrounds from '../assets/wallpaper';
 
 function PostGame({ gameState, home, newGame }) {
   const players = useRef([]);
@@ -14,9 +13,30 @@ function PostGame({ gameState, home, newGame }) {
     players.current = [gameState.player, ...gameState.opponents].sort((a, b) => b.current_score - a.current_score);
   }, []);
 
+
   return (
     <main className='postgame'>
       <Background view={'postgame'} />
+      <section>
+        <header>Congratulations!</header>
+        <div>
+          <span>Player Name</span>
+          <span>Bugs Munched</span>
+          <span>Results</span>
+        </div>
+        {players.current.map(({ name, current_score }, index) => (
+          <div key={index}>
+            <span>{name}</span>
+            <span>{current_score}</span>
+            <span>{index === 0 ? 'Winner' : 'Loser'}</span>
+          </div>
+        ))}
+        <nav>
+          <button onClick={home}>Main Menu</button>
+          <button onClick={() => newGame(name.current)}>Play again</button>
+        </nav>
+      </section>
+
       {/* <div className="background-container space" style={{ backgroundImage: `url(${backgrounds.PostGame[0]})` }}></div>
       <div className="background-container planets" style={{ backgroundImage: `url(${backgrounds.PostGame[1]})` }}></div>
       <div className="background-container meteors" style={{ backgroundImage: `url(${backgrounds.PostGame[2]})` }}></div>
