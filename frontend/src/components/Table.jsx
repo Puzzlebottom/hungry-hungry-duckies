@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import '../sass/Table.scss';
 import Images from '../assets/images';
+import Background from './Background';
 import backgrounds from '../assets/wallpaper';
 import Quarter from './Quarter';
 import Bugs from './Bugs';
@@ -13,12 +14,12 @@ function Table({ gameState, munch, toggleReady, message }) {
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  });
-
-  useEffect(() => {
     window.addEventListener('mousedown', handleClick);
-    return () => window.removeEventListener('mousedown', handleClick);
+
+    return () => {
+      window.removeEventListener('mousedown', handleClick);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   });
 
   const handleKeyDown = (e) => {
@@ -54,30 +55,31 @@ function Table({ gameState, munch, toggleReady, message }) {
     const images = Images.duckies[index];
     return <Quarter key={index} {...{ images, player, isActive }} />;
   });
-  const quarterPanels = ['green', 'red', 'blue', 'yellow'].map((color, index) => {
-    return <div key={index} className={'background background__' + color}></div>;
-  });
+  // const quarterPanels = ['green', 'red', 'blue', 'yellow'].map((color, index) => {
+  //   return <div key={index} className={'background background__' + color}></div>;
+  // });
 
 
   return (
-    <div>
-      <div className="Table-Topblocks" style={{ backgroundImage: `url(${backgrounds.Table[1]})` }}>
+    <main className='table'>
+      <Background view={'table'} />
+      {/* <div className="Table-Topblocks" style={{ backgroundImage: `url(${backgrounds.Table[1]})` }}>
       </div>
       <div className="Table-Rightblocks" style={{ backgroundImage: `url(${backgrounds.Table[2]})` }}>
       </div>
       <div className="Table-Bottomblocks" style={{ backgroundImage: `url(${backgrounds.Table[4]})` }}>
       </div>
       <div className="Table-Leftblocks" style={{ backgroundImage: `url(${backgrounds.Table[3]})` }}>
-      </div>
-      {quarterPanels}
-      <main className="table-view" style={{ backgroundImage: `url(${backgrounds.Table[0]})` }}>
+      </div> */}
+      {/* {quarterPanels} */}
+      {/* <main className="table-view" style={{ backgroundImage: `url(${backgrounds.Table[0]})` }}>
         <img src={Images.arena} className="arena" />
         <Bugs bugState={bugs} />
         {quarters}
         {isActive && <Countdown {...{ bugs, isActive }} />}
         {isActive && <GameTimer initialMinutes={12} initialSeconds={59} />}
-      </main>
-    </div>
+      </main> */}
+    </main>
   );
 }
 

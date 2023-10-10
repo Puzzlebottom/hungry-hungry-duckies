@@ -4,59 +4,62 @@
   width: 6400px;
   transform-origin: left top;
   z-index: -1000;
-  overflow: hidden;
+  // overflow: hidden;
 
   > .layer {
-    position: fixed;
     transform-origin: left top;
     background-repeat: repeat;
     height: 100%;
+    width: 100%;
+  }
 
+  &.home .layer, &.loading .layer {
     &.one {
-      width: 100%;
+      animation: horizontal 900s linear infinite;
     }
     &.two {
-      width: 300%;
+      animation: horizontal 200s linear infinite;
     }
     &.three {
-      width: 1200%;
+      animation: horizontal 50s linear infinite;
+    }
+  }
+
+  &.table .layer {
+    &.one {
+      animation: horizontal 90s linear infinite;
+    }
+    &.two {
+      animation: vertical 45s linear infinite;
+    }
+    &.three {
+      animation: vertical 45s linear infinite reverse;
     }
     &.four {
-      width: 600%;
+      animation: horizontal 90s linear infinite reverse;
     }
     &.five {
-      width: 100%;
+      animation: horizontal 45s linear infinite;
     }
-  }
-
-  &.home .layer {
-    animation: parallax 600s linear infinite;
-  }
-
-  &.loading .layer {
-    animation: parallax 400s linear infinite;
   }
 
   &.postgame .layer {
     &.one {
-      width: 100%;
-      animation: space-parallax-one 2600s linear infinite reverse;
+      animation: diagonal-one 2000s linear infinite reverse;
     }
     &.two {
-      width: 100%;
-      animation: parallax 600s linear infinite;
+      animation: horizontal 1000s linear infinite;
     }
     &.three {
-      width: 200%;
-      animation: space-parallax-two 1800s linear infinite;
+      animation: diagonal-two 1500s linear infinite;
     }
     &.four {
-      animation: space-parallax-two 400s linear infinite;
+      animation: diagonal-two 300s linear infinite;
     }
   }
 }
 
-@keyframes parallax {
+@keyframes horizontal {
   0% {
     transform: translate(0);
   }
@@ -65,7 +68,16 @@
   }
 }
 
-@keyframes space-parallax-one {
+@keyframes vertical {
+  0% {
+    transform: rotate(-90deg) translate(-100vh);
+  }
+  100% {
+    transform: rotate(-90deg) translate(calc(-50% - 100vh));
+  }
+}
+
+@keyframes diagonal-one {
   0% {
     transform: rotate(-22.5deg) translate(0);
   }
@@ -74,7 +86,7 @@
   }
 }
 
-@keyframes space-parallax-two {
+@keyframes diagonal-two {
   0% {
     transform: rotate(-45deg) translate(0);
   }

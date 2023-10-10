@@ -9,6 +9,11 @@ const Background = ({ view }) => {
   const getRatio = (rotationInRadians) => {
     const viewHeightPixels = document.body.clientHeight;
     const viewWidthPixels = document.body.clientWidth;
+
+    if (rotationInRadians >= Math.PI / 2) {
+      return viewWidthPixels / 324;
+    }
+
     const rightAngle = Math.PI / 2;
     const theta1 = rotationInRadians;
     const theta2 = Math.PI - rightAngle - theta1;
@@ -16,7 +21,7 @@ const Background = ({ view }) => {
     const b = viewWidthPixels - a;
     const c = Math.sin(rightAngle) * viewHeightPixels / Math.sin(theta2);
     const d = Math.sin(theta1) * b / Math.sin(rightAngle);
-    const ratio = (c + d) / PIXEL_HEIGHT || 0;
+    const ratio = (c + d) / PIXEL_HEIGHT;
     return ratio;
   };
 
@@ -38,7 +43,7 @@ const Background = ({ view }) => {
 
   const layers = backgrounds[view].map(({ layer, rotation }, index) => {
     return (
-      <div className={`background-container ${view}`} key={layer} data-rotation={rotation} style={{ transform: `scale(${getRatio(rotation)})` }}>
+      <div className={`background-container ${view}`} key={index} data-rotation={rotation} style={{ transform: `scale(${getRatio(rotation)})` }}>
         <div className={`layer ${classNames[index]}`} style={{ backgroundImage: `url(${layer})` }} />
       </div>
     );

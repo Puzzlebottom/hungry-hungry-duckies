@@ -21,7 +21,7 @@ const useConnect = (setView) => {
         setPlayer(player.data);
         localStorage.setItem('uuid', player.data.uuid);
         setLeaderBoard(leaderboard.data.players);
-        setView('home');
+        setView('table');
       })
       .catch(err => console.log(err));
 

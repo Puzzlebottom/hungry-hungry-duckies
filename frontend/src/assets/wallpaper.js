@@ -11,12 +11,12 @@ const backgrounds = {
     { layer: '/wallpaper/loading-foreground.png', rotation: 0 }
   ],
 
-  Table: [
-    '/wallpaper/Table-Background.png',
-    '/wallpaper/Table-Topblocks.png',
-    '/wallpaper/Table-Rightblocks.png',
-    '/wallpaper/Table-Leftblocks.png',
-    '/wallpaper/Table-Bottomblocks.png'
+  table: [
+    { layer: '/wallpaper/table-background.png', rotation: 0 },
+    { layer: '/wallpaper/table-right.png', rotation: 90 * Math.PI / 180 },
+    { layer: '/wallpaper/table-left.png', rotation: 90 * Math.PI / 180 },
+    { layer: '/wallpaper/table-top.png', rotation: 0 },
+    { layer: '/wallpaper/table-bottom.png', rotation: 0 },
   ],
 
   postgame: [
