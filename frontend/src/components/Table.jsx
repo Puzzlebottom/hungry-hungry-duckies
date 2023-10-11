@@ -69,7 +69,7 @@ function Table({ gameState, munch, toggleReady, message }) {
       <Bugs bugState={bugs} />
       {quarters}
       {isActive && <Countdown {...{ bugs, isActive }} />}
-      {isActive && <GameTimer initialMinutes={12} initialSeconds={59} />}
+      {isActive && bugs.length > 0 && <GameTimer initialMinutes={60} initialSeconds={0} />}
     </main>
   );
 }
