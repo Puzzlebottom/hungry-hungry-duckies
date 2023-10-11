@@ -138,9 +138,8 @@ const useBugs = () => {
     render.current.canvas.height = document.body.clientHeight;
   };
 
-  const startBugs = (width, height) => {
-    setViewWidth(width);
-    setViewHeight(height);
+  const startBugs = () => {
+
     window.addEventListener('resize', handleResize);
 
     engine.current = Engine.create();
