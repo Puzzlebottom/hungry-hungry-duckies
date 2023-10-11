@@ -111,6 +111,8 @@ const useBugs = () => {
     Object.keys(oldBugMap).forEach(id => {
       // update surviving bugs
       if (updatedBugMap[id]) {
+        // console.log('OLD: ', oldBugMap[id].position);
+        // console.log('NEW: ', updatedBugMap[id].position);
         Body.setPosition(oldBugMap[id], updatedBugMap[id].position);
         Body.setVelocity(oldBugMap[id], updatedBugMap[id].velocity);
         Body.setAngle(oldBugMap[id], updatedBugMap[id].angle);
@@ -134,6 +136,8 @@ const useBugs = () => {
   const handleResize = () => {
     setViewWidth(document.body.clientWidth);
     setViewHeight(document.body.clientHeight);
+    render.current.canvas.width = document.body.clientWidth;
+    render.current.canvas.height = document.body.clientHeight;
   };
 
   const startBugs = () => {
@@ -147,8 +151,8 @@ const useBugs = () => {
       element: arena.current,
       engine: engine.current,
       options: {
-        width: viewWidth * serverClientSizeRatio,
-        height: viewHeight * serverClientSizeRatio,
+        width: viewWidth,
+        height: viewHeight,
         wireframes: false,
         background: 'transparent',
         gravity: {

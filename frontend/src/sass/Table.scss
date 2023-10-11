@@ -14,6 +14,15 @@ main.table {
   height: min(100vh, 100vw);
   width: min(100vh, 100vw);
   z-index: -1000;
+
+    canvas {
+      // width: max(100vh, 100vw);
+      // height: min(100vh, 100vw);
+      // display: block;
+      // align-items: center;
+      // justify-content: center;
+      // overflow:visible;
+    }
   }
 
   div.color-overlays {
