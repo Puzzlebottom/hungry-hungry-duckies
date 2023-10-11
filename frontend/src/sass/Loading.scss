@@ -1,3 +1,5 @@
+@use 'animations';
+
 main.loading {
   display: grid;
   height: 100vh;
@@ -37,14 +39,5 @@ main.loading {
       width: 139%;
       animation: march 0.9s steps(10) infinite;
     }
-  }
-}
-
-@keyframes march {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX( -50% );
   }
 }

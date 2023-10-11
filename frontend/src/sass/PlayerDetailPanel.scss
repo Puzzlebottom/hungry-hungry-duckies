@@ -1,3 +1,5 @@
+@use 'animations';
+
 section.player-detail-panel {
   display: grid;
   grid-template-rows: 1fr auto auto;
@@ -41,33 +43,6 @@ section.player-detail-panel {
     background-color: rgb(189, 127, 239, 0.8);
     border-radius: 20px;
   }
-
-  @keyframes shake {
-    0% {
-      transform: translate(0);
-    }
-
-    20% {
-      transform: translate(-3%, -3%);
-    }
-
-    40% {
-      transform: translate(3%, -3%);
-    }
-
-    60% {
-      transform: translate(-3%, 3%);
-    }
-
-    80% {
-      transform: translate(3%, 3%);
-    }
-
-    100% {
-      transform: translate(0);
-    }
-  }
-
 
   &.top-left {
     grid-column: 1;

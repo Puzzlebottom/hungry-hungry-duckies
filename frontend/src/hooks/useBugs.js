@@ -25,7 +25,7 @@ const useBugs = () => {
 
   const smallerSide = Math.min(viewWidth, viewHeight);
   const serverClientSizeRatio = smallerSide / SERVER_SIMULATION_SIZE;
-  const centerpoint = { x: smallerSide / 2, y: smallerSide / 2 };
+  const centerpoint = { x: SERVER_SIMULATION_SIZE / 2 * serverClientSizeRatio, y: SERVER_SIMULATION_SIZE / 2 * serverClientSizeRatio };
   const radius = smallerSide * INSIDE_DIAMETER_ADJUSTMENT;
 
   const getAttractor = () => {
@@ -111,8 +111,6 @@ const useBugs = () => {
     Object.keys(oldBugMap).forEach(id => {
       // update surviving bugs
       if (updatedBugMap[id]) {
-        // console.log('OLD: ', oldBugMap[id].position);
-        // console.log('NEW: ', updatedBugMap[id].position);
         Body.setPosition(oldBugMap[id], updatedBugMap[id].position);
         Body.setVelocity(oldBugMap[id], updatedBugMap[id].velocity);
         Body.setAngle(oldBugMap[id], updatedBugMap[id].angle);
@@ -140,8 +138,9 @@ const useBugs = () => {
     render.current.canvas.height = document.body.clientHeight;
   };
 
-  const startBugs = () => {
-
+  const startBugs = (width, height) => {
+    setViewWidth(width);
+    setViewHeight(height);
     window.addEventListener('resize', handleResize);
 
     engine.current = Engine.create();

@@ -1,3 +1,5 @@
+@use 'animations';
+
 .background-container {
   position: fixed;
   height: 324px;
@@ -55,42 +57,6 @@
     &.four {
       animation: diagonal-two 300s linear infinite;
     }
-  }
-}
-
-@keyframes horizontal {
-  0% {
-    transform: translate(0);
-  }
-  100% {
-    transform: translate( -50% );
-  }
-}
-
-@keyframes vertical {
-  0% {
-    transform: rotate(-90deg) translate(-100vh);
-  }
-  100% {
-    transform: rotate(-90deg) translate(calc(-50% - 100vh));
-  }
-}
-
-@keyframes diagonal-one {
-  0% {
-    transform: rotate(-22.5deg) translate(0);
-  }
-  100% {
-    transform: rotate(-22.5deg) translate(-50%);
-  }
-}
-
-@keyframes diagonal-two {
-  0% {
-    transform: rotate(-45deg) translate(0);
-  }
-  100% {
-    transform: rotate(-45deg) translate(-50%);
   }
 }
 
