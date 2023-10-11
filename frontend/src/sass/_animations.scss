@@ -77,3 +77,15 @@
     transform: translateX( -50% );
   }
 }
+
+@keyframes message {
+  0% {
+    transform: rotate(0deg) scale(0);
+  }
+  70% {
+    transform: rotate(360deg) scale(1.5);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}

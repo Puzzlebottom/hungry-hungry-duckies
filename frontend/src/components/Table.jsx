@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import '../sass/Table.scss';
 import Images from '../assets/images';
 import Background from './Background';
-import backgrounds from '../assets/wallpaper';
 import Quarter from './Quarter';
 import Bugs from './Bugs';
 import GameTimer from './GameTimer';

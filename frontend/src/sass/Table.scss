@@ -1,6 +1,6 @@
 main.table {
   display: grid;
-  grid-template-columns: 1fr fr 1fr;
+  grid-template-columns: 45% auto 45%;
   grid-template-rows: 1fr 1fr 1fr;
   height: 100vh;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;

@@ -79,7 +79,7 @@ const useGame = () => {
     if (!gameState.bugs.length) return;
     if (!gameState.isActive) return;
     if (gameState.player.showMessage) return;
-    const timeOut = 3000;
+    const timeOut = 2000;
     const message = messages[Math.floor(Math.random() * messages.length)];
     socket.emit('message', { message, timeOut });
     dispatch({ type: TOGGLE_MESSAGE, value: message });
