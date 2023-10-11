@@ -59,18 +59,18 @@ class GameController {
       updatePlayerScore(db, player);
     });
 
-    socket.onAny(() => {
-      clearTimeout(socket?.inactivityTimeout);
+    // socket.onAny(() => {
+    //   clearTimeout(socket?.inactivityTimeout);
 
-      socket.inactivityTimeout = setTimeout(() => {
-        if (game) {
-          const player = game.findPlayerBySocketId(socket.id);
-          if (player.inGame) {
-            socket.disconnect(true);
-          }
-        };
-      }, 1000 * 30);
-    });
+    //   socket.inactivityTimeout = setTimeout(() => {
+    //     if (game) {
+    //       const player = game.findPlayerBySocketId(socket.id);
+    //       if (player.inGame) {
+    //         socket.disconnect(true);
+    //       }
+    //     };
+    //   }, 1000 * 30);
+    // });
 
     socket.on('disconnect', () => {
       clearInterval(interval);

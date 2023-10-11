@@ -1,232 +1,69 @@
-// @font-face {
-//   font-family: 'Proxima Nova';
-//   src: url('/fonts/Mark Simonson - Proxima Nova Regular.otf') format('opentype');
-//   font-weight: normal;
-//   font-style: normal;
-// }
-// body {
-//   font-family: 'proxima nova', sans-serif;
-//   color: #333;
-//   margin: 0;
-//   padding: 0;
-//   height: 100%;
-//   overflow: hidden;
-//   white-space: nowrap;
-//   background-size: auto;
-
-// }
-
 main.table {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   height: 100vh;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: white;
+
+  .arena, .duckie {
+  position: fixed;
+  left: 50vw;
+  top: 50vh;
+  transform: translate(-50%, -50%);
+  height: min(100vh, 100vw);
+  width: min(100vh, 100vw);
+  z-index: -1000;
+  }
+
+  div.color-overlays {
+    position: fixed;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: 100vh;
+    width: 100vw;
+    z-index: -1000;
+
+    span {
+      &:nth-of-type(1) {
+        background-color: rgba(142, 68, 173, 0.3);
+      }
+      &:nth-of-type(2) {
+        background-color: rgba(93, 193, 215, 0.3);
+      }
+      &:nth-of-type(3) {
+        background-color: rgba(241, 189, 0, 0.3);
+      }
+      &:nth-of-type(4) {
+        background-color: rgba(189, 127, 239, 0.3);
+      }
+    }
+  }
+
+  .countdown {
+    position: fixed;
+    text-align: center;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    text-shadow: 0 0 5px rgb(189, 127, 239), 0 0 10px rgb(189, 127, 239), 0 0 15px rgb(189, 127, 239);
+  }
+
+  .timer {
+    position: fixed;
+    bottom: 5vh;
+    left: 50vw;
+    transform: translate(-50%, 50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    font-size: max(2vh, 2vw);
+    margin-bottom: 0.5em;
+    padding: 0.2em 0.5em;
+    border: 0.08em solid rgb(255, 255, 255);
+    border-radius: 0.5em;
+  }
 }
 
-// .table-view {
-//   display: flex;
-//   flex-wrap: wrap;
-//   width: 100vw;
-//   height: 100vh;
-//   z-index: -5;
-//   background-size: cover;
-//   background-repeat: no-repeat;
-//   background-position: 0 0;
-//   animation: scrollBackground 10s linear infinite alternate;
-// }
-
-// @keyframes scrollBackground {
-//   0% {
-//     background-position: 0 0;
-//   }
-//   100% {
-//     background-position: 100% 0;
-//   }
-// }
-
-// .Table-Topblocks {
-//   background-repeat: repeat;
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 200%;
-//   height: 50%;
-//   z-index: 1;
-//   animation: parallax-top 10s linear infinite alternate;
-//   background-position: top;
-// }
-
-// @keyframes parallax-top {
-//   0% {
-//     transform: translateX(-50%) scaleX(1.2);
-//   }
-//   100% {
-//     transform: translateX(0) scaleX(1);
-//   }
-// }
-
-// .Table-Rightblocks {
-//   position: fixed;
-//   top: -100%;
-//   right: 0;
-//   width: 100%;
-//   height: 200%;
-//   z-index: 0;
-//   background-repeat: no-repeat;
-//   background-position: top right;
-//   animation: parallax-right 10s linear infinite alternate;
-// }
-
-// @keyframes parallax-right {
-//   0% {
-//     transform: translateY(0) scaleY(1.2);
-//   }
-//   100% {
-//     transform: translateY(50%) scaleY(1);
-//   }
-// }
-
-// .Table-Bottomblocks {
-//   background-repeat: repeat;
-//   position: fixed;
-//   bottom: 0;
-//   width: 200%;
-//   height: 50%;
-//   z-index: 1;
-//   background-position: bottom;
-//   animation: parallax-bottom 10s linear infinite alternate;
-// }
-
-// @keyframes parallax-bottom {
-//   0% {
-//     transform: translateX(0) scaleX(1);
-//   }
-//   100% {
-//     transform: translateX(-50%) scaleX(1.2);
-//   }
-// }
-
-// .Table-Leftblocks {
-//   background-repeat: no-repeat;
-//   position: fixed;
-//   bottom: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 200%;
-//   z-index: 0;
-//   background-position: bottom left;
-//   animation: parallax-left 10s linear infinite alternate;
-// }
-
-// @keyframes parallax-left {
-//   0% {
-//     transform: translateY(50%) scaleY(1.2);
-//   }
-//   100% {
-//     transform: translateY(0) scaleY(1);
-//   }
-// }
-
-// .background {
-//   position: fixed;
-//   width: 50vw;
-//   height: 50vh;
-
-// }
-
-// .background__green {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   background-color: rgba(142, 68, 173, 0.3);
-//   background-size: 200%;
-//   overflow: hidden;
-//   z-index: 5;
-// }
-
-
-// .background__red {
-//   position: fixed;
-//   top: 0;
-//   right: 0;
-//   background-color: rgb(93, 193, 215, 0.3);
-//   background-size: auto 100%;
-//   overflow: hidden;
-//   z-index: 5;
-// }
-
-
-// .background__blue {
-//   position: fixed;
-//   bottom: 0;
-//   left: 0;
-//   background-color: rgb(241, 189, 0, 0.3);
-//   background-size: auto 100%;
-//   overflow: hidden;
-//   z-index: 5;
-// }
-
-// .background__yellow {
-//   position: fixed;
-//   bottom: 0;
-//   right: 0;
-//   background-color: rgb(189, 127, 239, 0.3);
-//   background-size: auto 100%;
-//   overflow: hidden;
-//   opacity: 0.8;
-//   z-index: 5;
-// }
-
-// .arena {
-//   position: absolute;
-//   left: 50vw;
-//   top: 50vh;
-//   transform: translate(-50%, -50%);
-//   height: min(100vh, 100vw);
-//   width: min(100vh, 100vw);
-//   z-index: 2;
-// }
-
-// .duckie {
-//   position: absolute;
-//   left: 50vw;
-//   top: 50vh;
-//   transform: translate(-50%, -50%);
-//   height: min(100vh, 100vw);
-//   width: min(100vh, 100vw);
-//   z-index: 5;
-// }
-
-
-// .hidden {
-//   display: none;
-// }
-
-// .countdown {
-//   position: absolute;
-//   top: 50vh;
-//   left: 50vw;
-//   transform: translate(-50%, -50%);
-//   font-size: min(40vh, 40vw);
-//   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-//   color: rgba(240, 240, 240, 0.7);
-//   text-shadow: 0 0 5px rgb(189, 127, 239, 0.7), 0 0 10px rgba(189, 127, 239, 0.7), 0 0 15px rgba(189, 127, 239, 0.7);
-//   z-index: 6;
-// }
-
-
-
-// .timer {
-//   position: absolute;
-//   left: 50vw;
-//   transform: translateX(-58%);
-//   bottom: 0;
-//   margin: 0.2em;
-//   padding: 0.2em;
-//   color: rgba(255, 255, 255, 0.7);
-//   background-color: rgba(0, 0, 0, 0.7);
-//   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-//   font-size: min(5vh, 5vw);
-//   border: 3px solid rgba(255, 255, 255, 0.7);
-//   border-radius: 8px;
-//   z-index: 6;
-// }
+.hidden {
+  display: none;
+}

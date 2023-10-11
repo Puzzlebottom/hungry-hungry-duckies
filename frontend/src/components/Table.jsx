@@ -55,30 +55,21 @@ function Table({ gameState, munch, toggleReady, message }) {
     const images = Images.duckies[index];
     return <Quarter key={index} {...{ images, player, isActive }} />;
   });
-  // const quarterPanels = ['green', 'red', 'blue', 'yellow'].map((color, index) => {
-  //   return <div key={index} className={'background background__' + color}></div>;
-  // });
-
 
   return (
     <main className='table'>
       <Background view={'table'} />
-      {/* <div className="Table-Topblocks" style={{ backgroundImage: `url(${backgrounds.Table[1]})` }}>
+      <img src={Images.arena} className="arena" />
+      <div className='color-overlays'>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-      <div className="Table-Rightblocks" style={{ backgroundImage: `url(${backgrounds.Table[2]})` }}>
-      </div>
-      <div className="Table-Bottomblocks" style={{ backgroundImage: `url(${backgrounds.Table[4]})` }}>
-      </div>
-      <div className="Table-Leftblocks" style={{ backgroundImage: `url(${backgrounds.Table[3]})` }}>
-      </div> */}
-      {/* {quarterPanels} */}
-      {/* <main className="table-view" style={{ backgroundImage: `url(${backgrounds.Table[0]})` }}>
-        <img src={Images.arena} className="arena" />
-        <Bugs bugState={bugs} />
-        {quarters}
-        {isActive && <Countdown {...{ bugs, isActive }} />}
-        {isActive && <GameTimer initialMinutes={12} initialSeconds={59} />}
-      </main> */}
+      <Bugs bugState={bugs} />
+      {quarters}
+      {isActive && <Countdown {...{ bugs, isActive }} />}
+      {isActive && <GameTimer initialMinutes={12} initialSeconds={59} />}
     </main>
   );
 }

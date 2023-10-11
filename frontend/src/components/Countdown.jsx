@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react';
 
 function Countdown({ bugs, isActive }) {
   const message = useRef(3);
+  const size = useRef(45);
 
   useEffect(() => {
     setTimeout(() => {
@@ -9,8 +10,10 @@ function Countdown({ bugs, isActive }) {
       setTimeout(() => {
         message.current = 1;
         setTimeout(() => {
+          size.current = 20;
           message.current = 'MUNCH!';
           setTimeout(() => {
+            size.current = 15;
             message.current = null;
           }, 750);
         }, 750);
@@ -26,12 +29,8 @@ function Countdown({ bugs, isActive }) {
     }
   }, [bugs]);
 
-  const numeric = [3, 2, 1].includes(message.current);
-
   return (
-    <div className="countdown">
-      {message.current && <p style={{ fontSize: numeric ? '1em' : '0.4em' }}>{message.current}</p>}
-    </div>
+    message.current && (<div className="countdown" style={{ fontSize: `min(${size.current}vh, ${size.current}vw)` }}> {message.current}</div >)
   );
 }
 
